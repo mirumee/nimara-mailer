@@ -1,0 +1,13 @@
+fragment ProductPriceFragment on ProductPricingInfo {
+  onSale
+  displayGrossPrices
+  discount {
+    currency
+  }
+  priceRange {
+    ...TaxedRangePriceFragment
+  }
+  priceRangeUndiscounted {
+    ...TaxedRangePriceFragment
+  }
+}

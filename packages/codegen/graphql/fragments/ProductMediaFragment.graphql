@@ -1,0 +1,5 @@
+fragment ProductMediaFragment on ProductMedia {
+  alt
+  type
+  thumbnail: url(size: $thumbnailSize, format: $thumbnailFormat)
+}

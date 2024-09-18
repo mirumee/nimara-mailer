@@ -2,7 +2,10 @@ import type { CodegenConfig } from "@graphql-codegen/cli";
 import { type IGraphQLConfig } from "graphql-config";
 import { invariant } from "ts-invariant";
 
-invariant(process.env.NEXT_PUBLIC_SALEOR_URL, `NEXT_PUBLIC_API_URL not set!`);
+invariant(
+  process.env.NEXT_PUBLIC_SALEOR_URL,
+  `NEXT_PUBLIC_SALEOR_URL not set!`
+);
 
 const schema = `${process.env.NEXT_PUBLIC_SALEOR_URL}/graphql/`;
 
@@ -69,7 +72,7 @@ export const schemaConfig = {
 export const operationsConfig = {
   preset: "near-operation-file-preset",
   presetConfig: {
-    baseTypesPath: "~@projectluna/codegen/schema",
+    baseTypesPath: "~@nimara-mailer/codegen/schema",
     fileName: "generated",
     extension: ".ts",
   },
@@ -94,7 +97,7 @@ export const graphqlConfig = (
       documents: [
         "./src/**/*.graphql",
         "./graphql/**/*.graphql",
-        "./node_modules/@projectluna/codegen/graphql/**/*.graphql",
+        "./node_modules/@nimara-mailer/codegen/graphql/**/*.graphql",
       ],
       extensions: {
         codegen: {

@@ -1,0 +1,15 @@
+fragment ShippingMethodFragment on ShippingMethod {
+  __typename
+  id
+  name
+  description
+  translation(languageCode: $languageCode) {
+    name
+    description
+  }
+  minimumDeliveryDays
+  maximumDeliveryDays
+  price {
+    ...MoneyFragment
+  }
+}
