@@ -1,0 +1,23 @@
+{
+  "version": "1.0.0",
+  "author": {
+    "name": "Mirumee Labs",
+    "email": "hello@mirumee.com",
+    "url": "https://mirumee.com/"
+  },
+  "private": true,
+  "packageManager": "pnpm@9.3.0",
+  "engines": {
+    "node": "^20"
+  },
+  "dependencies": {
+    "turbo": "^2.1.2",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "dotenv-cli": "^7.4.2"
+  },
+  "workspaces": [
+	"apps/*",
+    "packages/*"
+  ]
+}
