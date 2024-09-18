@@ -1,0 +1,18 @@
+{
+  "extends": "@nimara-mailer/ts-config/base",
+  "compilerOptions": {
+    "module": "ESNext",
+    "allowJs": true,
+    "paths": {
+      "@nimara-mailer/codegen/*": ["./*"]
+    }
+  },
+  "exclude": [
+    "./**/node_modules/?!(@nimara-mailer)",
+    "./**/out",
+    "./**/dist",
+    "./**/api.tsx",
+    "./**/graphql.schema.json",
+    "./**/.*"
+  ]
+}
