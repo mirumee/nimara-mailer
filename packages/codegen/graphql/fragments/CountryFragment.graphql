@@ -1,0 +1,3 @@
+fragment CountryFragment on CountryDisplay {
+  code
+}

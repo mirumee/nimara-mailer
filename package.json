@@ -1,5 +1,6 @@
 {
   "version": "1.0.0",
+  "name": "nimara-mailer",
   "author": {
     "name": "Mirumee Labs",
     "email": "hello@mirumee.com",
@@ -10,14 +11,17 @@
   "engines": {
     "node": "^20"
   },
+  "scripts": {
+    "turbo": "dotenv -- turbo run",
+    "codegen": "pnpm turbo codegen"
+  },
   "dependencies": {
     "turbo": "^2.1.2",
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "dotenv-cli": "^7.4.2"
   },
-  "workspaces": [
-	"apps/*",
-    "packages/*"
-  ]
+  "resolutions": {
+    "@typescript-eslint/typescript-estree": "^7.16.1"
+  }
 }

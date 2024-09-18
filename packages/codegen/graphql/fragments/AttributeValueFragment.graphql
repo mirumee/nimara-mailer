@@ -1,0 +1,16 @@
+fragment AttributeValueFragment on AttributeValue {
+  id
+  slug
+  name
+  translation(languageCode: $languageCode) {
+    name
+    richText
+    plainText
+  }
+  richText
+  plainText
+  boolean
+  date
+  dateTime
+  value
+}

@@ -10,9 +10,10 @@
     "@graphql-codegen/typed-document-node": "5.0.9",
     "@graphql-codegen/typescript": "4.0.9",
     "@graphql-codegen/typescript-operations": "4.2.3",
-    "@graphql-typed-document-node/core": "3.2.0",
     "@graphql-codegen/add": "^5.0.3",
-    "@types/node": "^20.12.12",
+    "@graphql-typed-document-node/core": "3.2.0",
+    "@types/node": ">20",
+    "@nimara-mailer/ts-config": "workspace:^",
     "graphql-config": "5.0.3"
   },
   "dependencies": {

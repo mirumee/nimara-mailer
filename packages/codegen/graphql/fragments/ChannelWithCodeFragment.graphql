@@ -1,0 +1,6 @@
+fragment ChannelWithCodeFragment on Channel {
+  defaultCountry {
+    code
+  }
+  ...ChannelFragment
+}

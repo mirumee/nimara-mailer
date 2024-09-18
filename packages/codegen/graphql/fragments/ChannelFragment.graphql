@@ -1,0 +1,3 @@
+fragment ChannelFragment on Channel {
+  slug
+}
