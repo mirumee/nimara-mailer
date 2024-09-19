@@ -1,0 +1,43 @@
+name: Linters and tests
+
+on:
+  pull_request:
+    branches: ["*"]
+
+jobs:
+  tests-and-linters:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.10.0
+          run_install: false
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm --version && pnpm install --frozen-lockfile
+
+      - name: Check prettier
+        run: pnpm lint:prettier
+
+      - name: Check eslint
+        run: pnpm lint:eslint
+
+      - name: Check types
+        run: pnpm lint:tsc
+
+      - name: Run tests
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          SECRET_MANAGER_APP_CONFIG_PATH: ${{ secrets.SECRET_MANAGER_APP_CONFIG_PATH }}
+        run: pnpm test

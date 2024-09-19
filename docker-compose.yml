@@ -1,0 +1,50 @@
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        INSTALL_DEV: "true"
+    ports:
+      - "3000:3000"
+      - "9229:9229"
+    command: pnpm dev
+    environment:
+      DATABASE_URL: postgresql+asyncpg://example:example@db:5432/example
+      SALEOR_URL: ${SALEOR_URL:?SALEOR_URL env var is required}
+      LOG_LEVEL: info
+      # `remixFastify` does not work using development mode on docker.
+      NODE_ENV: production
+    depends_on:
+      - db
+    volumes:
+      - ./src/:/app/src/
+
+  db:
+    image: library/postgres:13-alpine
+    container_name: db
+    ports:
+      - "5555:5432"
+    environment:
+      POSTGRES_USER: example
+      POSTGRES_PASSWORD: example
+    volumes:
+      - local_pgdata:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pb_admin
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: example@example.com
+      PGADMIN_DEFAULT_PASSWORD: example
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - db
+
+volumes:
+  local_pgdata:
+  pgadmin-data:

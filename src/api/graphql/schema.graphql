@@ -1,0 +1,24 @@
+type Query {
+  posts: [Post!]!
+}
+
+type Mutation {
+  publish(id: ID!): Post!
+  deletePost(id: ID!): Post!
+}
+
+
+type User {
+  id: ID!
+  email: String!
+  name: String!
+  posts: [Post!]!
+}
+
+type Post {
+  id: ID!
+  published: Boolean!
+  title: String!
+  content: String!
+  user: User!
+}

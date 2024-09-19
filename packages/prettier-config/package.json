@@ -1,6 +1,0 @@
-{
-  "name": "@nimara-mailer/prettier-config",
-  "dependencies": {
-    "prettier": "^3.3.3"
-  }
-}
