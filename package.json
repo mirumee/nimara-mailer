@@ -1,30 +1,122 @@
 {
-  "version": "1.0.0",
   "name": "nimara-mailer",
+  "version": "1.0.0",
+  "type": "module",
   "author": {
     "name": "Mirumee Labs",
     "email": "hello@mirumee.com",
     "url": "https://mirumee.com/"
   },
   "private": true,
-  "packageManager": "pnpm@9.3.0",
+  "packageManager": "pnpm@9.10.0",
   "engines": {
-    "node": "^20"
+    "node": "20"
   },
   "scripts": {
-    "turbo": "dotenv -- turbo run",
-    "codegen": "pnpm turbo codegen"
+    "dev": "concurrently -k -p \"[{name}]\" -n \"TSC:SERVER,DEV:BUILD,RUNNER\" -c \"green.bold,yellow.bold,red.bold\" \"pnpm tsc:watch:server\" \"dotenv -v NODE_ENV=development -- node ./etc/scripts/dev.mjs\" \"dotenv -v NODE_ENV=development -- nodemon --inspect=0.0.0.0:9229 --watch build build/server.js\"",
+    "build": "dotenv -v NODE_ENV=production node ./etc/scripts/build.mjs && npx remix vite:build",
+    "build:serverless": "dotenv -v NODE_ENV=production node ./etc/scripts/serverless.mjs && npx remix vite:build",
+    "start": "dotenv node build/server.js",
+    "prepare": "husky",
+    "lint:prettier": "pnpm prettier --check './src/**/*.{ts,tsx}'",
+    "lint:eslint": "pnpm eslint --no-cache './src/**/*.{ts,tsx}'",
+    "lint:prettier:fix": "pnpm prettier --list-different --write 'src/**/*.{ts,tsx}'",
+    "lint:eslint:fix": "pnpm lint:eslint --fix",
+    "lint:tsc": "npx tsc --noEmit",
+    "lint:tsc:watch": "tsc --watch",
+    "lint": "pnpm lint:prettier && pnpm lint:eslint && pnpm lint:tsc",
+    "lint:fix": "pnpm lint:eslint --fix && pnpm lint:prettier:fix",
+    "test": "npx vitest --run",
+    "test:watch": "npx vitest",
+    "test:coverage": "npx vitest --coverage --run",
+    "tsc:watch:server": "tsc --watch --noEmit",
+    "db": "pnpm drizzle-kit --config ./src/lib/plugins/drizzlePlugin/drizzle.config.ts",
+    "db:migrate": "pnpm db generate",
+    "db:push": "pnpm db push",
+    "codegen:run": "graphql-codegen --require dotenv/config --config ./codegen.ts",
+    "codegen:saleor": "pnpm codegen:run --project saleor",
+    "codegen:internal": "pnpm codegen:run --project internal",
+    "codegen": "concurrently -p \"[{name}]\" -n \"Saleor,Internal\" \"pnpm codegen:internal\" \"pnpm codegen:saleor\""
   },
-  "dependencies": {},
-  "resolutions": {
-    "@typescript-eslint/typescript-estree": "^7.16.1"
+  "lint-staged": {
+    "*.{js,mjs,cjs,ts,tsx}": "pnpm lint:fix"
+  },
+  "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.637.0",
+    "@fastify/aws-lambda": "^4.1.0",
+    "@fastify/error": "^4.0.0",
+    "dataloader": "^2.2.2",
+    "dotenv": "^16.4.5",
+    "dotenv-cli": "^7.4.2",
+    "drizzle-kit": "^0.23.2",
+    "drizzle-orm": "^0.32.2",
+    "esbuild": "^0.23.1",
+    "esbuild-plugin-copy": "^2.1.1",
+    "fastify": "^4.28.1",
+    "fastify-plugin": "^4.5.1",
+    "fastify-raw-body": "^4.3.0",
+    "fastify-type-provider-zod": "^2.0.0",
+    "graphql": "^16.9.0",
+    "graphql-yoga": "^5.6.2",
+    "husky": "^9.1.4",
+    "jose": "^5.6.3",
+    "jsonwebtoken": "^9.0.2",
+    "path-to-regexp": "^7.0.0",
+    "pg": "^8.12.0",
+    "pino-pretty": "^11.2.2",
+    "postcss": "^8.4.40",
+    "ts-invariant": "^0.10.3",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.5.2",
+    "vite": "^5.3.5",
+    "vite-tsconfig-paths": "^4.3.2",
+    "winston": "^3.14.2",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
-    "dotenv-cli": "^7.4.2",
-    "husky": "^9.1.6",
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/near-operation-file-preset": "^3.0.0",
+    "@graphql-codegen/typed-document-node": "^5.0.9",
+    "@graphql-codegen/typescript": "^4.0.9",
+    "@graphql-codegen/typescript-operations": "^4.2.3",
+    "@graphql-typed-document-node/core": "^3.2.0",
+    "@remix-run/eslint-config": "^2.10.3",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^20.14.9",
+    "@types/pg": "^8.11.6",
+    "@typescript-eslint/parser": "^7.14.1",
+    "@vitest/coverage-v8": "^2.0.4",
+    "commitizen": "^4.3.0",
+    "concurrently": "^8.2.2",
+    "cz-customizable": "^7.2.1",
+    "eslint": ">=8",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-drizzle": "^0.2.3",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^17.10.1",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-promise": "^7.0.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-sort-keys-fix": "^1.1.2",
+    "eslint-plugin-typescript-sort-keys": "^3.2.0",
+    "graphql-config": "^5.0.3",
     "lint-staged": "^15.2.10",
-    "turbo": "^2.1.2",
-    "@nimara-mailer/eslint-config": "workspace:^",
-    "@nimara-mailer/prettier-config": "workspace:^"
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.2",
+    "ts-essentials": "^10.0.1",
+    "typescript-eslint": "^7.15.0",
+    "vitest": "^2.0.3"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-arm64-gnu": "^4.19.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "./etc/commitizen/.cz-config.cjs"
+    }
   }
 }

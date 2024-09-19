@@ -2,20 +2,27 @@
 
 # dependencies
 node_modules
-.turbo
 .pnp
 .pnp.js
 
 # testing
 coverage
 
-# next.js
-.next
+# out files
+.next/
 out/
-tsconfig.tsbuildinfo
+build*
+package*
+dist
+vite.config.js.timestamp*
+artifact.zip
 
-# production
-build
+# IDE
+
+.idea
+.vscode
+# Keep just the settings
+!.vscode/settings.json
 
 # misc
 .DS_Store
@@ -27,82 +34,18 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+.env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
+# turbo
+.turbo
+
 # vercel
 .vercel
 
-# vscode
-.history
-.vscode
+vite.config.ts.timestamp-*
 
-# CI
-junit.xml
-
-#Storybook
-build-storybook.log
-storybook-static
-
-# Sentry
-sentry.properties
-
-# SCNT App settings
-config/appSettings/appSettings.json
-# SCNT Navigation
-config/navigation/**/*
-config/regions.json
-# SCNT Experiences
-config/experiences/experiences.json
-# SCNT Fragrances
-config/fragrances/fragrances.json
-# SCNT Events
-config/events/events.json
-# SCNT Accords
-config/accords/**/*
-# SCNT Page slugs
-config/pageSlugs.json
-# SCNT Products
-config/products/**/*
-# SCNT fragranceDefaultCollections
-config/fragranceDefaultCollections/*
-# SCNT siteTheme
-config/siteTheme/*
-
-i18n/default
-
-# Temporary folder
-ci-cd/tmp
-
-# IDE
-# User-specific stuff
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/**/usage.statistics.xml
-.idea/**/dictionaries
-.idea/**/shelf
-.idea/codeStyles/*
-.idea/watcherTasks.xml
-.idea/.name
-.idea/icon.svg
-.idea/graphql-settings.xml
-
-# AWS User-specific
-.idea/**/aws.xml
-
-# Generated files
-.idea/**/contentModel.xml
-
-# Sensitive or high-churn files
-.idea/**/dataSources/
-.idea/**/dataSources.ids
-.idea/**/dataSources.local.xml
-.idea/**/sqlDataSources.xml
-.idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
-.idea/**/dbnavigator.xml
-
-# Sentry Config File
-.env.sentry-build-plugin
+!build.sh
