@@ -39,18 +39,6 @@ Apply migrations
 
 ---
 
-Issues:
-
-- node20 + ts-node + modules:
-  https://github.com/TypeStrong/ts-node/issues/1997
-
-Pitfalls:
-
-- `fastify/autoload` plugin does not pass route config to the `onRoute` event.
-- ts-node.[experimentalSpecifierResolution](https://nodejs.org/dist/latest-v18.x/docs/api/esm.html#customizing-esm-specifier-resolution-algorithm) is not recommended, this in `server.ts` probably it might be better to add extension to the imports.
-- headers in zod schema for request must be lowercase [(which is valid)](https://www.rfc-editor.org/rfc/rfc7540#section-8.1.2) Otherwise it will not lookup the header.
-- no built-in way to retrieve raw response = 3rd part lib
-
 ### Serverless
 
 1. Add your credentials to [`~/.aws/credentials`](https://docs.aws.amazon.com/cli/v1/userguide/cli-configure-files.html)
@@ -63,41 +51,9 @@ Pitfalls:
 
 TODO:
 
-- [x] Eslint
-- [x] Prettier
-- [x] Zod for envs
-- [x] Drizzly RM
-- [x] Docker + compose
-- [x] Vitest
-- [x] Graphql
-- [ ] Common HTTP client
-- [x] [Use a module such as depcheck or npm-check to verify plugin dependencies are being used somewhere in your project.](https://fastify.dev/docs/latest/Reference/TypeScript/#using-a-plugin)
-- [x] Reverse url util?
-- [x] Python sdk utils like webhooks/jwks validation etc
-- [ ] Release it
-- [x] Commitizen
-- [ ] Yoga vs mercurius = gql endpoint
-- [ ] Create custom logger service & inject it into fastify config, use in clients. pino, winston?
-- [x] JWKs verification handling
-- [ ] Vite HMR for non client files? / Or just exclude src/client in node watch
-- [ ] Investigate adding SSR to client routes
-- [ ] Tailwind
-- [ ] Add debugging note to readme
-- [ ] https://github.com/mcollina/close-with-grace
-- [ ] opentelemetry
-- [ ] start server logs, which plugin in what order is being registered
-- [ ] Swagger? https://github.com/turkerdev/fastify-type-provider-zod
-- [ ] Appbridge like token
+- [ ] Remove graphql yoga & related pacakges
 
-```
-window.addEventListener("message", (event) => {
-    console.log('Message received', event.data);
-    if (event.data.type === 'handshake') {
-        jwt = event.data.payload.token;
-        let data = fetchData(jwt);
-    }
-});
-```
+````
 
 ## Plugins
 
@@ -117,7 +73,7 @@ for (const [plugin, opts] of [
   [AWSSecretManagerPlugin, {}],
   (...)
 ]) {
-```
+````
 
 The plugin will look for the following environment variables:
 

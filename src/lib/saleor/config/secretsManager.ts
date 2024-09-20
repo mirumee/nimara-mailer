@@ -3,8 +3,7 @@ import {
   PutSecretValueCommand,
   type SecretsManagerClient,
 } from "@aws-sdk/client-secrets-manager";
-
-import { logger } from "@/lib/logger";
+import { type FastifyBaseLogger } from "fastify";
 
 import { saleorBaseConfig } from "./schema";
 import {
@@ -14,13 +13,14 @@ import {
 import { validateDomain } from "./utils";
 
 export type SaleorSecretsManagerConfigProviderOpts = {
+  logger: FastifyBaseLogger;
   secretsManager: SecretsManagerClient;
   secretsManagerConfigPath: string;
 };
 
 export const SaleorSecretsManagerConfigProvider: SaleorConfigProviderFactory<
   SaleorSecretsManagerConfigProviderOpts
-> = ({ secretsManager, secretsManagerConfigPath }) => {
+> = ({ secretsManager, logger, secretsManagerConfigPath }) => {
   const _extractSecret = async () => {
     const command = new GetSecretValueCommand({
       SecretId: secretsManagerConfigPath,

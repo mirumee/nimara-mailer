@@ -1,4 +1,4 @@
-import { type SafeParseSuccess, type z } from "zod";
+import type { SafeParseSuccess, z } from "zod";
 
 import { type AnyZodSchema } from "./types";
 

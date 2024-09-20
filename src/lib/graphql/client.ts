@@ -8,8 +8,8 @@ import {
   GraphQLClientMultiGraphQLError,
 } from "@/lib/graphql/errors";
 import { getOperationName } from "@/lib/graphql/helpers";
-import { logger } from "@/lib/logger";
 import type { Maybe } from "@/lib/types";
+import { logger } from "@/server";
 
 import {
   type AnyVariables,

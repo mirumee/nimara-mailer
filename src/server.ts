@@ -6,7 +6,6 @@ import {
   validatorCompiler,
 } from "fastify-type-provider-zod";
 
-import { graphqlRoutes } from "@/api/graphql/routes";
 import { restRoutes } from "@/api/rest/routes";
 import { CONFIG } from "@/config";
 import { errorHandler } from "@/lib/api/errorHandler";
@@ -14,39 +13,20 @@ import AWSSecretManagerPlugin from "@/lib/plugins/awsSecretManagerPlugin";
 import { type FastifyPlugin } from "@/lib/plugins/types";
 import UrlForPlugin from "@/lib/plugins/urlForPlugin";
 import UrlPlugin from "@/lib/plugins/urlPlugin";
+import WinstonLoggingPlugin, {
+  createLogger,
+} from "@/lib/plugins/winstonLoggingPlugin";
 
-import { logger } from "./lib/logger";
+export const logger = createLogger({
+  environment: CONFIG.ENVIRONMENT,
+  service: CONFIG.RELEASE,
+});
 
 export async function createServer() {
   const registrations = [];
-
   const server = Fastify({
     disableRequestLogging: true,
-    logger: CONFIG.LOG_LEVEL ? logger : false,
-  });
-
-  server.addHook("onRequest", (req, reply, done) => {
-    req.log.info({
-      body: req.body,
-      method: req.method,
-      query: req.query,
-      statusCode: reply.raw.statusCode,
-      type: "request",
-      url: req.raw.url,
-    });
-
-    done();
-  });
-  server.addHook("onResponse", (req, reply, done) => {
-    req.log.info({
-      elapsedTime: reply.elapsedTime,
-      method: req.method,
-      statusCode: reply.raw.statusCode,
-      type: "response",
-      url: req.raw.url,
-    });
-
-    done();
+    logger,
   });
 
   server.addHook("onRegister", (instance) => {
@@ -63,9 +43,10 @@ export async function createServer() {
    * Plugins registration
    */
   for (const [plugin, opts] of [
-    [UrlPlugin, {}],
-    [UrlForPlugin, {}],
-    [AWSSecretManagerPlugin, {}],
+    [UrlPlugin],
+    [UrlForPlugin],
+    [AWSSecretManagerPlugin],
+    [WinstonLoggingPlugin],
   ]) {
     // @ts-ignore
     const pluginName = plugin?.[Symbol.for("plugin-meta")]?.name ?? plugin.name;
@@ -81,9 +62,6 @@ export async function createServer() {
    */
   await server.register(restRoutes, {
     prefix: "/api",
-  });
-  await server.register(graphqlRoutes, {
-    prefix: "/graphql",
   });
 
   server.log.info(`Registrations: ${registrations.join(", ")}.`);

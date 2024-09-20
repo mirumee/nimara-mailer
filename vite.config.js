@@ -10,17 +10,17 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default defineConfig({
-  plugins: [tsConfigPaths()],
   exclude: ["**/*/*.test.ts"],
+  plugins: [tsConfigPaths()],
   test: {
-    root: __dirname,
-    exclude: ["node_modules"],
-    include: ["**/*/*.test.ts"],
-    setupFiles: ["./src/lib/test/setup"],
     env: {
       ...process.env,
       ...config({ path: ".env.test" }).parsed,
       NODE_ENV: "test",
     },
+    exclude: ["node_modules"],
+    include: ["**/*/*.test.ts"],
+    root: __dirname,
+    setupFiles: ["./src/lib/test/setup"],
   },
 });

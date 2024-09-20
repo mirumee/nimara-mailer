@@ -1,50 +1,45 @@
-module.exports = {
+const { defineConfig } = require("eslint-define-config");
+
+module.exports = defineConfig({
   extends: [
     "plugin:@typescript-eslint/recommended",
     "prettier",
     "plugin:typescript-sort-keys/recommended",
     "plugin:drizzle/recommended",
   ],
-  ignorePatterns: [
-    "node_modules",
-    "generated.ts",
-    "schema.ts",
-    "*.d.ts",
-    "build",
-  ],
   plugins: [
     "prettier",
+    "import",
     "simple-import-sort",
     "sort-keys-fix",
     "@typescript-eslint",
-    "sort-keys-fix",
   ],
   rules: {
-    "@typescript-eslint/ban-ts-comment": "off",
-    "@typescript-eslint/consistent-type-imports": [
-      "error",
-      {
-        disallowTypeAnnotations: false,
-        fixStyle: "inline-type-imports",
-        prefer: "type-imports",
-      },
-    ],
-
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
         args: "none",
         argsIgnorePattern: "^_",
-        caughtErrors: "none",
+        caughtErrorsIgnorePattern: "^_",
+        destructuredArrayIgnorePattern: "^_",
+        varsIgnorePattern: "^_",
         ignoreRestSiblings: true,
       },
     ],
-    "arrow-body-style": ["error", "as-needed"],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
     "curly": ["error", "all"],
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        prefer: "type-imports",
+        fixStyle: "inline-type-imports",
+        disallowTypeAnnotations: false,
+      },
+    ],
     "import/no-default-export": ["error"],
-    "import/no-duplicates": ["warn", { "prefer-inline": true }],
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "simple-import-sort/imports": [
       "error",
       {
@@ -69,6 +64,14 @@ module.exports = {
         ],
       },
     ],
-    "sort-keys-fix/sort-keys-fix": "error",
   },
-};
+  overrides: [
+    {
+      rules: {
+        "import/no-default-export": "off",
+        "import/no-anonymous-default-export": "off",
+      },
+      files: ["**/plugins/**/*.ts"],
+    },
+  ],
+});

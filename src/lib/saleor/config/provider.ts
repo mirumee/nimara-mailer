@@ -6,4 +6,5 @@ export const getConfigProvider = ({ server }: { server: FastifyInstance }) =>
   SaleorSecretsManagerConfigProvider({
     secretsManagerConfigPath: server.secretsManagerConfigPath,
     secretsManager: server.secretsManager,
+    logger: server.log,
   });

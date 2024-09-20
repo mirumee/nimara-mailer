@@ -40,32 +40,33 @@ export const baseCodegenConfig: CodegenConfig["config"] = {
   useTypeImports: true,
 };
 
+const addContent = [
+  "// @ts-nocheck",
+  "// prettier-ignore",
+  "/* eslint-disable */",
+  "/* @typescript-eslint/no-unused-vars */",
+];
+
 invariant(process.env.SALEOR_URL, "SALEOR_URL not set.");
 
 const config: IGraphQLConfig = {
   projects: {
-    internal: {
-      extensions: {
-        codegen: {
-          generates: {
-            "./src/api/graphql/schema.ts": {
-              config: baseCodegenConfig,
-              plugins: ["typescript"],
-            },
-          },
-          overwrite: true,
-        },
-      },
-      schema: "./src/api/graphql/schema.graphql",
-    },
-    saleor: {
+    default: {
       documents: ["./src/**/*.graphql"],
       extensions: {
         codegen: {
           generates: {
             "./src/graphql/": {
               config: baseCodegenConfig,
-              plugins: ["typescript-operations", "typed-document-node"],
+              plugins: [
+                "typescript-operations",
+                "typed-document-node",
+                {
+                  add: {
+                    content: addContent,
+                  },
+                },
+              ],
               preset: "near-operation-file-preset",
               presetConfig: {
                 baseTypesPath: "./schema",
@@ -75,7 +76,14 @@ const config: IGraphQLConfig = {
             },
             "./src/graphql/schema.ts": {
               config: baseCodegenConfig,
-              plugins: ["typescript"],
+              plugins: [
+                "typescript",
+                {
+                  add: {
+                    content: addContent,
+                  },
+                },
+              ],
             },
           },
           overwrite: true,
