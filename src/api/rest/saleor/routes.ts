@@ -19,7 +19,10 @@ export const routes: FastifyPluginAsync = async (fastify) => {
     },
     async (request) => {
       const appManifest: SaleorAppManifest = {
+        appUrl: `${request.appUrl}/`,
+        homepageUrl: "https://mirumee.com/",
         id: CONFIG.NAME,
+        name: CONFIG.NAME,
         permissions: [
           "MANAGE_PRODUCTS",
           "MANAGE_CHECKOUTS",
@@ -27,20 +30,14 @@ export const routes: FastifyPluginAsync = async (fastify) => {
           "HANDLE_PAYMENTS",
           "MANAGE_SHIPPING",
         ],
-        name: CONFIG.NAME,
-        version: CONFIG.VERSION,
-        about: CONFIG.ABOUT,
-        dataPrivacyUrl: "https://mirumee.com/",
-        homepageUrl: "https://mirumee.com/",
-        supportUrl: "https://mirumee.com/",
-        appUrl: `${request.appUrl}/`,
         tokenTargetUrl: request.urlFor("saleor:register"),
+        version: CONFIG.VERSION,
         webhooks: [
           {
-            query: ShippingMethodListForCheckoutSubscriptionDocument.toString(),
-            name: "ShippingMethodListForCheckoutSubscription",
-            syncEvents: ["SHIPPING_LIST_METHODS_FOR_CHECKOUT"],
             asyncEvents: [],
+            name: "ShippingMethodListForCheckoutSubscription",
+            query: ShippingMethodListForCheckoutSubscriptionDocument.toString(),
+            syncEvents: ["SHIPPING_LIST_METHODS_FOR_CHECKOUT"],
             targetUrl: request.urlFor(
               "saleor:webhooks:shipping-methods-for-checkout"
             ),
@@ -58,10 +55,10 @@ export const routes: FastifyPluginAsync = async (fastify) => {
     {
       name: "saleor:register",
       schema: {
-        headers: saleorHeaders,
         body: z.object({
           auth_token: z.string(),
         }),
+        headers: saleorHeaders,
       },
     },
     async (request) => {
@@ -76,12 +73,12 @@ export const routes: FastifyPluginAsync = async (fastify) => {
       });
 
       await installApp({
-        saleorUrl: CONFIG.SALEOR_URL,
+        configProvider,
         jwksProvider,
+        saleorAuthToken,
         saleorClient,
         saleorDomain,
-        saleorAuthToken,
-        configProvider,
+        saleorUrl: CONFIG.SALEOR_URL,
       });
 
       return { status: "ok" };

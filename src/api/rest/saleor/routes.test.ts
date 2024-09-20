@@ -10,7 +10,10 @@ describe("apiRoutes", () => {
       // Given
       const app = await createServer();
       const expectedJson = {
+        appUrl: "http://localhost:80/",
+        homepageUrl: "https://mirumee.com/",
         id: CONFIG.NAME,
+        name: CONFIG.NAME,
         permissions: [
           "MANAGE_PRODUCTS",
           "MANAGE_CHECKOUTS",
@@ -18,20 +21,14 @@ describe("apiRoutes", () => {
           "HANDLE_PAYMENTS",
           "MANAGE_SHIPPING",
         ],
-        name: CONFIG.NAME,
-        version: CONFIG.VERSION,
-        about: CONFIG.ABOUT,
-        dataPrivacyUrl: "https://mirumee.com/",
-        homepageUrl: "https://mirumee.com/",
-        supportUrl: "https://mirumee.com/",
-        appUrl: "http://localhost:80/",
         tokenTargetUrl: "http://localhost:80/api/saleor/register",
+        version: CONFIG.VERSION,
         webhooks: [
           {
-            query: ShippingMethodListForCheckoutSubscriptionDocument.toString(),
-            name: "ShippingMethodListForCheckoutSubscription",
-            syncEvents: ["SHIPPING_LIST_METHODS_FOR_CHECKOUT"],
             asyncEvents: [],
+            name: "ShippingMethodListForCheckoutSubscription",
+            query: ShippingMethodListForCheckoutSubscriptionDocument.toString(),
+            syncEvents: ["SHIPPING_LIST_METHODS_FOR_CHECKOUT"],
             targetUrl:
               "http://localhost:80/api/saleor/webhooks/shipping-methods-for-checkout",
           },
@@ -64,15 +61,15 @@ describe("apiRoutes", () => {
 
       // When
       const response = await app.inject({
-        method: "POST",
-        url: "/api/saleor/register",
-        payload: {
-          auth_token: "token",
-        },
         headers: {
           "saleor-api-url": "url",
           "saleor-domain": "domain",
         },
+        method: "POST",
+        payload: {
+          auth_token: "token",
+        },
+        url: "/api/saleor/register",
       });
 
       // Then
@@ -85,30 +82,30 @@ describe("apiRoutes", () => {
       const app = await createServer();
       const expectedStatusCode = 400;
       const expectedJson = {
-        error: "BAD_REQUEST",
         code: "VALIDATION_ERROR",
-        requestId: expect.any(String),
+        error: "BAD_REQUEST",
         errors: [
           {
             code: "INVALID_TYPE",
-            message: "Required",
             context: "headers > saleor-domain",
+            message: "Required",
           },
           {
             code: "INVALID_TYPE",
-            message: "Required",
             context: "headers > saleor-api-url",
+            message: "Required",
           },
         ],
+        requestId: expect.any(String),
       };
 
       // When
       const response = await app.inject({
         method: "POST",
-        url: "/api/saleor/register",
         payload: {
           auth_token: "Saleor token",
         },
+        url: "/api/saleor/register",
       });
 
       // then
@@ -121,26 +118,26 @@ describe("apiRoutes", () => {
       const app = await createServer();
       const expectedStatusCode = 400;
       const expectedJson = {
-        error: "BAD_REQUEST",
         code: "VALIDATION_ERROR",
-        requestId: expect.any(String),
+        error: "BAD_REQUEST",
         errors: [
           {
             code: "INVALID_TYPE",
-            message: "Expected object, received null",
             context: "body",
+            message: "Expected object, received null",
           },
         ],
+        requestId: expect.any(String),
       };
 
       // When
       const response = await app.inject({
-        method: "POST",
-        url: "/api/saleor/register",
         headers: {
           "saleor-api-url": "url",
           "saleor-domain": "domain",
         },
+        method: "POST",
+        url: "/api/saleor/register",
       });
 
       // Then

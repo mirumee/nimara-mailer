@@ -1,18 +1,10 @@
-import type { MarkOptional } from "ts-essentials";
+import type { MarkRequired } from "ts-essentials";
 
-import type { Manifest, PermissionEnum } from "@/graphql/schema";
+import { type Manifest, type PermissionEnum } from "@/graphql/schema";
 
-export type SaleorAppManifest = MarkOptional<
-  Omit<Manifest, "permissions">,
-  | "audience"
-  | "author"
-  | "brand"
-  | "requiredSaleorVersion"
-  | "extensions"
-  | "configurationUrl"
-  | "dataPrivacy"
-  | "dataPrivacyUrl"
-  | "identifier" // Not yet implemented?
+export type SaleorAppManifest = MarkRequired<
+  Partial<Omit<Manifest, "permissions">>,
+  "name" | "version" | "tokenTargetUrl" | "webhooks"
 > & {
   id: string;
   permissions: PermissionEnum[];

@@ -18,9 +18,9 @@
     "build:serverless": "dotenv -v NODE_ENV=production node ./etc/scripts/serverless.mjs && npx remix vite:build",
     "start": "dotenv node build/server.js",
     "prepare": "husky",
-    "lint:prettier": "pnpm prettier --check './src/**/*.{ts,tsx}'",
-    "lint:eslint": "pnpm eslint --no-cache './src/**/*.{ts,tsx}'",
-    "lint:prettier:fix": "pnpm prettier --list-different --write 'src/**/*.{ts,tsx}'",
+    "lint:prettier": "npx prettier --check './src/**/*.{ts,tsx}'",
+    "lint:eslint": "npx eslint --no-cache './src/**/*.{ts,tsx}'",
+    "lint:prettier:fix": "npx prettier --list-different --write 'src/**/*.{ts,tsx}'",
     "lint:eslint:fix": "pnpm lint:eslint --fix",
     "lint:tsc": "npx tsc --noEmit",
     "lint:tsc:watch": "tsc --watch",
@@ -33,10 +33,7 @@
     "db": "pnpm drizzle-kit --config ./src/lib/plugins/drizzlePlugin/drizzle.config.ts",
     "db:migrate": "pnpm db generate",
     "db:push": "pnpm db push",
-    "codegen:run": "graphql-codegen --require dotenv/config --config ./codegen.ts",
-    "codegen:saleor": "pnpm codegen:run --project saleor",
-    "codegen:internal": "pnpm codegen:run --project internal",
-    "codegen": "concurrently -p \"[{name}]\" -n \"Saleor,Internal\" \"pnpm codegen:internal\" \"pnpm codegen:saleor\""
+    "codegen": "graphql-codegen --require dotenv/config --config ./codegen.ts"
   },
   "lint-staged": {
     "*.{js,mjs,cjs,ts,tsx}": "pnpm lint:fix"
@@ -52,6 +49,7 @@
     "drizzle-orm": "^0.32.2",
     "esbuild": "^0.23.1",
     "esbuild-plugin-copy": "^2.1.1",
+    "eslint-define-config": "^2.1.0",
     "fastify": "^4.28.1",
     "fastify-plugin": "^4.5.1",
     "fastify-raw-body": "^4.3.0",
@@ -80,7 +78,6 @@
     "@graphql-codegen/typescript": "^4.0.9",
     "@graphql-codegen/typescript-operations": "^4.2.3",
     "@graphql-typed-document-node/core": "^3.2.0",
-    "@remix-run/eslint-config": "^2.10.3",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.14.9",
     "@types/pg": "^8.11.6",
@@ -93,7 +90,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-drizzle": "^0.2.3",
-    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-import": "^2.30.0",
     "eslint-plugin-n": "^17.10.1",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-promise": "^7.0.0",
@@ -105,7 +102,7 @@
     "nodemon": "^3.1.4",
     "prettier": "^3.3.2",
     "ts-essentials": "^10.0.1",
-    "typescript-eslint": "^7.15.0",
+    "typescript-eslint": "^7.18.0",
     "vitest": "^2.0.3"
   },
   "optionalDependencies": {

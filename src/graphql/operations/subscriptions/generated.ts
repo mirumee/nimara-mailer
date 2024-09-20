@@ -1,3 +1,7 @@
+// @ts-nocheck
+// prettier-ignore
+/* eslint-disable */
+/* @typescript-eslint/no-unused-vars */
 import type * as Types from '../../schema';
 
 import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
