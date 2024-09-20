@@ -44,14 +44,17 @@ Apply migrations
 1. Add your credentials to [`~/.aws/credentials`](https://docs.aws.amazon.com/cli/v1/userguide/cli-configure-files.html)
 
 2. Build the package:
-   `$ make package`
+   `$ ./etc/build.sh
 
 3. Deploy zip to AWS Lambda:
-   `$ aws lambda update-function-code --profile [YOUR PROFILE] --function-name [YOUR FUNCTION NAME] --zip-file fileb://package.zip`
+   `$ aws lambda update-function-code --profile [YOUR PROFILE] --function-name [YOUR FUNCTION NAME] --zip-file fileb://artifact.zip`
 
 TODO:
 
 - [ ] Remove graphql yoga & related pacakges
+- [ ] Proper readme
+- [ ] Commitizen for jira
+- [ ] esbuild for both lambdas
 
 ````
 

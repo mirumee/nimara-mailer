@@ -2,8 +2,8 @@ import type { FastifyPluginAsync } from "fastify/types/plugin";
 import { type ZodTypeProvider } from "fastify-type-provider-zod";
 
 import { verifyJWTSignature } from "@/lib/saleor/auth";
-import { getJWKSProvider } from "@/lib/saleor/jwks/provider";
 import { saleorBearerHeader } from "@/lib/saleor/schema";
+import { getJWKSProvider } from "@/providers/jwks";
 
 import { saleorRoutes } from "./saleor";
 

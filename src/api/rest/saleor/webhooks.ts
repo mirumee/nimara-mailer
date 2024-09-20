@@ -3,8 +3,8 @@ import rawBody from "fastify-raw-body";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 
 import { verifyWebhookSignature } from "@/lib/saleor/auth";
-import { getJWKSProvider } from "@/lib/saleor/jwks/provider";
 import { saleorWebhookHeaders } from "@/lib/saleor/schema";
+import { getJWKSProvider } from "@/providers/jwks";
 
 export const webhooks: FastifyPluginAsync = async (fastify) => {
   await fastify.register(rawBody);

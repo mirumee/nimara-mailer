@@ -1,6 +1,5 @@
 import { CONFIG } from "@/config";
-
-import { JWKSMemoryProvider } from "./memory";
+import { JWKSMemoryProvider } from "@/lib/saleor/jwks/memory";
 
 export const getJWKSProvider = () => {
   const remoteUrl = CONFIG.SALEOR_URL;
