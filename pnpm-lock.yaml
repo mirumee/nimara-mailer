@@ -20,9 +20,6 @@ importers:
       dataloader:
         specifier: ^2.2.2
         version: 2.2.2
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.4.5
       dotenv-cli:
         specifier: ^7.4.2
         version: 7.4.2
@@ -151,6 +148,9 @@ importers:
       concurrently:
         specifier: ^8.2.2
         version: 8.2.2
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.4.5
       eslint:
         specifier: '>=8'
         version: 8.57.0
