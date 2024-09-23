@@ -14,8 +14,8 @@
   },
   "scripts": {
     "dev": "concurrently -k -p \"[{name}]\" -n \"TSC:SERVER,DEV:BUILD,RUNNER\" -c \"green.bold,yellow.bold,red.bold\" \"pnpm tsc:watch:server\" \"dotenv -v NODE_ENV=development -- node ./etc/scripts/dev.mjs\" \"dotenv -v NODE_ENV=development -- nodemon --inspect=0.0.0.0:9229 --watch build build/server.js\"",
-    "build": "dotenv -v NODE_ENV=production node ./etc/scripts/build.mjs && npx remix vite:build",
-    "build:serverless": "dotenv -v NODE_ENV=production node ./etc/scripts/serverless.mjs && npx remix vite:build",
+    "build": "dotenv -v NODE_ENV=production node ./etc/scripts/build.mjs",
+    "build:serverless": "dotenv -v NODE_ENV=production node ./etc/scripts/serverless.mjs",
     "start": "dotenv node build/server.js",
     "prepare": "husky",
     "lint:prettier": "npx prettier --check './src/**/*.{ts,tsx}'",
@@ -72,6 +72,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@digitalroute/cz-conventional-changelog-for-jira": "^8.0.1",
     "@graphql-codegen/cli": "^5.0.2",
     "@graphql-codegen/near-operation-file-preset": "^3.0.0",
     "@graphql-codegen/typed-document-node": "^5.0.9",
@@ -86,7 +87,6 @@
     "@vitest/coverage-v8": "^2.0.4",
     "commitizen": "^4.3.0",
     "concurrently": "^8.2.2",
-    "cz-customizable": "^7.2.1",
     "eslint": ">=8",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",
@@ -111,10 +111,17 @@
   },
   "config": {
     "commitizen": {
-      "path": "node_modules/cz-customizable"
-    },
-    "cz-customizable": {
-      "config": "./etc/commitizen/.cz-config.cjs"
+      "path": "./node_modules/@digitalroute/cz-conventional-changelog-for-jira",
+      "jiraPrefix": "MS",
+      "jiraOptional": false,
+      "jiraLocation": "pre-type",
+      "jiraPrepend": "[",
+      "jiraAppend": "]",
+      "disableScopeLowerCase": true,
+      "disableSubjectLowerCase": true,
+      "skipBreaking": true,
+      "skipDescription": true,
+      "maxHeaderWidth": 150
     }
   }
 }

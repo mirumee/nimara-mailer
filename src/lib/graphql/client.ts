@@ -1,4 +1,5 @@
 import type { DocumentTypeDecoration } from "@graphql-typed-document-node/core";
+import { type FastifyBaseLogger } from "fastify";
 
 import { CONFIG } from "@/config";
 import { isObject } from "@/lib/core";
@@ -9,7 +10,6 @@ import {
 } from "@/lib/graphql/errors";
 import { getOperationName } from "@/lib/graphql/helpers";
 import type { Maybe } from "@/lib/types";
-import { logger } from "@/server";
 
 import {
   type AnyVariables,
@@ -23,6 +23,7 @@ export const graphqlClient = (
   url: string,
   opts?: {
     authToken?: Maybe<string>;
+    logger?: FastifyBaseLogger;
     timeout?: number;
   }
 ) => ({
@@ -36,7 +37,7 @@ export const graphqlClient = (
       variables?: TVariables;
     }
   ): Promise<TResult> => {
-    const { authToken, timeout } = { ...opts };
+    const { authToken, timeout, logger } = { ...opts };
     const { variables, options } = input ?? {};
     const stringQuery = query.toString();
 
@@ -65,25 +66,25 @@ export const graphqlClient = (
     let responseJson: GraphQLResponse<TResult>;
 
     try {
-      logger.debug(
+      logger?.debug(
         `Executing ${getOperationName(stringQuery)} operation with variables ${JSON.stringify(variables ?? {})}`
       );
 
       responseJson = (await response.json()) as GraphQLResponse<TResult>;
     } catch (err) {
-      logger.error(`Invalid response: ${err}`);
+      logger?.error(`Invalid response: ${err}`);
       throw new GraphQLClientInvalidResponseError();
     }
 
     if (!isObject(responseJson) || !("data" in responseJson)) {
-      logger.error(`Invalid json response: ${responseJson}`);
+      logger?.error(`Invalid json response: ${responseJson}`);
       throw new GraphQLClientInvalidResponseError();
     }
 
     const data = responseJson["data"];
     const errors = responseJson["errors"];
 
-    logger.debug(
+    logger?.debug(
       `${getOperationName(stringQuery)} operation response: ${JSON.stringify(responseJson ?? {})}`
     );
 

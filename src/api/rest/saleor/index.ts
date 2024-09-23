@@ -48,6 +48,7 @@ export const saleorRoutes: FastifyPluginAsync = async (
         configProvider: getConfigProvider({ server: fastify }),
         jwksProvider: getJWKSProvider(),
         saleorClient: getSaleorClient({
+          logger: fastify.log,
           authToken,
           saleorUrl: CONFIG.SALEOR_URL,
         }),

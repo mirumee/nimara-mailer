@@ -6,8 +6,13 @@ export const baseSaleorClient: SaleorClientFactory = ({
   saleorUrl,
   authToken,
   timeout,
+  logger,
 }) => {
-  const client = graphqlClient(`${saleorUrl}/graphql/`, { authToken, timeout });
+  const client = graphqlClient(`${saleorUrl}/graphql/`, {
+    authToken,
+    timeout,
+    logger,
+  });
 
   const execute = client.execute;
 
