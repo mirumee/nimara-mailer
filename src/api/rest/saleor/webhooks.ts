@@ -9,12 +9,10 @@ import { getJWKSProvider } from "@/providers/jwks";
 export const webhooks: FastifyPluginAsync = async (fastify) => {
   await fastify.register(rawBody);
 
-  /**
-   * Better to validate webhooks signature in one place.
-   * TODO: Create one common schema/type for responses
-   */
   fastify.addHook("preHandler", async (request) => {
-    const parsedHeaders = saleorWebhookHeaders.parse(request.headers);
+    const parsedHeaders = saleorWebhookHeaders.parse(request.headers, {
+      path: ["headers"],
+    });
 
     await verifyWebhookSignature({
       forceRefresh: true,
@@ -29,6 +27,21 @@ export const webhooks: FastifyPluginAsync = async (fastify) => {
     "/shipping-methods-for-checkout",
     {
       name: "saleor:webhooks:shipping-methods-for-checkout",
+    },
+    async (request, reply) => [
+      {
+        amount: 5,
+        currency: "USD",
+        id: "my-id",
+        name: "Pete's method",
+      },
+    ]
+  );
+
+  fastify.withTypeProvider<ZodTypeProvider>().post(
+    "/test",
+    {
+      name: "saleor:webhooks:test",
     },
     async (request, reply) => [
       {

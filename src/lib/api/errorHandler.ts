@@ -52,7 +52,10 @@ export const errorHandler: FastifyInstance["errorHandler"] = (
       errors: err.issues.map(({ code, message, path }) => ({
         code: formatCode(code),
         message,
-        context: [err.validationContext, ...path].join(" > "),
+        context: (err.validationContext
+          ? [err.validationContext, ...path]
+          : path
+        ).join(" > "),
       })),
     });
   }
