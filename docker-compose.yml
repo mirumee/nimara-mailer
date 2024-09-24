@@ -10,41 +10,35 @@ services:
       - "3000:3000"
       - "9229:9229"
     command: pnpm dev
+    env_file:
+      - .env
     environment:
       DATABASE_URL: postgresql+asyncpg://example:example@db:5432/example
-      SALEOR_URL: ${SALEOR_URL:?SALEOR_URL env var is required}
       LOG_LEVEL: info
-      # `remixFastify` does not work using development mode on docker.
-      NODE_ENV: production
-    depends_on:
-      - db
+      NODE_ENV: development
+      SALEOR_URL: ${SALEOR_URL:?SALEOR_URL env var is required}
+      STATIC_URL: ${STATIC_URL:?STATIC_URL env is required}
+      SQS_QUEUE_URL: ${SQS_QUEUE_URL:?SQS_QUEUE_URL env is required}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID?:AWS_ACCESS_KEY_ID env is required}
+      AWS_REGION: ${AWS_REGION?:AWS_REGION env is required}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY?:AWS_SECRET_ACCESS_KEY env is required}
+      SECRET_MANAGER_APP_CONFIG_PATH: ${SECRET_MANAGER_APP_CONFIG_PATH?:SECRET_MANAGER_APP_CONFIG_PATH env is required}
+    # depends_on:
+    #   - db
     volumes:
       - ./src/:/app/src/
 
-  db:
-    image: library/postgres:13-alpine
-    container_name: db
-    ports:
-      - "5555:5432"
-    environment:
-      POSTGRES_USER: example
-      POSTGRES_PASSWORD: example
-    volumes:
-      - local_pgdata:/var/lib/postgresql/data
+# Not needed if using SaleorAWSSecretsManagerConfigProvider
+#   db:
+#     image: library/postgres:13-alpine
+#     container_name: db
+#     ports:
+#       - "5555:5432"
+#     environment:
+#       POSTGRES_USER: example
+#       POSTGRES_PASSWORD: example
+#     volumes:
+#       - local_pgdata:/var/lib/postgresql/data
 
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pb_admin
-    ports:
-      - "8888:80"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: example@example.com
-      PGADMIN_DEFAULT_PASSWORD: example
-    volumes:
-      - pgadmin-data:/var/lib/pgadmin
-    depends_on:
-      - db
-
-volumes:
-  local_pgdata:
-  pgadmin-data:
+# volumes:
+#   local_pgdata:
