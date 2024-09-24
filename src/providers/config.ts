@@ -1,9 +1,9 @@
 import { type FastifyInstance } from "fastify";
 
-import { SaleorSecretsManagerConfigProvider } from "@/lib/saleor/config/secretsManager";
+import { SaleorAWSSecretsManagerConfigProvider } from "@/lib/saleor/config/AWSsecretsManager";
 
 export const getConfigProvider = ({ server }: { server: FastifyInstance }) =>
-  SaleorSecretsManagerConfigProvider({
+  SaleorAWSSecretsManagerConfigProvider({
     secretsManagerConfigPath: server.secretsManagerConfigPath,
     secretsManager: server.secretsManager,
     logger: server.log,

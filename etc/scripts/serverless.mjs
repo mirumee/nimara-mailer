@@ -7,8 +7,9 @@ try {
   console.log("Building Fastify server app...");
   await esbuild.build({
     ...esbuildConfig,
-    outfile: "build/index.mjs",
-    entryPoints: ["src/lambda.ts"],
+    outfile: undefined,
+    outdir: "build",
+    entryPoints: ["src/emails-sender.ts", "src/events-receiver.ts"],
     banner: {
       js: `
       import { createRequire } from 'module';

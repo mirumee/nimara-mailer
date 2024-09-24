@@ -12,14 +12,14 @@ import {
 } from "./types";
 import { validateDomain } from "./utils";
 
-export type SaleorSecretsManagerConfigProviderOpts = {
+export type SaleorAWSSecretsManagerConfigProviderOpts = {
   logger: FastifyBaseLogger;
   secretsManager: SecretsManagerClient;
   secretsManagerConfigPath: string;
 };
 
-export const SaleorSecretsManagerConfigProvider: SaleorConfigProviderFactory<
-  SaleorSecretsManagerConfigProviderOpts
+export const SaleorAWSSecretsManagerConfigProvider: SaleorConfigProviderFactory<
+  SaleorAWSSecretsManagerConfigProviderOpts
 > = ({ secretsManager, logger, secretsManagerConfigPath }) => {
   const _extractSecret = async () => {
     const command = new GetSecretValueCommand({

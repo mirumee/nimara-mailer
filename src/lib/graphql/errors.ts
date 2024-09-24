@@ -14,9 +14,6 @@ export class GraphQLClientInvalidResponseError extends GraphQLClientError {
   static code = "GRAPHQL_CLIENT_INVALID_RESPONSE_ERROR";
 }
 
-/**
- * TODO: Refine with proper fastify serialization
- */
 export class GraphQLClientGraphQLError extends GraphQLClientError {
   static code = "GRAPHQL_CLIENT_GRAPHQL_ERROR";
 

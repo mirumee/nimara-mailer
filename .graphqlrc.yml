@@ -1,4 +1,0 @@
-projects:
-  saleor:
-    schema: ${SALEOR_URL}/graphql/
-    documents: '**/*.graphql'
