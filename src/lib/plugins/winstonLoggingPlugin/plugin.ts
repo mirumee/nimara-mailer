@@ -4,12 +4,14 @@ import fastifyPlugin from "fastify-plugin";
 const plugin: FastifyPluginCallback = (fastify, {}, next) => {
   fastify.addHook("onRequest", (req, reply, done) => {
     req.log.info({
-      body: req.body,
-      method: req.method,
-      query: req.query,
+      message: {
+        body: req.body,
+        method: req.method,
+        query: req.query,
+        url: req.raw.url,
+      },
       statusCode: reply.raw.statusCode,
-      type: "request",
-      url: req.raw.url,
+      type: "REQUEST",
     });
 
     done();
@@ -17,11 +19,13 @@ const plugin: FastifyPluginCallback = (fastify, {}, next) => {
 
   fastify.addHook("onResponse", (req, reply, done) => {
     req.log.info({
-      elapsedTime: reply.elapsedTime,
-      method: req.method,
+      message: {
+        method: req.method,
+        url: req.raw.url,
+      },
       statusCode: reply.raw.statusCode,
-      type: "response",
-      url: req.raw.url,
+      elapsedTime: reply.elapsedTime,
+      type: "RESPONSE",
     });
 
     done();

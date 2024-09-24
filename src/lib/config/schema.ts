@@ -6,6 +6,7 @@ export const commonConfigSchema = z.object({
     .default("local"),
   IS_BROWSER: z.boolean().default(typeof window !== "undefined"),
   IS_DEVELOPMENT: z.boolean().default(process.env.NODE_ENV === "development"),
+  IS_TEST: z.boolean().default(process.env.NODE_ENV === "test"),
   IS_SSR: z.boolean().default(typeof window === "undefined"),
   NODE_ENV: z.enum(["development", "test", "production"]).default("production"),
 });

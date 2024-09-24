@@ -8,6 +8,7 @@ import { appConfigSchema, commonConfigSchema } from "./lib/config/schema";
 
 export const configSchema = z
   .object({
+    SQS_QUEUE_URL: z.string().url(),
     FETCH_TIMEOUT: z
       .number()
       .default(10000)

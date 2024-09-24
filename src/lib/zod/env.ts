@@ -11,3 +11,16 @@ export const envBool = z
   .enum(["true", "false", ""])
   .transform((value) => value === "true")
   .pipe(z.boolean());
+
+export const envToStrList = (
+  env: string | undefined,
+  defaultEmpty = false
+): string[] | undefined => {
+  const parsed = env?.split(",").filter(Boolean);
+
+  if (!parsed && !defaultEmpty) {
+    return [];
+  }
+
+  return parsed;
+};
