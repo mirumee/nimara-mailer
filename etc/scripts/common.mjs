@@ -1,7 +1,8 @@
 import copy from "esbuild-plugin-copy";
 
 export const esbuildConfig = {
-  entryPoints: ["src/server.ts"],
+  entryPoints: ["src/emails-sender.ts", "src/events-receiver.ts"],
+  outdir: "build",
   bundle: true,
   allowOverwrite: true,
   sourcemap: true,
@@ -17,7 +18,6 @@ export const esbuildConfig = {
   define: {
     "process.env.NODE_ENV": `"${process.env.NODE_ENV ?? "production"}"`,
   },
-  outfile: "build/server.js",
   plugins: [
     copy({
       watch: true,

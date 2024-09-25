@@ -23,10 +23,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "ts-node": {
-    "esm": true,
-    "experimentalSpecifierResolution": "node"
-  },
   "include": ["./**/*/*.ts", "./**/*/*.tx", "./**/*/*.d.ts"],
   "exclude": ["node_modules"]
 }

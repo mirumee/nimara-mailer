@@ -31,9 +31,9 @@ COPY --from=builder /app/etc /app/etc
 COPY --from=builder /app/build /app/build
 COPY --from=builder /app/node_modules /app/node_modules
 
-# Not needed if using SaleorAWSSecretsManagerConfigProvider
 # ENTRYPOINT ["/bin/bash", "./etc/commands/docker-entrypoint.sh"]
 
 EXPOSE 3000
+EXPOSE 3001
 
-CMD [ "pnpm",  "start" ]
+CMD [ "pnpm",  "dev" ]
