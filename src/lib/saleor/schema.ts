@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { type WebhookEventTypeAsyncEnum } from "@/graphql/schema";
+
 /**
  * Headers must be in lowercase, otherwise it will not be lookup by zod type provider.
  */
@@ -10,12 +12,15 @@ export const saleorHeaders = z.object({
 
 export type SaleorHeaders = z.infer<typeof saleorHeaders>;
 
-export const saleorWebhookHeaders = z
-  .object({
-    "saleor-signature": z.string(),
+export const saleorWebhookHeaders = (
+  z.object({
     "saleor-event": z.string(),
-  })
-  .merge(saleorHeaders);
+  }) as unknown as z.ZodObject<{
+    "saleor-event": z.ZodLiteral<Lowercase<WebhookEventTypeAsyncEnum>>;
+  }>
+)
+  .and(z.object({ "saleor-signature": z.string() }))
+  .and(saleorHeaders);
 
 export type SaleorWebhookHeaders = z.infer<typeof saleorWebhookHeaders>;
 

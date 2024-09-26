@@ -21,7 +21,7 @@ WORKDIR /app
 
 RUN apk add --no-cache bash
 RUN corepack enable
-RUN corepack prepare pnpm@9.6.0 --activate
+RUN corepack prepare pnpm@9.10.0 --activate
 
 COPY --from=builder /app/package.json /app/package.json
 COPY --from=builder /app/types/ /app/types/
