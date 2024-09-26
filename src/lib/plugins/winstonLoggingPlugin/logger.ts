@@ -11,7 +11,7 @@ export const createLogger = ({
   service: string;
 }) => {
   const formatters = PLUGIN_CONFIG.IS_DEVELOPMENT
-    ? [winston.format.prettyPrint({ colorize: true, depth: 1 })]
+    ? [winston.format.prettyPrint({ colorize: true })]
     : [winston.format.json()];
 
   return winston.createLogger({
@@ -20,7 +20,16 @@ export const createLogger = ({
       nodeEvn: PLUGIN_CONFIG.NODE_ENV,
       service,
     },
-    format: winston.format.combine(winston.format.timestamp(), ...formatters),
+    format: winston.format.combine(
+      winston.format((info) => {
+        info.level = info.level.toUpperCase();
+        return info;
+      })(),
+      winston.format.timestamp({
+        format: "DD/MM/YYYY HH:mm:ss",
+      }),
+      ...formatters
+    ),
 
     level: PLUGIN_CONFIG.LOG_LEVEL,
 
