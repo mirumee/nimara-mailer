@@ -13,14 +13,8 @@ import AWSSecretManagerPlugin from "@/lib/plugins/awsSecretManagerPlugin";
 import { type FastifyPlugin } from "@/lib/plugins/types";
 import UrlForPlugin from "@/lib/plugins/urlForPlugin";
 import UrlPlugin from "@/lib/plugins/urlPlugin";
-import WinstonLoggingPlugin, {
-  createLogger,
-} from "@/lib/plugins/winstonLoggingPlugin";
-
-export const logger = createLogger({
-  environment: CONFIG.ENVIRONMENT,
-  service: CONFIG.RELEASE,
-});
+import WinstonLoggingPlugin from "@/lib/plugins/winstonLoggingPlugin";
+import { logger } from "@/providers/logger";
 
 export async function createServer() {
   const registrations = [];

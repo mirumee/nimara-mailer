@@ -1,25 +1,25 @@
 // TODO: Mails sender serverless
 import { type Context, type SQSBatchResponse, type SQSEvent } from "aws-lambda";
 
+import { logger } from "@/providers/logger";
+
 export const handler = async (event: SQSEvent, context: Context) => {
-  const failures = [];
+  const failures: string[] = [];
+
+  logger.info(`Received event with ${event.Records.length} records.`);
 
   for await (const record of event.Records) {
     /**
      * Process event
      */
-    console.log("Processing record: ", record);
-    console.log(
-      `Received messageId: ${record.messageId} with body: ${record.body}`
-    );
-    failures.push(record.messageId);
+    logger.info({ message: "Processing record", record });
   }
 
   if (failures.length) {
     const batchFailure: SQSBatchResponse = {
       batchItemFailures: failures.map((id) => ({ itemIdentifier: id })),
     };
-    console.log(`FAILING messages: ${JSON.stringify(batchFailure)}`);
+    logger.error(`FAILING messages: ${JSON.stringify(batchFailure)}`);
 
     return batchFailure;
   }

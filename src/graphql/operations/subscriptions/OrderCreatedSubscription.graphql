@@ -1,5 +1,9 @@
 subscription OrderCreatedSubscription {
   event {
-    ...ShippingListMethodsForCheckoutFragment
+    ... on OrderCreated {
+      order {
+        id
+      }
+    }
   }
 }

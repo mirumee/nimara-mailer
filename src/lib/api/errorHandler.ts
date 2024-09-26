@@ -4,7 +4,7 @@ import { type FastifyInstance } from "fastify";
 import { JOSEError } from "jose/errors";
 import { ZodError } from "zod";
 
-import { logger } from "@/server";
+import { logger } from "@/providers/logger";
 
 const formatCode = (code: number | string) =>
   code.toString().toUpperCase().replaceAll(" ", "_");
