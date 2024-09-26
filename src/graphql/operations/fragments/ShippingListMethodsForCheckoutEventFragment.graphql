@@ -1,5 +1,0 @@
-fragment ShippingListMethodsForCheckoutFragment on ShippingListMethodsForCheckout {
-  checkout {
-    id
-  }
-}

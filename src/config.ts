@@ -15,6 +15,7 @@ export const configSchema = z
       .describe("Fetch timeout in milliseconds."),
     SALEOR_URL: z.string(),
     SERVER_PORT: z.number().default(3000),
+    PROXY_PORT: z.number().default(3001),
     STATIC_URL: z.string().url(),
   })
   .and(commonConfigSchema)

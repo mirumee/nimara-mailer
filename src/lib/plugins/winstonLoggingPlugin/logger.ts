@@ -11,7 +11,7 @@ export const createLogger = ({
   service: string;
 }) => {
   const formatters = PLUGIN_CONFIG.IS_DEVELOPMENT
-    ? [winston.format.prettyPrint({ colorize: true })]
+    ? [winston.format.prettyPrint({ colorize: true, depth: 1 })]
     : [winston.format.json()];
 
   return winston.createLogger({

@@ -1,19 +1,17 @@
 services:
   app:
-    container_name: app
+    container_name: "app"
     build:
       context: .
       dockerfile: Dockerfile
       args:
         INSTALL_DEV: "true"
     ports:
-      - "3000:3000"
-      - "9229:9229"
-    command: pnpm dev
+      - "3000:3000" # event receiver
+      - "3001:3001" # emails sender proxy
     env_file:
       - .env
     environment:
-      DATABASE_URL: postgresql+asyncpg://example:example@db:5432/example
       LOG_LEVEL: info
       NODE_ENV: development
       SALEOR_URL: ${SALEOR_URL:?SALEOR_URL env var is required}
@@ -23,22 +21,6 @@ services:
       AWS_REGION: ${AWS_REGION?:AWS_REGION env is required}
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY?:AWS_SECRET_ACCESS_KEY env is required}
       SECRET_MANAGER_APP_CONFIG_PATH: ${SECRET_MANAGER_APP_CONFIG_PATH?:SECRET_MANAGER_APP_CONFIG_PATH env is required}
-    # depends_on:
-    #   - db
+
     volumes:
       - ./src/:/app/src/
-
-# Not needed if using SaleorAWSSecretsManagerConfigProvider
-#   db:
-#     image: library/postgres:13-alpine
-#     container_name: db
-#     ports:
-#       - "5555:5432"
-#     environment:
-#       POSTGRES_USER: example
-#       POSTGRES_PASSWORD: example
-#     volumes:
-#       - local_pgdata:/var/lib/postgresql/data
-
-# volumes:
-#   local_pgdata:

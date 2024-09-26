@@ -1,10 +1,31 @@
 import type { FastifyPluginAsync } from "fastify/types/plugin";
 import rawBody from "fastify-raw-body";
-import type { ZodTypeProvider } from "fastify-type-provider-zod";
 
+import {
+  OrderCreatedSubscriptionDocument,
+  OrderUpdatedSubscriptionDocument,
+} from "@/graphql/operations/subscriptions/generated";
+import { type WebhookEventTypeAsyncEnum } from "@/graphql/schema";
 import { verifyWebhookSignature } from "@/lib/saleor/auth";
 import { saleorWebhookHeaders } from "@/lib/saleor/schema";
 import { getJWKSProvider } from "@/providers/jwks";
+
+export const EVENT_HANDLERS: {
+  event: WebhookEventTypeAsyncEnum;
+  name: string;
+  query: string;
+}[] = [
+  {
+    event: "ORDER_CREATED",
+    name: "order-created",
+    query: OrderCreatedSubscriptionDocument.toString(),
+  },
+  {
+    event: "ORDER_UPDATED",
+    name: "order-updated",
+    query: OrderUpdatedSubscriptionDocument.toString(),
+  },
+];
 
 export const webhooks: FastifyPluginAsync = async (fastify) => {
   await fastify.register(rawBody);
@@ -23,33 +44,16 @@ export const webhooks: FastifyPluginAsync = async (fastify) => {
     });
   });
 
-  fastify.withTypeProvider<ZodTypeProvider>().post(
-    "/shipping-methods-for-checkout",
-    {
-      name: "saleor:webhooks:shipping-methods-for-checkout",
-    },
-    async (request, reply) => [
+  EVENT_HANDLERS.forEach(({ name }) => {
+    fastify.post(
+      `/email/${name}`,
       {
-        amount: 5,
-        currency: "USD",
-        id: "my-id",
-        name: "Pete's method",
+        name: `saleor:webhooks:email:${name}`,
       },
-    ]
-  );
-
-  fastify.withTypeProvider<ZodTypeProvider>().post(
-    "/test",
-    {
-      name: "saleor:webhooks:test",
-    },
-    async (request, reply) => [
-      {
-        amount: 5,
-        currency: "USD",
-        id: "my-id",
-        name: "Pete's method",
-      },
-    ]
-  );
+      async (request, reply) => {
+        // TODO: Push to SQS
+        return reply.status(200).send({ status: "ok" });
+      }
+    );
+  });
 };
