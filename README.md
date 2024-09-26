@@ -1,4 +1,18 @@
-# Nimara Mailer
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/logo-light.svg">
+    <source media="(prefers-color-scheme: light)" srcset="docs/logo.svg">
+    <img width="200" alt="nimara logo" src="docs/logo.svg">
+  </picture>
+</div>
+<br />
+<br />
+
+<div align="center">
+  <h1>Nimara Mailer</h1>
+  <strong>TypeScript serverless app for sending emails from Saleor.</strong>
+</div>
+<br />
 
 ## Local development
 
