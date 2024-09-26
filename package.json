@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-secrets-manager": "^3.637.0",
+    "@aws-sdk/client-sqs": "^3.658.1",
     "@fastify/aws-lambda": "^4.1.0",
     "@fastify/error": "^4.0.0",
     "dataloader": "^2.2.2",

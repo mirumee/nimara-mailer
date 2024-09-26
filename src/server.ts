@@ -10,6 +10,7 @@ import { restRoutes } from "@/api/rest/routes";
 import { CONFIG } from "@/config";
 import { errorHandler } from "@/lib/api/errorHandler";
 import AWSSecretManagerPlugin from "@/lib/plugins/awsSecretManagerPlugin";
+import AWSSQSPlugin from "@/lib/plugins/awsSQSPlugin";
 import { type FastifyPlugin } from "@/lib/plugins/types";
 import UrlForPlugin from "@/lib/plugins/urlForPlugin";
 import UrlPlugin from "@/lib/plugins/urlPlugin";
@@ -39,8 +40,9 @@ export async function createServer() {
   for (const [plugin, opts] of [
     [UrlPlugin],
     [UrlForPlugin],
-    [AWSSecretManagerPlugin],
     [WinstonLoggingPlugin],
+    [AWSSecretManagerPlugin],
+    [AWSSQSPlugin],
   ]) {
     // @ts-ignore
     const pluginName = plugin?.[Symbol.for("plugin-meta")]?.name ?? plugin.name;
