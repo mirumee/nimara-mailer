@@ -1,8 +1,9 @@
-import { type Body, SendEmailCommand, SESClient } from "@aws-sdk/client-ses";
+import { SendEmailCommand, SESClient } from "@aws-sdk/client-ses";
 import { z } from "zod";
 
 import { prepareConfig } from "@/lib/zod/util";
 
+import { EmailSendError } from "../errors";
 import { renderEmail } from "../helpers";
 import { type EmailProviderFactory } from "./types";
 
@@ -47,7 +48,7 @@ export const awsSESEmailProvider: EmailProviderFactory = ({
     const { $metadata } = await client.send(command);
 
     if ($metadata.httpStatusCode !== 200) {
-      throw new Error("Failed to send email.", {
+      throw new EmailSendError("Failed to send email.", {
         cause: {
           statusCode: $metadata.httpStatusCode,
           subject,

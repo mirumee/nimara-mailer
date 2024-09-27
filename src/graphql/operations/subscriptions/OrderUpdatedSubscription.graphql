@@ -3,6 +3,7 @@ subscription OrderUpdatedSubscription {
     ... on OrderUpdated {
       order {
         id
+        userEmail
       }
     }
   }

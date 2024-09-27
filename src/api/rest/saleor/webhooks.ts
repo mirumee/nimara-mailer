@@ -1,5 +1,4 @@
 import { ReceiveMessageCommand, SendMessageCommand } from "@aws-sdk/client-sqs";
-import { type FastifyRequest } from "fastify";
 import type { FastifyPluginAsync } from "fastify/types/plugin";
 import rawBody from "fastify-raw-body";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
@@ -10,7 +9,7 @@ import {
   OrderUpdatedSubscriptionDocument,
 } from "@/graphql/operations/subscriptions/generated";
 import { type WebhookEventTypeAsyncEnum } from "@/graphql/schema";
-import { getJSONFormatHeader } from "@/lib/saleor/apps/utils";
+import { serializePayload } from "@/lib/emails/events/helpers";
 import { verifyWebhookSignature } from "@/lib/saleor/auth";
 import { saleorWebhookHeaders } from "@/lib/saleor/schema";
 import { getJWKSProvider } from "@/providers/jwks";
@@ -31,20 +30,6 @@ export const EVENT_HANDLERS: {
     query: OrderUpdatedSubscriptionDocument.toString(),
   },
 ];
-
-export const serializePayload = ({
-  data,
-  event,
-}: {
-  data: FastifyRequest["body"];
-  event: Lowercase<WebhookEventTypeAsyncEnum>;
-}) => ({
-  format: getJSONFormatHeader({ name: CONFIG.NAME }),
-  payload: {
-    event,
-    data,
-  },
-});
 
 export const webhooks: FastifyPluginAsync = async (fastify) => {
   await fastify.register(rawBody);
@@ -70,6 +55,7 @@ export const webhooks: FastifyPluginAsync = async (fastify) => {
         fastify.log.info(
           `Received webhook for '${request.headers["saleor-event"]}'.`
         );
+        fastify.log.debug("Webhook payload:", { payload: request.body });
 
         const payload = serializePayload({
           data: request.body,

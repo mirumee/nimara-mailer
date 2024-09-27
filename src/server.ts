@@ -15,7 +15,10 @@ import { type FastifyPlugin } from "@/lib/plugins/types";
 import UrlForPlugin from "@/lib/plugins/urlForPlugin";
 import UrlPlugin from "@/lib/plugins/urlPlugin";
 import WinstonLoggingPlugin from "@/lib/plugins/winstonLoggingPlugin";
-import { logger } from "@/providers/logger";
+
+import { getLogger } from "./providers/logger";
+
+export const logger = getLogger("emails-sender");
 
 export async function createServer() {
   const registrations = [];

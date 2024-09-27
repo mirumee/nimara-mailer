@@ -5,7 +5,7 @@
 import type * as Types from '../../schema';
 
 import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
-export type OrderCreatedSubscription_event_OrderCreated_order_Order = { id: string };
+export type OrderCreatedSubscription_event_OrderCreated_order_Order = { id: string, userEmail: string | null };
 
 export type OrderCreatedSubscription_event_OrderCreated = { order: OrderCreatedSubscription_event_OrderCreated_order_Order | null };
 
@@ -17,7 +17,7 @@ export type OrderCreatedSubscriptionVariables = Types.Exact<{ [key: string]: nev
 
 export type OrderCreatedSubscription = OrderCreatedSubscription_Subscription;
 
-export type OrderUpdatedSubscription_event_OrderUpdated_order_Order = { id: string };
+export type OrderUpdatedSubscription_event_OrderUpdated_order_Order = { id: string, userEmail: string | null };
 
 export type OrderUpdatedSubscription_event_OrderUpdated = { order: OrderUpdatedSubscription_event_OrderUpdated_order_Order | null };
 
@@ -50,6 +50,7 @@ export const OrderCreatedSubscriptionDocument = new TypedDocumentString(`
     ... on OrderCreated {
       order {
         id
+        userEmail
       }
     }
   }
@@ -61,6 +62,7 @@ export const OrderUpdatedSubscriptionDocument = new TypedDocumentString(`
     ... on OrderUpdated {
       order {
         id
+        userEmail
       }
     }
   }
