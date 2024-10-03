@@ -1,0 +1,9 @@
+subscription OrderCancelledSubscription {
+  event {
+    ... on OrderCancelled {
+      order {
+        userEmail
+      }
+    }
+  }
+}

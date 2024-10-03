@@ -1,0 +1,9 @@
+subscription FulfillmentTrackingNumberUpdated {
+  event {
+    ... on FulfillmentTrackingNumberUpdated {
+      order {
+        userEmail
+      }
+    }
+  }
+}
