@@ -65,17 +65,41 @@ export type AccountDeletedSubscriptionVariables = Types.Exact<{ [key: string]: n
 
 export type AccountDeletedSubscription = AccountDeletedSubscription_Subscription;
 
-export type FulfillmentTrackingNumberUpdated_event_FulfillmentTrackingNumberUpdated_order_Order = { userEmail: string | null };
+export type AccountEmailChangedSubscription_event_AccountEmailChanged_user_User = { email: string };
 
-export type FulfillmentTrackingNumberUpdated_event_FulfillmentTrackingNumberUpdated = { order: FulfillmentTrackingNumberUpdated_event_FulfillmentTrackingNumberUpdated_order_Order | null };
+export type AccountEmailChangedSubscription_event_AccountEmailChanged = { user: AccountEmailChangedSubscription_event_AccountEmailChanged_user_User | null };
 
-export type FulfillmentTrackingNumberUpdated_Subscription = { event: FulfillmentTrackingNumberUpdated_event_FulfillmentTrackingNumberUpdated | null };
-
-
-export type FulfillmentTrackingNumberUpdatedVariables = Types.Exact<{ [key: string]: never; }>;
+export type AccountEmailChangedSubscription_Subscription = { event: AccountEmailChangedSubscription_event_AccountEmailChanged | null };
 
 
-export type FulfillmentTrackingNumberUpdated = FulfillmentTrackingNumberUpdated_Subscription;
+export type AccountEmailChangedSubscriptionVariables = Types.Exact<{ [key: string]: never; }>;
+
+
+export type AccountEmailChangedSubscription = AccountEmailChangedSubscription_Subscription;
+
+export type AccountSetPasswordRequestedSubscription_event_AccountSetPasswordRequested_user_User = { email: string };
+
+export type AccountSetPasswordRequestedSubscription_event_AccountSetPasswordRequested = { user: AccountSetPasswordRequestedSubscription_event_AccountSetPasswordRequested_user_User | null };
+
+export type AccountSetPasswordRequestedSubscription_Subscription = { event: AccountSetPasswordRequestedSubscription_event_AccountSetPasswordRequested | null };
+
+
+export type AccountSetPasswordRequestedSubscriptionVariables = Types.Exact<{ [key: string]: never; }>;
+
+
+export type AccountSetPasswordRequestedSubscription = AccountSetPasswordRequestedSubscription_Subscription;
+
+export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order = { number: string, userEmail: string | null };
+
+export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated = { order: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order | null };
+
+export type FulfillmentTrackingNumberUpdatedSubscription_Subscription = { event: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated | null };
+
+
+export type FulfillmentTrackingNumberUpdatedSubscriptionVariables = Types.Exact<{ [key: string]: never; }>;
+
+
+export type FulfillmentTrackingNumberUpdatedSubscription = FulfillmentTrackingNumberUpdatedSubscription_Subscription;
 
 export type GiftCardSentSubscription_event_GiftCardSent = { sentToEmail: string | null };
 
@@ -87,7 +111,7 @@ export type GiftCardSentSubscriptionVariables = Types.Exact<{ [key: string]: nev
 
 export type GiftCardSentSubscription = GiftCardSentSubscription_Subscription;
 
-export type OrderCancelledSubscription_event_OrderCancelled_order_Order = { userEmail: string | null };
+export type OrderCancelledSubscription_event_OrderCancelled_order_Order = { number: string, userEmail: string | null };
 
 export type OrderCancelledSubscription_event_OrderCancelled = { order: OrderCancelledSubscription_event_OrderCancelled_order_Order | null };
 
@@ -99,7 +123,7 @@ export type OrderCancelledSubscriptionVariables = Types.Exact<{ [key: string]: n
 
 export type OrderCancelledSubscription = OrderCancelledSubscription_Subscription;
 
-export type OrderCreatedSubscription_event_OrderCreated_order_Order = { id: string, userEmail: string | null };
+export type OrderCreatedSubscription_event_OrderCreated_order_Order = { number: string, userEmail: string | null };
 
 export type OrderCreatedSubscription_event_OrderCreated = { order: OrderCreatedSubscription_event_OrderCreated_order_Order | null };
 
@@ -111,7 +135,7 @@ export type OrderCreatedSubscriptionVariables = Types.Exact<{ [key: string]: nev
 
 export type OrderCreatedSubscription = OrderCreatedSubscription_Subscription;
 
-export type OrderRefundedSubscription_event_OrderCancelled_order_Order = { userEmail: string | null };
+export type OrderRefundedSubscription_event_OrderCancelled_order_Order = { number: string, userEmail: string | null };
 
 export type OrderRefundedSubscription_event_OrderCancelled = { order: OrderRefundedSubscription_event_OrderCancelled_order_Order | null };
 
@@ -122,18 +146,6 @@ export type OrderRefundedSubscriptionVariables = Types.Exact<{ [key: string]: ne
 
 
 export type OrderRefundedSubscription = OrderRefundedSubscription_Subscription;
-
-export type OrderUpdatedSubscription_event_OrderUpdated_order_Order = { id: string, userEmail: string | null };
-
-export type OrderUpdatedSubscription_event_OrderUpdated = { order: OrderUpdatedSubscription_event_OrderUpdated_order_Order | null };
-
-export type OrderUpdatedSubscription_Subscription = { event: OrderUpdatedSubscription_event_OrderUpdated | null };
-
-
-export type OrderUpdatedSubscriptionVariables = Types.Exact<{ [key: string]: never; }>;
-
-
-export type OrderUpdatedSubscription = OrderUpdatedSubscription_Subscription;
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -205,17 +217,40 @@ export const AccountDeletedSubscriptionDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<AccountDeletedSubscription, AccountDeletedSubscriptionVariables>;
-export const FulfillmentTrackingNumberUpdatedDocument = new TypedDocumentString(`
-    subscription FulfillmentTrackingNumberUpdated {
+export const AccountEmailChangedSubscriptionDocument = new TypedDocumentString(`
+    subscription AccountEmailChangedSubscription {
+  event {
+    ... on AccountEmailChanged {
+      user {
+        email
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<AccountEmailChangedSubscription, AccountEmailChangedSubscriptionVariables>;
+export const AccountSetPasswordRequestedSubscriptionDocument = new TypedDocumentString(`
+    subscription AccountSetPasswordRequestedSubscription {
+  event {
+    ... on AccountSetPasswordRequested {
+      user {
+        email
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<AccountSetPasswordRequestedSubscription, AccountSetPasswordRequestedSubscriptionVariables>;
+export const FulfillmentTrackingNumberUpdatedSubscriptionDocument = new TypedDocumentString(`
+    subscription FulfillmentTrackingNumberUpdatedSubscription {
   event {
     ... on FulfillmentTrackingNumberUpdated {
       order {
+        number
         userEmail
       }
     }
   }
 }
-    `) as unknown as TypedDocumentString<FulfillmentTrackingNumberUpdated, FulfillmentTrackingNumberUpdatedVariables>;
+    `) as unknown as TypedDocumentString<FulfillmentTrackingNumberUpdatedSubscription, FulfillmentTrackingNumberUpdatedSubscriptionVariables>;
 export const GiftCardSentSubscriptionDocument = new TypedDocumentString(`
     subscription GiftCardSentSubscription {
   event {
@@ -230,6 +265,7 @@ export const OrderCancelledSubscriptionDocument = new TypedDocumentString(`
   event {
     ... on OrderCancelled {
       order {
+        number
         userEmail
       }
     }
@@ -241,7 +277,7 @@ export const OrderCreatedSubscriptionDocument = new TypedDocumentString(`
   event {
     ... on OrderCreated {
       order {
-        id
+        number
         userEmail
       }
     }
@@ -253,21 +289,10 @@ export const OrderRefundedSubscriptionDocument = new TypedDocumentString(`
   event {
     ... on OrderCancelled {
       order {
+        number
         userEmail
       }
     }
   }
 }
     `) as unknown as TypedDocumentString<OrderRefundedSubscription, OrderRefundedSubscriptionVariables>;
-export const OrderUpdatedSubscriptionDocument = new TypedDocumentString(`
-    subscription OrderUpdatedSubscription {
-  event {
-    ... on OrderUpdated {
-      order {
-        id
-        userEmail
-      }
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<OrderUpdatedSubscription, OrderUpdatedSubscriptionVariables>;

@@ -2,6 +2,7 @@ subscription OrderCancelledSubscription {
   event {
     ... on OrderCancelled {
       order {
+        number
         userEmail
       }
     }

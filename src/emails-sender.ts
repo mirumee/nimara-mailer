@@ -4,37 +4,14 @@ import {
   type SQSEvent,
   type SQSRecord,
 } from "aws-lambda";
-import { type ComponentType } from "react";
 
 import { CONFIG } from "@/config";
+import { TEMPLATES_MAP } from "@/lib/emails/const";
 import { EmailParsePayloadError } from "@/lib/emails/errors";
+import { type SerializedPayload } from "@/lib/emails/events/helpers";
+import { getJSONFormatHeader } from "@/lib/saleor/apps/utils";
 import { getEmailProvider } from "@/providers/email";
 import { getLogger } from "@/providers/logger";
-import { OrderCreatedEmail } from "@/templates/OrderCreatedEmail";
-
-import { type WebhookEventTypeAsyncEnum } from "./graphql/schema";
-import { type SerializedPayload } from "./lib/emails/events/helpers";
-import { getJSONFormatHeader } from "./lib/saleor/apps/utils";
-
-type OrderEvent = { order: { userEmail: string } };
-
-const extractEmailFromOrder = (data: OrderEvent) => data.order.userEmail;
-
-const TEMPLATES_MAP: {
-  [key in Lowercase<WebhookEventTypeAsyncEnum>]?: {
-    extractFn: (data: any) => string;
-    template: ComponentType<any>;
-  };
-} = {
-  // order_created: {
-  //   template: OrderCreatedEmail,
-  //   extractFn: extractEmailFromOrder,
-  // },
-  order_updated: {
-    template: OrderCreatedEmail,
-    extractFn: extractEmailFromOrder,
-  },
-};
 
 export const logger = getLogger("emails-sender");
 
@@ -58,9 +35,6 @@ export const handler = async (event: SQSEvent, context: Context) => {
   logger.info(`Received event with ${event.Records.length} records.`);
 
   for await (const record of event.Records) {
-    /**
-     * Process event
-     */
     logger.debug("Processing record", { record });
 
     const {
@@ -80,8 +54,7 @@ export const handler = async (event: SQSEvent, context: Context) => {
       }
 
       const { extractFn, template } = match;
-      // const toEmail = extractFn(data);
-      const toEmail = "piotr.grundas@mirumee.com";
+      const toEmail = extractFn(data);
       const fromEmail = CONFIG.FROM_EMAIL;
       const from = CONFIG.FROM_NAME;
 
@@ -98,7 +71,7 @@ export const handler = async (event: SQSEvent, context: Context) => {
 
       await sender.send({
         html,
-        subject: "Order created",
+        subject: template.Subject,
       });
     } else {
       return logger.warn("Received payload with unsupported format.", {

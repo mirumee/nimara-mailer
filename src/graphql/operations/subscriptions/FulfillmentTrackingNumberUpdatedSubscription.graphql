@@ -1,7 +1,8 @@
-subscription FulfillmentTrackingNumberUpdated {
+subscription FulfillmentTrackingNumberUpdatedSubscription {
   event {
     ... on FulfillmentTrackingNumberUpdated {
       order {
+        number
         userEmail
       }
     }
