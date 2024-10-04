@@ -1,9 +1,8 @@
 import http, { type IncomingMessage } from "http";
 
 import { CONFIG } from "@/config";
-import { handler } from "@/emails-sender";
+import { handler, logger } from "@/emails-sender";
 import { getJSONFormatHeader } from "@/lib/saleor/apps/utils";
-import { logger } from "@/providers/logger";
 
 /**
 {
@@ -60,8 +59,13 @@ http
     response.write("OK");
     response.end();
   })
-  .on("error", logger.error)
+  .on("error", (error) => {
+    logger.error("Proxy error.", { error });
+  })
+  .on("clientError", (error) => {
+    logger.error("Proxy client error.", { error });
+  })
   .on("listening", () =>
-    logger.info(`Proxy is listening on port ${CONFIG.PROXY_PORT}`)
+    logger.info(`Proxy is listening on port ${CONFIG.PROXY_PORT}.`)
   )
   .listen({ port: CONFIG.PROXY_PORT, host: "0.0.0.0" });

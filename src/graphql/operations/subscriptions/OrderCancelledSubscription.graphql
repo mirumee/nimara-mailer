@@ -1,6 +1,6 @@
-subscription OrderCreatedSubscription {
+subscription OrderCancelledSubscription {
   event {
-    ... on OrderCreated {
+    ... on OrderCancelled {
       order {
         number
         userEmail

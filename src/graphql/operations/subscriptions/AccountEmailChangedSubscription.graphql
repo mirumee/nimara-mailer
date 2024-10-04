@@ -1,0 +1,9 @@
+subscription AccountEmailChangedSubscription {
+  event {
+    ... on AccountEmailChanged {
+      user {
+        email
+      }
+    }
+  }
+}

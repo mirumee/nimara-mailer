@@ -12805,6 +12805,11 @@ export type Mutation = {
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    *
    * Requires the following permissions: OWNER and HANDLE_PAYMENTS for apps, HANDLE_PAYMENTS for staff users. Staff user cannot update a transaction that is owned by the app.
+   *
+   * Triggers the following webhook events:
+   * - TRANSACTION_ITEM_METADATA_UPDATED (async): Optionally called when transaction's metadata was updated.
+   * - CHECKOUT_FULLY_PAID (async): Optionally called when the checkout charge status changed to `FULL` or `OVERCHARGED`.
+   * - ORDER_UPDATED (async): Optionally called when the transaction is related to the order and the order was updated.
    */
   transactionEventReport: Maybe<TransactionEventReport>;
   /**
@@ -14465,6 +14470,8 @@ export type MutationTransactionEventReportArgs = {
   pspReference: Scalars["String"]["input"];
   time?: InputMaybe<Scalars["DateTime"]["input"]>;
   token?: InputMaybe<Scalars["UUID"]["input"]>;
+  transactionMetadata?: InputMaybe<Array<MetadataInput>>;
+  transactionPrivateMetadata?: InputMaybe<Array<MetadataInput>>;
   type: TransactionEventTypeEnum;
 };
 
@@ -27901,6 +27908,11 @@ export type TransactionEventInput = {
  * Note: this API is currently in Feature Preview and can be subject to changes at later point.
  *
  * Requires the following permissions: OWNER and HANDLE_PAYMENTS for apps, HANDLE_PAYMENTS for staff users. Staff user cannot update a transaction that is owned by the app.
+ *
+ * Triggers the following webhook events:
+ * - TRANSACTION_ITEM_METADATA_UPDATED (async): Optionally called when transaction's metadata was updated.
+ * - CHECKOUT_FULLY_PAID (async): Optionally called when the checkout charge status changed to `FULL` or `OVERCHARGED`.
+ * - ORDER_UPDATED (async): Optionally called when the transaction is related to the order and the order was updated.
  */
 export type TransactionEventReport = {
   /** Defines if the reported event hasn't been processed earlier. */

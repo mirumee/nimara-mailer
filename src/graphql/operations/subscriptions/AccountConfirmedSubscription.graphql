@@ -1,0 +1,9 @@
+subscription AccountConfirmedSubscription {
+  event {
+    ... on AccountConfirmed {
+      user {
+        email
+      }
+    }
+  }
+}

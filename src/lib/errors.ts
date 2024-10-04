@@ -2,6 +2,28 @@ import { type FastifyError } from "@fastify/error";
 
 import { type RequireAtLeastOne } from "@/lib/types";
 
+interface BaseErrorOptions {
+  cause?: { source?: Error } & Record<string, unknown>;
+}
+
+export class BaseError extends Error {
+  constructor(message?: string, options?: BaseErrorOptions) {
+    super(message, options);
+    this.name = this.constructor.name;
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, BaseError);
+    }
+  }
+}
+
+export class BaseAggregateError extends AggregateError {
+  constructor(errors: Iterable<any>, message?: string) {
+    super(errors, message);
+    this.name = this.constructor.name;
+  }
+}
+
 type WithSource = { source: FastifyError };
 type WithError = RequireAtLeastOne<{
   code: string;
@@ -9,7 +31,7 @@ type WithError = RequireAtLeastOne<{
   statusCode: number;
 }>;
 
-export class HttpError extends Error {
+export class HttpError extends BaseError {
   /**
    * https://github.com/Microsoft/TypeScript/issues/3841@/issuecomment-1488919713
    */

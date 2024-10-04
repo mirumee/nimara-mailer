@@ -71,7 +71,7 @@ module.exports = defineConfig({
         "import/no-default-export": "off",
         "import/no-anonymous-default-export": "off",
       },
-      files: ["**/plugins/**/*.ts", "*.config.ts"],
+      files: ["**/plugins/**/*.ts", "**/templates/**/*.tsx", "*.config.ts"],
     },
   ],
 });
