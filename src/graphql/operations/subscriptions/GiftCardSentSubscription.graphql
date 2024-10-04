@@ -1,0 +1,7 @@
+subscription GiftCardSentSubscription {
+  event {
+    ... on GiftCardSent {
+      sentToEmail
+    }
+  }
+}

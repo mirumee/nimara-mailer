@@ -1,0 +1,9 @@
+subscription AccountDeletedSubscription {
+  event {
+    ... on AccountDeleted {
+      user {
+        email
+      }
+    }
+  }
+}

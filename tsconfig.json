@@ -3,9 +3,8 @@
   "compilerOptions": {
     "outDir": "./build",
     "baseUrl": ".",
-    // "rootDir": "./src",
     "target": "ES2022",
-    "module": "preserve",
+    "module": "esnext",
     "esModuleInterop": true,
     "strict": true,
     "resolveJsonModule": true,
@@ -13,16 +12,17 @@
     "removeComments": true,
     "newLine": "lf",
     "noFallthroughCasesInSwitch": true,
+    "allowJs": true,
     "isolatedModules": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "lib": ["ESNext", "dom"],
-    "jsx": "preserve",
+    "lib": ["ESNext", "dom", "dom.iterable"],
+    "jsx": "react-jsx",
     "types": ["vitest/globals"],
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": ["./**/*/*.ts", "./**/*/*.tx", "./**/*/*.d.ts"],
-  "exclude": ["node_modules"]
+  "include": ["./**/*/*.ts", "./**/*/*.tsx", "./**/*/*.d.ts"],
+  "exclude": ["node_modules", "build"]
 }

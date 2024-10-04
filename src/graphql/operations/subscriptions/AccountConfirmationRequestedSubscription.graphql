@@ -1,0 +1,9 @@
+subscription AccountConfirmationRequestedSubscription {
+  event {
+    ... on AccountConfirmationRequested {
+      user {
+        email
+      }
+    }
+  }
+}

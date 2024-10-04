@@ -1,9 +1,0 @@
-subscription OrderUpdatedSubscription {
-  event {
-    ... on OrderUpdated {
-      order {
-        id
-      }
-    }
-  }
-}
