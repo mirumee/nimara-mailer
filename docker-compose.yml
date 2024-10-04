@@ -12,15 +12,32 @@ services:
     env_file:
       - .env
     environment:
-      LOG_LEVEL: info
-      NODE_ENV: development
-      SALEOR_URL: ${SALEOR_URL:?SALEOR_URL env var is required}
-      STATIC_URL: ${STATIC_URL:?STATIC_URL env is required}
-      SQS_QUEUE_URL: ${SQS_QUEUE_URL:?SQS_QUEUE_URL env is required}
-      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID?:AWS_ACCESS_KEY_ID env is required}
-      AWS_REGION: ${AWS_REGION?:AWS_REGION env is required}
-      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY?:AWS_SECRET_ACCESS_KEY env is required}
-      SECRET_MANAGER_APP_CONFIG_PATH: ${SECRET_MANAGER_APP_CONFIG_PATH?:SECRET_MANAGER_APP_CONFIG_PATH env is required}
-
+      - LOG_LEVEL=info
+      - NODE_ENV=development
+      - SALEOR_URL=${SALEOR_URL:?SALEOR_URL env var is required}
+      - STATIC_URL=${STATIC_URL:?STATIC_URL env is required}
+      - SQS_QUEUE_URL=${SQS_QUEUE_URL:?SQS_QUEUE_URL env is required}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID?:AWS_ACCESS_KEY_ID env is required}
+      - AWS_REGION=${AWS_REGION?:AWS_REGION env is required}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY?:AWS_SECRET_ACCESS_KEY env is required}
+      - SECRET_MANAGER_APP_CONFIG_PATH=${SECRET_MANAGER_APP_CONFIG_PATH?:SECRET_MANAGER_APP_CONFIG_PATH env is required}
     volumes:
       - ./src/:/app/src/
+
+  localstack:
+    container_name: "${LOCALSTACK_DOCKER_NAME:-localstack}"
+    image: localstack/localstack:latest
+    environment:
+      # LocalStack configuration: https://docs.localstack.cloud/references/configuration/
+      - AWS_DEFAULT_REGION=${AWS_REGION?:AWS_REGION env is required}
+      - SERVICES=sqs,ses
+      - DEBUG=${DEBUG:-0}
+      - FROM_EMAIL=${FROM_EMAIL?:FROM_DOMAIN env is required}
+      - FROM_DOMAIN=${FROM_DOMAIN?:FROM_DOMAIN env is required for running SES locally}
+    ports:
+      - "127.0.0.1:4566:4566" # LocalStack Gateway
+      - "127.0.0.1:4510-4559:4510-4559" # external services port range
+    volumes:
+      - "./localstack:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./etc/init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh" # ready hook

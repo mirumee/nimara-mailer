@@ -65,7 +65,7 @@ export const handler = async (event: SQSEvent, context: Context) => {
       });
 
       const html = await sender.render({
-        props: data,
+        props: { data },
         template,
       });
 
@@ -73,6 +73,8 @@ export const handler = async (event: SQSEvent, context: Context) => {
         html,
         subject: template.Subject,
       });
+
+      logger.info("Email sent successfully.", { toEmail, event });
     } else {
       return logger.warn("Received payload with unsupported format.", {
         format,
