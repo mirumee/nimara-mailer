@@ -220,6 +220,9 @@ importers:
       prettier:
         specifier: ^3.3.2
         version: 3.3.3
+      sqs-consumer:
+        specifier: ^11.1.0
+        version: 11.1.0(@aws-sdk/client-sqs@3.658.1)
       ts-essentials:
         specifier: ^10.0.1
         version: 10.0.2(typescript@5.5.4)
@@ -5281,6 +5284,12 @@ packages:
 
   sponge-case@1.0.1:
     resolution: {integrity: sha512-dblb9Et4DAtiZ5YSUZHLl4XhH4uK80GhAZrVXdN4O2P4gQ40Wa5UIOPUHlA/nFd2PLblBZWUioLMMAVrgpoYcA==}
+
+  sqs-consumer@11.1.0:
+    resolution: {integrity: sha512-x1PKeKWsK2UmQxP2thnRCUe1CLNMffcYjdjPWzjsh8FEBYS6OKysGOasEivqTxRGT9Hynr87v6tk66Y0XSbw7A==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      '@aws-sdk/client-sqs': ^3.632.0
 
   stack-trace@0.0.10:
     resolution: {integrity: sha512-KGzahc7puUKkzyMt+IqAep+TVNbKP+k2Lmwhub39m1AsTSkaDutx56aDCo+HLDzf/D26BIHTJWNiTG1KAJiQCg==}
@@ -12115,6 +12124,13 @@ snapshots:
   sponge-case@1.0.1:
     dependencies:
       tslib: 2.6.3
+
+  sqs-consumer@11.1.0(@aws-sdk/client-sqs@3.658.1):
+    dependencies:
+      '@aws-sdk/client-sqs': 3.658.1
+      debug: 4.3.6(supports-color@5.5.0)
+    transitivePeerDependencies:
+      - supports-color
 
   stack-trace@0.0.10: {}
 

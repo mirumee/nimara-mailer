@@ -38,6 +38,7 @@ export const saleorRoutes: FastifyPluginAsync = async (
           "MANAGE_GIFT_CARD",
           "MANAGE_ORDERS",
           "MANAGE_PRODUCTS",
+          "MANAGE_SHIPPING",
         ],
         tokenTargetUrl: request.urlFor("saleor:register"),
         version: CONFIG.VERSION,
