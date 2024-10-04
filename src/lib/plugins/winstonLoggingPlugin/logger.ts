@@ -16,7 +16,7 @@ export const createLogger = ({
 }) => {
   const formatters = PLUGIN_CONFIG.IS_DEVELOPMENT
     ? [
-        format.colorize(),
+        format.colorize({ level: true }),
         format.printf((info) => {
           const { timestamp, message, level, ...args } = info;
           return `[${timestamp} ${level}]: ${message}\n${Object.keys(args).length ? JSON.stringify(args, null, 2) : ""}`;
@@ -54,7 +54,9 @@ export const createLogger = ({
       warn: 2,
     },
 
-    transports: [new transports.Console({ handleExceptions: true })],
+    transports: [
+      new transports.Console({ debugStdout: true, handleExceptions: true }),
+    ],
   }) as unknown as FastifyBaseLogger;
   /**
    * Fastify defaults to pino.logger and has some problems with fatal & trace type compatibility.

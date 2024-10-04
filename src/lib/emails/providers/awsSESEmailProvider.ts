@@ -1,4 +1,8 @@
-import { SendEmailCommand, SESClient } from "@aws-sdk/client-ses";
+import {
+  SendEmailCommand,
+  SESClient,
+  SESServiceException,
+} from "@aws-sdk/client-ses";
 import { z } from "zod";
 
 import { prepareConfig } from "@/lib/zod/util";
@@ -13,6 +17,7 @@ prepareConfig({
     AWS_ACCESS_KEY_ID: z.string(),
     AWS_REGION: z.string(),
     AWS_SECRET_ACCESS_KEY: z.string(),
+    AWS_ENDPOINT_URL: z.string().url().optional(),
   }),
 });
 
@@ -25,7 +30,6 @@ export const awsSESEmailProvider: EmailProviderFactory = ({
    * Envs are injected automatically by @aws-sdk - no need to pass them explicitly.
    */
   const client = new SESClient();
-
   const render = renderEmail;
 
   const send = async ({ html, subject }: { html: string; subject: string }) => {
@@ -45,19 +49,24 @@ export const awsSESEmailProvider: EmailProviderFactory = ({
       },
     });
 
-    const { $metadata } = await client.send(command);
+    try {
+      await client.send(command);
+    } catch (error) {
+      if (error instanceof SESServiceException) {
+        throw new EmailSendError("Failed to send email.", {
+          cause: {
+            source: error as Error,
+            message: error.message,
+            $fault: error?.$fault,
+            subject,
+            toEmail,
+            ...error.$metadata,
+          },
+        });
+      }
 
-    if ($metadata.httpStatusCode !== 200) {
-      throw new EmailSendError("Failed to send email.", {
-        cause: {
-          statusCode: $metadata.httpStatusCode,
-          subject,
-          toEmail,
-          extra: $metadata,
-        },
-      });
+      throw error;
     }
   };
-
   return { render, send };
 };

@@ -1,4 +1,4 @@
-import { ReceiveMessageCommand, SendMessageCommand } from "@aws-sdk/client-sqs";
+import { SendMessageCommand } from "@aws-sdk/client-sqs";
 import type { FastifyPluginAsync } from "fastify/types/plugin";
 import rawBody from "fastify-raw-body";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
@@ -116,26 +116,6 @@ export const webhooks: FastifyPluginAsync = async (fastify) => {
         });
 
         await fastify.sqs.send(command);
-
-        /**
-         * FIXME: Remove when proxy setup is ready.
-         * Temporary solution to mimic proxy behavior.
-         */
-        const { Messages } = await fastify.sqs.send(
-          new ReceiveMessageCommand({ QueueUrl: CONFIG.SQS_QUEUE_URL })
-        );
-        await fetch(`http://0.0.0.0:${CONFIG.PROXY_PORT}`, {
-          method: "POST",
-          body: JSON.stringify({
-            format: "application/vnd.mirumee.nimara.event_proxy.v1+json",
-            event: {
-              Records: Messages,
-            },
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
 
         return reply.status(200).send({ status: "ok" });
       }
