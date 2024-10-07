@@ -1,3 +1,5 @@
+import { type DocumentTypeDecoration } from "@graphql-typed-document-node/core";
+
 export type FetchOptions = Omit<RequestInit, "method" | "body">;
 
 export type AnyVariables = Record<string, unknown> | undefined;
@@ -20,3 +22,6 @@ export type GraphQLResponse<TData = unknown> = {
     exception?: object;
   };
 };
+
+export type TypedDocumentTypeDecoration<TResult, TVariables> =
+  DocumentTypeDecoration<TResult, TVariables> & { toString(): string };

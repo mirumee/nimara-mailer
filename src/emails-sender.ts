@@ -17,7 +17,7 @@ export const logger = getLogger("emails-sender");
 
 const parseRecord = (record: SQSRecord) => {
   try {
-    // FIXME: Proxy events has invalid format? Test with real data & localstack.
+    // FIXME: Proxy events has invalid format? Test with real data.
     const data = JSON.parse((record as any).Body);
     return data as SerializedPayload;
   } catch (error) {
@@ -68,6 +68,8 @@ export const handler = async (event: SQSEvent, context: Context) => {
         props: { data },
         template,
       });
+      // TODO: Handle properly
+      // Will throw TypeError if failed to render / non transient
 
       await sender.send({
         html,
