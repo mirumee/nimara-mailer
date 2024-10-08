@@ -54,7 +54,7 @@
     "eslint-define-config": "^2.1.0",
     "fastify": "^4.28.1",
     "fastify-plugin": "^4.5.1",
-    "fastify-raw-body": "^4.3.0",
+    "fastify-raw-body": "^5.0.0",
     "fastify-type-provider-zod": "^2.0.0",
     "graphql": "^16.9.0",
     "husky": "^9.1.4",
