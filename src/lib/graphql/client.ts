@@ -1,4 +1,3 @@
-import type { DocumentTypeDecoration } from "@graphql-typed-document-node/core";
 import { type FastifyBaseLogger } from "fastify";
 
 import { CONFIG } from "@/config";
@@ -15,6 +14,7 @@ import {
   type AnyVariables,
   type FetchOptions,
   type GraphQLResponse,
+  type TypedDocumentTypeDecoration,
 } from "./types";
 
 export type GraphqlClient = ReturnType<typeof graphqlClient>;
@@ -31,7 +31,7 @@ export const graphqlClient = (
     TResult = unknown,
     TVariables extends AnyVariables = AnyVariables,
   >(
-    query: DocumentTypeDecoration<TResult, TVariables> & { toString(): string },
+    query: TypedDocumentTypeDecoration<TResult, TVariables>,
     input?: {
       options?: FetchOptions;
       variables?: TVariables;

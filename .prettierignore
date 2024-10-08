@@ -1,6 +1,5 @@
 dist/
 node_modules/
 build/
-graphql/schema.ts
 generated.ts
-graphql/schema.ts
+**/graphql/schema.ts
