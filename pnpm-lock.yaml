@@ -63,8 +63,8 @@ importers:
         specifier: ^4.3.0
         version: 4.3.0
       fastify-type-provider-zod:
-        specifier: ^2.0.0
-        version: 2.0.0(fastify@4.28.1)(zod@3.23.8)
+        specifier: ^2.1.0
+        version: 2.1.0(fastify@4.28.1)(zod@3.23.8)
       graphql:
         specifier: ^16.9.0
         version: 16.9.0
@@ -791,9 +791,11 @@ packages:
 
   '@esbuild-kit/core-utils@3.3.2':
     resolution: {integrity: sha512-sPRAnw9CdSsRmEtnsl2WXWdyquogVpB3yZ3dgwJfe8zrOzTsV7cJvmwrKVa+0ma5BoiGJ+BoqkMvawbayKUsqQ==}
+    deprecated: 'Merged into tsx: https://tsx.is'
 
   '@esbuild-kit/esm-loader@2.6.5':
     resolution: {integrity: sha512-FxEMIkJKnodyA1OaCUoEvbYRkoZlLZ4d/eXFu9Fh8CbBBgP5EmZxrfTRyN0qpXZ4vOvqnE5YdRdcrmUUXuU+dA==}
+    deprecated: 'Merged into tsx: https://tsx.is'
 
   '@esbuild/aix-ppc64@0.19.11':
     resolution: {integrity: sha512-FnzU0LyE3ySQk7UntJO4+qIiQgI7KoODnZg5xzXIrFJlKd2P2gwHsHY4927xj9y5PJmJSzULiUCWmv7iWnNa7g==}
@@ -3573,6 +3575,7 @@ packages:
   eslint@8.57.0:
     resolution: {integrity: sha512-dZ6+mexnaTIbSBZWgou51U6OmzIhYM2VcNdtiTtI7qPNZm35Akpr0f6vtw3w1Kmn5PYo+tZVfh13WrhpS6oLqQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
 
   espree@6.2.1:
@@ -3694,8 +3697,8 @@ packages:
     resolution: {integrity: sha512-F4o8ZIMVx4YoxGfwrZys6wyjl40gF3Yv6AWWRy62ozFAyZBSS831/uyyCAqKYw3tR73g180ryG98yih6To1PUQ==}
     engines: {node: '>= 10'}
 
-  fastify-type-provider-zod@2.0.0:
-    resolution: {integrity: sha512-LSbz6DikD9BcQmSDFn7uXFmrFS2gRMiSkwiQeIeAH3XEGOyjokJKsH4DRRuxSn7fTz1UNTNiujib4+MTNw+nOg==}
+  fastify-type-provider-zod@2.1.0:
+    resolution: {integrity: sha512-p0plQyrxVR1IxJaOVbKRkduYh74HAS6Pm2szhFrc/vFdfIEu8UWo/cPFZCrcKyeo8ICjWbHH1zkx8lWw/ivpqg==}
     peerDependencies:
       fastify: ^4.0.0
       zod: ^3.14.2
@@ -10359,7 +10362,7 @@ snapshots:
       raw-body: 2.5.2
       secure-json-parse: 2.7.0
 
-  fastify-type-provider-zod@2.0.0(fastify@4.28.1)(zod@3.23.8):
+  fastify-type-provider-zod@2.1.0(fastify@4.28.1)(zod@3.23.8):
     dependencies:
       fastify: 4.28.1
       zod: 3.23.8
