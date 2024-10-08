@@ -111,7 +111,7 @@
     "nodemon": "^3.1.7",
     "prettier": "^3.3.2",
     "sqs-consumer": "^11.1.0",
-    "ts-essentials": "^10.0.1",
+    "ts-essentials": "^10.0.2",
     "typescript-eslint": "^7.18.0",
     "vitest": "^2.0.3"
   },

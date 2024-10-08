@@ -1,0 +1,35 @@
+version: 2
+
+updates:
+  - package-ecosystem: "npm"
+
+    directory: "/"
+
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "10:00"
+
+    commit-message:
+      prefix: "chore(deps)"
+
+    ignore:
+      # There is a problem with scalars type generation.
+      - dependency-name: "@graphql-codegen/*"
+      - dependency-name: "@graphql-typed-document-node/core"
+      - dependency-name: "graphql-config"
+
+      - dependency-name: "@types/node"
+        versions: [">=20"]
+
+    groups:
+      production-dependencies:
+        dependency-type: "production"
+        update-types:
+          - "patch"
+
+      development-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "patch"
+          - "minor"
