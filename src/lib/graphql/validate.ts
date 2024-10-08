@@ -9,6 +9,8 @@ import {
 import { BaseError } from "../errors";
 import { type TypedDocumentTypeDecoration } from "./types";
 
+export class ValidationError extends BaseError {}
+
 type FieldInfo = {
   selectionSet?: FieldMap;
   type?: any;
@@ -18,7 +20,9 @@ type FieldMap = {
   [key: string]: FieldInfo;
 };
 
-const extractFieldsFromAST = (selectionSet: SelectionSetNode): FieldMap => {
+export const extractFieldsFromAST = (
+  selectionSet: SelectionSetNode
+): FieldMap => {
   const fields: FieldMap = {};
 
   selectionSet.selections.forEach((selection) => {
@@ -43,9 +47,12 @@ const extractFieldsFromAST = (selectionSet: SelectionSetNode): FieldMap => {
 
   return fields;
 };
-class ValidationError extends BaseError {}
 
-const validatePayload = (payload: any, fields: FieldMap, path: string = "") => {
+export const validatePayload = (
+  payload: any,
+  fields: FieldMap,
+  path: string = ""
+) => {
   // Ensure that the payload does not have any extra fields
   for (const fieldName of Object.keys(payload)) {
     // Skip __typename field
@@ -54,7 +61,9 @@ const validatePayload = (payload: any, fields: FieldMap, path: string = "") => {
     }
 
     if (!(fieldName in fields)) {
-      throw new ValidationError(`Invalid field: ${path}.${fieldName}.`);
+      const newPath = path ? `${path}.${fieldName}` : fieldName;
+
+      throw new ValidationError(`Invalid field: ${newPath}.`);
     }
   }
 
