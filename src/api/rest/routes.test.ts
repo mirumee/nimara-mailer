@@ -17,7 +17,10 @@ describe("apiRoutes", () => {
     });
   });
 
-  describe("/api/protected-route", () => {
+  /**
+   * TODO: Reuse when adding tests to `send-notification` endpoint.
+   */
+  describe.skip("/api/protected-route", () => {
     test("Should return 401 with invalid JWT.", async () => {
       // given
       const app = await createServer();
@@ -43,7 +46,7 @@ describe("apiRoutes", () => {
       expect(response.statusCode).toStrictEqual(expectedStatusCode);
     });
 
-    test("Should return proper response.", async () => {
+    test.skip("Should return proper response.", async () => {
       const spy = vi.spyOn(auth, "verifyJWTSignature");
       const app = await createServer();
       const expectedJson = { status: "ok" };

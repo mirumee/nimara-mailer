@@ -1,28 +1,73 @@
+import { SendMessageCommand } from "@aws-sdk/client-sqs";
 import type { FastifyPluginAsync } from "fastify/types/plugin";
 import { type ZodTypeProvider } from "fastify-type-provider-zod";
+import { z } from "zod";
 
+import { CONFIG } from "@/config";
+import { OrderCreatedSubscriptionDocument } from "@/graphql/operations/subscriptions/generated";
+import { serializePayload } from "@/lib/emails/events/helpers";
+import { validateDocumentAgainstData } from "@/lib/graphql/validate";
 import { verifyJWTSignature } from "@/lib/saleor/auth";
 import { saleorBearerHeader } from "@/lib/saleor/schema";
 import { getJWKSProvider } from "@/providers/jwks";
 
 import { saleorRoutes } from "./saleor";
+import { EVENT_HANDLERS } from "./saleor/webhooks";
 
 export const restRoutes: FastifyPluginAsync = async (fastify) => {
   await fastify.register(saleorRoutes, { prefix: "/saleor" });
 
   fastify.get("/healthcheck", () => "ok");
 
-  fastify.withTypeProvider<ZodTypeProvider>().get(
-    "/protected-route",
+  fastify.withTypeProvider<ZodTypeProvider>().post(
+    "/send-notification",
     {
-      schema: { headers: saleorBearerHeader },
+      name: "send-notification",
+      schema: {
+        headers: saleorBearerHeader,
+        body: z.object({
+          data: z.any(),
+          event: z.enum(
+            EVENT_HANDLERS.map(({ event }) => event.toLowerCase()) as any
+          ),
+        }),
+      },
     },
-    async (request) => {
+
+    async (request, response) => {
       await verifyJWTSignature({
         jwksProvider: getJWKSProvider(),
         jwt: request.headers.authorization,
       });
-      return { status: "ok" };
+
+      const { isValid, error } = validateDocumentAgainstData({
+        data: request.body.data,
+        document: OrderCreatedSubscriptionDocument,
+      });
+
+      if (!isValid) {
+        throw new z.ZodError([
+          {
+            path: ["body > data"],
+            message: error ?? "",
+            code: "custom",
+          },
+        ]);
+      }
+
+      const payload = serializePayload({
+        data: request.body.data,
+        event: request.body.event,
+      });
+
+      const command = new SendMessageCommand({
+        QueueUrl: CONFIG.SQS_QUEUE_URL,
+        MessageBody: JSON.stringify(payload),
+      });
+
+      await fastify.sqs.send(command);
+
+      return response.send({ status: "ok" });
     }
   );
 };
