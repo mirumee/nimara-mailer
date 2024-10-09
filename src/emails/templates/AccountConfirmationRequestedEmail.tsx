@@ -9,7 +9,7 @@ const AccountConfirmationRequestedEmail = ({
   data,
 }: EventData<AccountConfirmationRequestedSubscription>) => {
   return (
-    <Layout previewText="AccountConfirmationRequestedEmail">
+    <Layout previewText="Account confirmation requested email">
       {() => (
         <>
           <Header>Hi {data.user?.firstName}!</Header>
@@ -32,7 +32,6 @@ const AccountConfirmationRequestedEmail = ({
 const previewProps: EventData<AccountConfirmationRequestedSubscription> = {
   data: {
     redirectUrl: "https://example.com",
-    token: "",
     user: {
       firstName: "Name",
       email: "user@example.com",

@@ -5,9 +5,9 @@
 import type * as Types from '../../schema';
 
 import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
-export type AccountChangeEmailRequestedSubscription_event_AccountChangeEmailRequested_user_User = { email: string };
+export type AccountChangeEmailRequestedSubscription_event_AccountChangeEmailRequested_user_User = { email: string, firstName: string };
 
-export type AccountChangeEmailRequestedSubscription_event_AccountChangeEmailRequested = { user: AccountChangeEmailRequestedSubscription_event_AccountChangeEmailRequested_user_User | null };
+export type AccountChangeEmailRequestedSubscription_event_AccountChangeEmailRequested = { redirectUrl: string | null, user: AccountChangeEmailRequestedSubscription_event_AccountChangeEmailRequested_user_User | null };
 
 export type AccountChangeEmailRequestedSubscription_Subscription = { event: AccountChangeEmailRequestedSubscription_event_AccountChangeEmailRequested | null };
 
@@ -19,7 +19,7 @@ export type AccountChangeEmailRequestedSubscription = AccountChangeEmailRequeste
 
 export type AccountConfirmationRequestedSubscription_event_AccountConfirmationRequested_user_User = { firstName: string, email: string };
 
-export type AccountConfirmationRequestedSubscription_event_AccountConfirmationRequested = { redirectUrl: string | null, token: string | null, user: AccountConfirmationRequestedSubscription_event_AccountConfirmationRequested_user_User | null };
+export type AccountConfirmationRequestedSubscription_event_AccountConfirmationRequested = { redirectUrl: string | null, user: AccountConfirmationRequestedSubscription_event_AccountConfirmationRequested_user_User | null };
 
 export type AccountConfirmationRequestedSubscription_Subscription = { event: AccountConfirmationRequestedSubscription_event_AccountConfirmationRequested | null };
 
@@ -166,8 +166,10 @@ export const AccountChangeEmailRequestedSubscriptionDocument = new TypedDocument
     subscription AccountChangeEmailRequestedSubscription {
   event {
     ... on AccountChangeEmailRequested {
+      redirectUrl
       user {
         email
+        firstName
       }
     }
   }
@@ -178,7 +180,6 @@ export const AccountConfirmationRequestedSubscriptionDocument = new TypedDocumen
   event {
     ... on AccountConfirmationRequested {
       redirectUrl
-      token
       user {
         firstName
         email

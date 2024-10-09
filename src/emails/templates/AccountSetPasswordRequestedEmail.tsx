@@ -10,7 +10,7 @@ const AccountSetPasswordRequestedEmail = ({
   data,
 }: EventData<AccountSetPasswordRequestedSubscription>) => {
   return (
-    <Layout previewText="AccountSetPasswordRequestedEmail">
+    <Layout previewText="Account set password requested">
       {() => (
         <>
           <Header>Hi {data.user?.firstName}!</Header>

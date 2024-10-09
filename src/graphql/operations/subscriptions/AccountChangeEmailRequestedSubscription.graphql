@@ -1,8 +1,10 @@
 subscription AccountChangeEmailRequestedSubscription {
   event {
     ... on AccountChangeEmailRequested {
+      redirectUrl
       user {
         email
+        firstName
       }
     }
   }
