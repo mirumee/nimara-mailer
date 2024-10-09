@@ -65,7 +65,7 @@ export type AccountDeletedSubscriptionVariables = Types.Exact<{ [key: string]: n
 
 export type AccountDeletedSubscription = AccountDeletedSubscription_Subscription;
 
-export type AccountEmailChangedSubscription_event_AccountEmailChanged_user_User = { email: string };
+export type AccountEmailChangedSubscription_event_AccountEmailChanged_user_User = { email: string, firstName: string };
 
 export type AccountEmailChangedSubscription_event_AccountEmailChanged = { user: AccountEmailChangedSubscription_event_AccountEmailChanged_user_User | null };
 
@@ -229,6 +229,7 @@ export const AccountEmailChangedSubscriptionDocument = new TypedDocumentString(`
     ... on AccountEmailChanged {
       user {
         email
+        firstName
       }
     }
   }

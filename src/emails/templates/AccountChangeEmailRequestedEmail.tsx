@@ -13,17 +13,18 @@ const AccountChangeEmailRequestedEmail = ({
       {() => (
         <>
           <Header>Hi {data.user?.firstName}!</Header>
-          <Text className="!mb-2">
+          <Text>
             Your email address change has been requested. If you want to confirm
             changing the email address to <strong>{data.user?.email}</strong>,
             please follow the link:
+            <br />
+            <Link
+              href={data.redirectUrl ?? "#"}
+              className="font-bold underline text-[inherit]"
+            >
+              Change the mail
+            </Link>
           </Text>
-          <Link
-            href={data.redirectUrl ?? "#"}
-            className="font-bold underline text-[inherit]"
-          >
-            Change the mail
-          </Link>
         </>
       )}
     </Layout>

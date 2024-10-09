@@ -3,6 +3,7 @@ subscription AccountEmailChangedSubscription {
     ... on AccountEmailChanged {
       user {
         email
+        firstName
       }
     }
   }

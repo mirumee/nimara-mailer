@@ -5,11 +5,9 @@ import { type EventData } from "@/lib/types";
 const AccountEmailChangedEmail = ({
   data,
 }: EventData<AccountEmailChangedSubscription>) => {
-  const user = data!.user!;
-
   return (
     <Layout previewText="AccountEmailChangedEmail">
-      {() => <>AccountEmailChangedEmail {user.email}</>}
+      {() => <>Your email address change has been confirmed.</>}
     </Layout>
   );
 };
@@ -18,6 +16,7 @@ const previewProps: EventData<AccountEmailChangedSubscription> = {
   data: {
     user: {
       email: "user@example.com",
+      firstName: "Name",
     },
   },
 };

@@ -13,16 +13,17 @@ const AccountConfirmationRequestedEmail = ({
       {() => (
         <>
           <Header>Hi {data.user?.firstName}!</Header>
-          <Text className="!mb-2">
+          <Text>
             Your account has been created. Please follow the link to activate
             it:
+            <br />
+            <Link
+              href={data.redirectUrl ?? "#"}
+              className="font-bold underline text-[inherit]"
+            >
+              Activate the account
+            </Link>
           </Text>
-          <Link
-            href={data.redirectUrl ?? "#"}
-            className="font-bold underline text-[inherit]"
-          >
-            Activate the account
-          </Link>
         </>
       )}
     </Layout>

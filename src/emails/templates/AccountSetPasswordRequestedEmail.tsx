@@ -14,16 +14,17 @@ const AccountSetPasswordRequestedEmail = ({
       {() => (
         <>
           <Header>Hi {data.user?.firstName}!</Header>
-          <Text className="!mb-2">
+          <Text>
             Password reset has been requested. Please follow the link to
             proceed:
+            <br />
+            <Link
+              href={data.redirectUrl ?? "#"}
+              className="font-bold underline text-[inherit]"
+            >
+              Reset the password
+            </Link>
           </Text>
-          <Link
-            href={data.redirectUrl ?? "#"}
-            className="font-bold underline text-[inherit]"
-          >
-            Reset the password
-          </Link>
         </>
       )}
     </Layout>
