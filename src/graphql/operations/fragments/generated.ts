@@ -13,6 +13,8 @@ export type ChannelFragment = { slug: string };
 
 export type CountryFragment = { code: string };
 
+export type ImageFragment = { url: string };
+
 export type MoneyFragment = { amount: number, currency: string };
 
 export type OrderFragment_Order_channel_Channel = { slug: string };
@@ -52,8 +54,6 @@ export type OrderFragment = { number: string, displayGrossPrices: boolean, langu
 export type OrderLineFragment = { quantity: number, variantName: string, productName: string, thumbnail: OrderFragment_Order_lines_OrderLine_thumbnail_Image | null, unitPrice: OrderFragment_Order_lines_OrderLine_unitPrice_TaxedMoney, variant: OrderFragment_Order_lines_OrderLine_variant_ProductVariant | null };
 
 export type TaxedMoneyFragment = { gross: OrderFragment_Order_lines_OrderLine_unitPrice_TaxedMoney_gross_Money, net: OrderFragment_Order_lines_OrderLine_unitPrice_TaxedMoney_net_Money };
-
-export type Thumbnail = { url: string };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -124,6 +124,9 @@ fragment ChannelFragment on Channel {
 fragment CountryFragment on CountryDisplay {
   code
 }
+fragment ImageFragment on Image {
+  url
+}
 fragment MoneyFragment on Money {
   amount
   currency
@@ -132,8 +135,8 @@ fragment OrderLineFragment on OrderLine {
   quantity
   variantName
   productName
-  thumbnail {
-    ...Thumbnail
+  thumbnail(format: ORIGINAL, size: 64) {
+    ...ImageFragment
   }
   unitPrice {
     ...TaxedMoneyFragment
@@ -151,7 +154,4 @@ fragment TaxedMoneyFragment on TaxedMoney {
   net {
     ...MoneyFragment
   }
-}
-fragment Thumbnail on Image {
-  url
 }`, {"fragmentName":"OrderFragment"}) as unknown as TypedDocumentString<OrderFragment, unknown>;

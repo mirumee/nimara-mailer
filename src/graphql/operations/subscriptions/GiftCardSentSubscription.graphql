@@ -1,6 +1,15 @@
 subscription GiftCardSentSubscription {
   event {
     ... on GiftCardSent {
+      channel
+      giftCard {
+        code
+        product {
+          thumbnail(format: ORIGINAL, size: 1024) {
+            ...ImageFragment
+          }
+        }
+      }
       sentToEmail
     }
   }

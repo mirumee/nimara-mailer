@@ -2,8 +2,8 @@ fragment OrderLineFragment on OrderLine {
   quantity
   variantName
   productName
-  thumbnail {
-    ...Thumbnail
+  thumbnail(format: ORIGINAL, size: 64) {
+    ...ImageFragment
   }
   unitPrice {
     ...TaxedMoneyFragment

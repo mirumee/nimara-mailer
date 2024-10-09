@@ -1,4 +1,6 @@
+import Header from "@/emails/components/Header";
 import Layout from "@/emails/components/Layout";
+import Text from "@/emails/components/Text";
 import { type AccountEmailChangedSubscription } from "@/graphql/operations/subscriptions/generated";
 import { type EventData } from "@/lib/types";
 
@@ -7,7 +9,12 @@ const AccountEmailChangedEmail = ({
 }: EventData<AccountEmailChangedSubscription>) => {
   return (
     <Layout channel={data.channel?.slug} previewText="Account email changed">
-      {() => <>Your email address change has been confirmed.</>}
+      {() => (
+        <>
+          <Header>Hi {data.user?.firstName}!</Header>
+          <Text>Your email address change has been confirmed.</Text>
+        </>
+      )}
     </Layout>
   );
 };

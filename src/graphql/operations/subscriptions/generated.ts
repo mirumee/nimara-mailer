@@ -103,7 +103,41 @@ export type AccountSetPasswordRequestedSubscriptionVariables = Types.Exact<{ [ke
 
 export type AccountSetPasswordRequestedSubscription = AccountSetPasswordRequestedSubscription_Subscription;
 
-export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order = { number: string, userEmail: string | null };
+export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_channel_Channel = { slug: string };
+
+export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_user_User = { firstName: string };
+
+export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_shippingAddress_Address_country_CountryDisplay = { code: string };
+
+export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_shippingAddress_Address = { id: string, firstName: string, lastName: string, companyName: string, streetAddress1: string, streetAddress2: string, city: string, postalCode: string, countryArea: string, phone: string | null, country: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_shippingAddress_Address_country_CountryDisplay };
+
+export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_shippingPrice_TaxedMoney_net_Money = { amount: number, currency: string };
+
+export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_shippingPrice_TaxedMoney = { net: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_shippingPrice_TaxedMoney_net_Money };
+
+export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_subtotal_TaxedMoney_net_Money = { amount: number, currency: string };
+
+export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_subtotal_TaxedMoney = { net: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_subtotal_TaxedMoney_net_Money };
+
+export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_total_TaxedMoney_gross_Money = { amount: number, currency: string };
+
+export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_total_TaxedMoney = { gross: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_total_TaxedMoney_gross_Money };
+
+export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_lines_OrderLine_thumbnail_Image = { url: string };
+
+export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_lines_OrderLine_unitPrice_TaxedMoney_gross_Money = { amount: number, currency: string };
+
+export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_lines_OrderLine_unitPrice_TaxedMoney_net_Money = { amount: number, currency: string };
+
+export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_lines_OrderLine_unitPrice_TaxedMoney = { gross: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_lines_OrderLine_unitPrice_TaxedMoney_gross_Money, net: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_lines_OrderLine_unitPrice_TaxedMoney_net_Money };
+
+export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_lines_OrderLine_variant_ProductVariant_product_Product = { slug: string };
+
+export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_lines_OrderLine_variant_ProductVariant = { product: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_lines_OrderLine_variant_ProductVariant_product_Product };
+
+export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_lines_OrderLine = { quantity: number, variantName: string, productName: string, thumbnail: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_lines_OrderLine_thumbnail_Image | null, unitPrice: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_lines_OrderLine_unitPrice_TaxedMoney, variant: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_lines_OrderLine_variant_ProductVariant | null };
+
+export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order = { number: string, displayGrossPrices: boolean, languageCodeEnum: Types.LanguageCodeEnum, userEmail: string | null, channel: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_channel_Channel, user: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_user_User | null, shippingAddress: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_shippingAddress_Address | null, shippingPrice: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_shippingPrice_TaxedMoney, subtotal: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_subtotal_TaxedMoney, total: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_total_TaxedMoney, lines: Array<FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_lines_OrderLine> };
 
 export type FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated = { order: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order | null };
 
@@ -115,7 +149,13 @@ export type FulfillmentTrackingNumberUpdatedSubscriptionVariables = Types.Exact<
 
 export type FulfillmentTrackingNumberUpdatedSubscription = FulfillmentTrackingNumberUpdatedSubscription_Subscription;
 
-export type GiftCardSentSubscription_event_GiftCardSent = { sentToEmail: string | null };
+export type GiftCardSentSubscription_event_GiftCardSent_giftCard_GiftCard_product_Product_thumbnail_Image = { url: string };
+
+export type GiftCardSentSubscription_event_GiftCardSent_giftCard_GiftCard_product_Product = { thumbnail: GiftCardSentSubscription_event_GiftCardSent_giftCard_GiftCard_product_Product_thumbnail_Image | null };
+
+export type GiftCardSentSubscription_event_GiftCardSent_giftCard_GiftCard = { code: string, product: GiftCardSentSubscription_event_GiftCardSent_giftCard_GiftCard_product_Product | null };
+
+export type GiftCardSentSubscription_event_GiftCardSent = { channel: string | null, sentToEmail: string | null, giftCard: GiftCardSentSubscription_event_GiftCardSent_giftCard_GiftCard | null };
 
 export type GiftCardSentSubscription_Subscription = { event: GiftCardSentSubscription_event_GiftCardSent | null };
 
@@ -141,41 +181,7 @@ export type OrderCancelledSubscriptionVariables = Types.Exact<{ [key: string]: n
 
 export type OrderCancelledSubscription = OrderCancelledSubscription_Subscription;
 
-export type OrderCreatedSubscription_event_OrderCreated_order_Order_channel_Channel = { slug: string };
-
-export type OrderCreatedSubscription_event_OrderCreated_order_Order_user_User = { firstName: string };
-
-export type OrderCreatedSubscription_event_OrderCreated_order_Order_shippingAddress_Address_country_CountryDisplay = { code: string };
-
-export type OrderCreatedSubscription_event_OrderCreated_order_Order_shippingAddress_Address = { id: string, firstName: string, lastName: string, companyName: string, streetAddress1: string, streetAddress2: string, city: string, postalCode: string, countryArea: string, phone: string | null, country: OrderCreatedSubscription_event_OrderCreated_order_Order_shippingAddress_Address_country_CountryDisplay };
-
-export type OrderCreatedSubscription_event_OrderCreated_order_Order_shippingPrice_TaxedMoney_net_Money = { amount: number, currency: string };
-
-export type OrderCreatedSubscription_event_OrderCreated_order_Order_shippingPrice_TaxedMoney = { net: OrderCreatedSubscription_event_OrderCreated_order_Order_shippingPrice_TaxedMoney_net_Money };
-
-export type OrderCreatedSubscription_event_OrderCreated_order_Order_subtotal_TaxedMoney_net_Money = { amount: number, currency: string };
-
-export type OrderCreatedSubscription_event_OrderCreated_order_Order_subtotal_TaxedMoney = { net: OrderCreatedSubscription_event_OrderCreated_order_Order_subtotal_TaxedMoney_net_Money };
-
-export type OrderCreatedSubscription_event_OrderCreated_order_Order_total_TaxedMoney_gross_Money = { amount: number, currency: string };
-
-export type OrderCreatedSubscription_event_OrderCreated_order_Order_total_TaxedMoney = { gross: OrderCreatedSubscription_event_OrderCreated_order_Order_total_TaxedMoney_gross_Money };
-
-export type OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderLine_thumbnail_Image = { url: string };
-
-export type OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderLine_unitPrice_TaxedMoney_gross_Money = { amount: number, currency: string };
-
-export type OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderLine_unitPrice_TaxedMoney_net_Money = { amount: number, currency: string };
-
-export type OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderLine_unitPrice_TaxedMoney = { gross: OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderLine_unitPrice_TaxedMoney_gross_Money, net: OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderLine_unitPrice_TaxedMoney_net_Money };
-
-export type OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderLine_variant_ProductVariant_product_Product = { slug: string };
-
-export type OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderLine_variant_ProductVariant = { product: OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderLine_variant_ProductVariant_product_Product };
-
-export type OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderLine = { quantity: number, variantName: string, productName: string, thumbnail: OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderLine_thumbnail_Image | null, unitPrice: OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderLine_unitPrice_TaxedMoney, variant: OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderLine_variant_ProductVariant | null };
-
-export type OrderCreatedSubscription_event_OrderCreated_order_Order = { number: string, displayGrossPrices: boolean, languageCodeEnum: Types.LanguageCodeEnum, userEmail: string | null, channel: OrderCreatedSubscription_event_OrderCreated_order_Order_channel_Channel, user: OrderCreatedSubscription_event_OrderCreated_order_Order_user_User | null, shippingAddress: OrderCreatedSubscription_event_OrderCreated_order_Order_shippingAddress_Address | null, shippingPrice: OrderCreatedSubscription_event_OrderCreated_order_Order_shippingPrice_TaxedMoney, subtotal: OrderCreatedSubscription_event_OrderCreated_order_Order_subtotal_TaxedMoney, total: OrderCreatedSubscription_event_OrderCreated_order_Order_total_TaxedMoney, lines: Array<OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderLine> };
+export type OrderCreatedSubscription_event_OrderCreated_order_Order = { number: string, displayGrossPrices: boolean, languageCodeEnum: Types.LanguageCodeEnum, userEmail: string | null, channel: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_channel_Channel, user: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_user_User | null, shippingAddress: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_shippingAddress_Address | null, shippingPrice: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_shippingPrice_TaxedMoney, subtotal: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_subtotal_TaxedMoney, total: FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_total_TaxedMoney, lines: Array<FulfillmentTrackingNumberUpdatedSubscription_event_FulfillmentTrackingNumberUpdated_order_Order_lines_OrderLine> };
 
 export type OrderCreatedSubscription_event_OrderCreated = { order: OrderCreatedSubscription_event_OrderCreated_order_Order | null };
 
@@ -342,22 +348,116 @@ export const FulfillmentTrackingNumberUpdatedSubscriptionDocument = new TypedDoc
   event {
     ... on FulfillmentTrackingNumberUpdated {
       order {
-        number
-        userEmail
+        ...OrderFragment
       }
     }
   }
 }
-    `) as unknown as TypedDocumentString<FulfillmentTrackingNumberUpdatedSubscription, FulfillmentTrackingNumberUpdatedSubscriptionVariables>;
+    fragment ChannelFragment on Channel {
+  slug
+}
+fragment OrderFragment on Order {
+  number
+  displayGrossPrices
+  languageCodeEnum
+  channel {
+    ...ChannelFragment
+  }
+  userEmail
+  user {
+    firstName
+  }
+  shippingAddress {
+    ...AddressFragment
+  }
+  shippingPrice {
+    net {
+      ...MoneyFragment
+    }
+  }
+  subtotal {
+    net {
+      ...MoneyFragment
+    }
+  }
+  total {
+    gross {
+      ...MoneyFragment
+    }
+  }
+  lines {
+    ...OrderLineFragment
+  }
+}
+fragment AddressFragment on Address {
+  id
+  firstName
+  lastName
+  companyName
+  streetAddress1
+  streetAddress2
+  city
+  postalCode
+  country {
+    ...CountryFragment
+  }
+  countryArea
+  phone
+}
+fragment CountryFragment on CountryDisplay {
+  code
+}
+fragment MoneyFragment on Money {
+  amount
+  currency
+}
+fragment OrderLineFragment on OrderLine {
+  quantity
+  variantName
+  productName
+  thumbnail(format: ORIGINAL, size: 64) {
+    ...ImageFragment
+  }
+  unitPrice {
+    ...TaxedMoneyFragment
+  }
+  variant {
+    product {
+      slug
+    }
+  }
+}
+fragment ImageFragment on Image {
+  url
+}
+fragment TaxedMoneyFragment on TaxedMoney {
+  gross {
+    ...MoneyFragment
+  }
+  net {
+    ...MoneyFragment
+  }
+}`) as unknown as TypedDocumentString<FulfillmentTrackingNumberUpdatedSubscription, FulfillmentTrackingNumberUpdatedSubscriptionVariables>;
 export const GiftCardSentSubscriptionDocument = new TypedDocumentString(`
     subscription GiftCardSentSubscription {
   event {
     ... on GiftCardSent {
+      channel
+      giftCard {
+        code
+        product {
+          thumbnail(format: ORIGINAL, size: 1024) {
+            ...ImageFragment
+          }
+        }
+      }
       sentToEmail
     }
   }
 }
-    `) as unknown as TypedDocumentString<GiftCardSentSubscription, GiftCardSentSubscriptionVariables>;
+    fragment ImageFragment on Image {
+  url
+}`) as unknown as TypedDocumentString<GiftCardSentSubscription, GiftCardSentSubscriptionVariables>;
 export const OrderCancelledSubscriptionDocument = new TypedDocumentString(`
     subscription OrderCancelledSubscription {
   event {
@@ -449,8 +549,8 @@ fragment OrderLineFragment on OrderLine {
   quantity
   variantName
   productName
-  thumbnail {
-    ...Thumbnail
+  thumbnail(format: ORIGINAL, size: 64) {
+    ...ImageFragment
   }
   unitPrice {
     ...TaxedMoneyFragment
@@ -461,7 +561,7 @@ fragment OrderLineFragment on OrderLine {
     }
   }
 }
-fragment Thumbnail on Image {
+fragment ImageFragment on Image {
   url
 }
 fragment TaxedMoneyFragment on TaxedMoney {

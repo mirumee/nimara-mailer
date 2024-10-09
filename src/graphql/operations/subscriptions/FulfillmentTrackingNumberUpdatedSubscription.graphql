@@ -2,8 +2,14 @@ subscription FulfillmentTrackingNumberUpdatedSubscription {
   event {
     ... on FulfillmentTrackingNumberUpdated {
       order {
-        number
-        userEmail
+        ...OrderFragment
+      }
+      fulfillment {
+        lines {
+          orderLine {
+            ...OrderLineFragment
+          }
+        }
       }
     }
   }
