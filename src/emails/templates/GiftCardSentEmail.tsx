@@ -1,4 +1,4 @@
-import { Layout } from "@/components/Layout";
+import Layout from "@/emails/components/Layout";
 import { type GiftCardSentSubscription } from "@/graphql/operations/subscriptions/generated";
 import { type EventData } from "@/lib/types";
 
@@ -19,5 +19,4 @@ const previewProps: EventData<GiftCardSentSubscription> = {
 GiftCardSentEmail.PreviewProps = previewProps;
 GiftCardSentEmail.Subject = "Gift card sent";
 
-export { GiftCardSentEmail };
 export default GiftCardSentEmail;

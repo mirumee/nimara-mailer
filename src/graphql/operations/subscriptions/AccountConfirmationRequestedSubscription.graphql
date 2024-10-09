@@ -1,8 +1,10 @@
 subscription AccountConfirmationRequestedSubscription {
   event {
     ... on AccountConfirmationRequested {
+      redirectUrl
+      token
       user {
-        email
+        firstName
       }
     }
   }

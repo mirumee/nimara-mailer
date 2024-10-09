@@ -17,9 +17,9 @@ export type AccountChangeEmailRequestedSubscriptionVariables = Types.Exact<{ [ke
 
 export type AccountChangeEmailRequestedSubscription = AccountChangeEmailRequestedSubscription_Subscription;
 
-export type AccountConfirmationRequestedSubscription_event_AccountConfirmationRequested_user_User = { email: string };
+export type AccountConfirmationRequestedSubscription_event_AccountConfirmationRequested_user_User = { firstName: string };
 
-export type AccountConfirmationRequestedSubscription_event_AccountConfirmationRequested = { user: AccountConfirmationRequestedSubscription_event_AccountConfirmationRequested_user_User | null };
+export type AccountConfirmationRequestedSubscription_event_AccountConfirmationRequested = { redirectUrl: string | null, token: string | null, user: AccountConfirmationRequestedSubscription_event_AccountConfirmationRequested_user_User | null };
 
 export type AccountConfirmationRequestedSubscription_Subscription = { event: AccountConfirmationRequestedSubscription_event_AccountConfirmationRequested | null };
 
@@ -177,8 +177,10 @@ export const AccountConfirmationRequestedSubscriptionDocument = new TypedDocumen
     subscription AccountConfirmationRequestedSubscription {
   event {
     ... on AccountConfirmationRequested {
+      redirectUrl
+      token
       user {
-        email
+        firstName
       }
     }
   }

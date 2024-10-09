@@ -2,6 +2,7 @@ import {
   Body,
   Container,
   Head,
+  Hr,
   Html,
   Preview,
   Section,
@@ -9,13 +10,14 @@ import {
 } from "@react-email/components";
 import { type ReactNode } from "react";
 
-import { Footer } from "./Footer";
-import { Logo } from "./Logo";
-import { ResetStyles } from "./ResetStyles";
+import Footer from "@/emails/components/Footer";
+import Logo from "@/emails/components/Logo";
+import ResetStyles from "@/emails/components/ResetStyles";
+import { config } from "@/lib/emails/tailwind";
 
 type Context = unknown;
 
-export const Layout = ({
+const Layout = ({
   previewText,
   children,
 }: {
@@ -23,19 +25,21 @@ export const Layout = ({
   previewText: string;
 }) => (
   <Html>
-    <Tailwind>
+    <Tailwind config={config}>
       <Head>
         <meta content="light dark" name="color-scheme" />
         <meta content="light dark" name="supported-color-schemes" />
         <ResetStyles />
       </Head>
       <Preview>{previewText}</Preview>
-      <Body className="darkmode-bg mx-auto my-auto scroll-smooth font-[400] text-gray-700 antialiased md:px-2">
+      <Body className="darkmode-bg mx-auto my-auto scroll-smooth font-[400] text-gray-700 antialiased md:px-2 font-sans">
         <Container className="mx-auto my-[40px] max-w-[720px] overflow-hidden bg-white">
-          <Section className="p-12">
+          <Section className="px-20">
             <Logo />
 
-            {children({})}
+            <Hr className="!border-stone-300" />
+
+            <Section className="pt-8 pb-16">{children({})}</Section>
           </Section>
 
           <Footer />
@@ -44,3 +48,5 @@ export const Layout = ({
     </Tailwind>
   </Html>
 );
+
+export default Layout;

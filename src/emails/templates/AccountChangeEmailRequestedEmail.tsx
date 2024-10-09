@@ -1,4 +1,4 @@
-import { Layout } from "@/components/Layout";
+import Layout from "@/emails/components/Layout";
 import { type AccountChangeEmailRequestedSubscription } from "@/graphql/operations/subscriptions/generated";
 import { type EventData } from "@/lib/types";
 
@@ -25,5 +25,4 @@ const previewProps: EventData<AccountChangeEmailRequestedSubscription> = {
 AccountChangeEmailRequestedEmail.PreviewProps = previewProps;
 AccountChangeEmailRequestedEmail.Subject = "Account change email requested";
 
-export { AccountChangeEmailRequestedEmail };
 export default AccountChangeEmailRequestedEmail;

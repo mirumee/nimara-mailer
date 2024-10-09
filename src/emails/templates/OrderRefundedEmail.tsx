@@ -1,4 +1,4 @@
-import { Layout } from "@/components/Layout";
+import Layout from "@/emails/components/Layout";
 import { type OrderRefundedSubscription } from "@/graphql/operations/subscriptions/generated";
 import { type EventData } from "@/lib/types";
 
@@ -24,5 +24,4 @@ const previewProps: EventData<OrderRefundedSubscription> = {
 OrderRefundedEmail.PreviewProps = previewProps;
 OrderRefundedEmail.Subject = "Order refunded";
 
-export { OrderRefundedEmail };
 export default OrderRefundedEmail;

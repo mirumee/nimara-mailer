@@ -4575,7 +4575,7 @@ export type CheckoutFilterShippingMethods = Event & {
 };
 
 /**
- * Event sent when checkout is fully paid with transactions.
+ * Event sent when checkout is fully paid with transactions. The checkout is considered as fully paid when the checkout `charge_status` is `FULL` or `OVERCHARGED`. The event is not sent when the checkout authorization flow strategy is used.
  *
  * Added in Saleor 3.13.
  *
@@ -4933,6 +4933,12 @@ export type CheckoutRemovePromoCode = {
  */
 export type CheckoutSettings = {
   /**
+   * Default `false`. Determines if the paid checkouts should be automatically completed. This setting applies only to checkouts where payment was processed through transactions.When enabled, the checkout will be automatically completed once the checkout `charge_status` reaches `FULL`. This occurs when the total sum of charged and authorized transaction amounts equals or exceeds the checkout's total amount.
+   *
+   * Added in Saleor 3.20.
+   */
+  automaticallyCompleteFullyPaidCheckouts: Scalars['Boolean']['output'];
+  /**
    * Default `true`. Determines if the checkout mutations should use legacy error flow. In legacy flow, all mutations can raise an exception unrelated to the requested action - (e.g. out-of-stock exception when updating checkoutShippingAddress.) If `false`, the errors will be aggregated in `checkout.problems` field. Some of the `problems` can block the finalizing checkout process. The legacy flow will be removed in Saleor 4.0. The flow with `checkout.problems` will be the default one.
    *
    * Added in Saleor 3.15.This field will be removed in Saleor 4.0.
@@ -4941,6 +4947,12 @@ export type CheckoutSettings = {
 };
 
 export type CheckoutSettingsInput = {
+  /**
+   * Default `false`. Determines if the paid checkouts should be automatically completed. This setting applies only to checkouts where payment was processed through transactions.When enabled, the checkout will be automatically completed once the checkout `charge_status` reaches `FULL`. This occurs when the total sum of charged and authorized transaction amounts equals or exceeds the checkout's total amount.
+   *
+   * Added in Saleor 3.20.
+   */
+  automaticallyCompleteFullyPaidCheckouts?: InputMaybe<Scalars['Boolean']['input']>;
   /**
    * Default `true`. Determines if the checkout mutations should use legacy error flow. In legacy flow, all mutations can raise an exception unrelated to the requested action - (e.g. out-of-stock exception when updating checkoutShippingAddress.) If `false`, the errors will be aggregated in `checkout.problems` field. Some of the `problems` can block the finalizing checkout process. The legacy flow will be removed in Saleor 4.0. The flow with `checkout.problems` will be the default one.
    *
@@ -16274,6 +16286,7 @@ export type OrderEventsEnum =
   | 'PAYMENT_REFUNDED'
   | 'PAYMENT_VOIDED'
   | 'PLACED'
+  | 'PLACED_AUTOMATICALLY_FROM_PAID_CHECKOUT'
   | 'PLACED_FROM_DRAFT'
   | 'REMOVED_PRODUCTS'
   | 'TRACKING_UPDATED'

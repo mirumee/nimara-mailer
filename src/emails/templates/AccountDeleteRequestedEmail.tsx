@@ -1,4 +1,4 @@
-import { Layout } from "@/components/Layout";
+import Layout from "@/emails/components/Layout";
 import { type AccountDeleteRequestedSubscription } from "@/graphql/operations/subscriptions/generated";
 import { type EventData } from "@/lib/types";
 
@@ -25,5 +25,4 @@ const previewProps: EventData<AccountDeleteRequestedSubscription> = {
 AccountDeleteRequestedEmail.PreviewProps = previewProps;
 AccountDeleteRequestedEmail.Subject = "Account delete requested";
 
-export { AccountDeleteRequestedEmail };
 export default AccountDeleteRequestedEmail;

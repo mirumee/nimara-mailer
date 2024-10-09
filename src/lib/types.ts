@@ -9,5 +9,5 @@ export type RequireAtLeastOne<T, Keys extends keyof T = keyof T> = Pick<
   }[Keys];
 
 export type EventData<T extends { event: unknown }> = {
-  data: T["event"];
+  data: NonNullable<T["event"]>;
 };

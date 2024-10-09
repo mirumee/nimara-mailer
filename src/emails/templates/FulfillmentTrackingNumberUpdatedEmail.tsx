@@ -1,4 +1,4 @@
-import { Layout } from "@/components/Layout";
+import Layout from "@/emails/components/Layout";
 import { type FulfillmentTrackingNumberUpdatedSubscription } from "@/graphql/operations/subscriptions/generated";
 import { type EventData } from "@/lib/types";
 
@@ -26,5 +26,4 @@ const previewProps: EventData<FulfillmentTrackingNumberUpdatedSubscription> = {
 FulfillmentTrackingNumberUpdatedEmail.PreviewProps = previewProps;
 FulfillmentTrackingNumberUpdatedEmail.Subject = "Tracking number updated";
 
-export { FulfillmentTrackingNumberUpdatedEmail };
 export default FulfillmentTrackingNumberUpdatedEmail;
