@@ -9,7 +9,10 @@ const AccountChangeEmailRequestedEmail = ({
   data,
 }: EventData<AccountChangeEmailRequestedSubscription>) => {
   return (
-    <Layout previewText="Account change email requested">
+    <Layout
+      channel={data.channel?.slug}
+      previewText="Account change email requested"
+    >
       {() => (
         <>
           <Header>Hi {data.user?.firstName}!</Header>
@@ -20,7 +23,7 @@ const AccountChangeEmailRequestedEmail = ({
             <br />
             <Link
               href={data.redirectUrl ?? "#"}
-              className="font-bold underline text-[inherit]"
+              className="font-bold  text-[inherit] [text-decoration:underline]"
             >
               Change the mail
             </Link>
@@ -37,6 +40,9 @@ const previewProps: EventData<AccountChangeEmailRequestedSubscription> = {
     user: {
       firstName: "Name",
       email: "user@example.com",
+    },
+    channel: {
+      slug: "channel-us",
     },
   },
 };

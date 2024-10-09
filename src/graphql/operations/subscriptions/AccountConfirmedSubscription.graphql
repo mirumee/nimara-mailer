@@ -1,6 +1,9 @@
 subscription AccountConfirmedSubscription {
   event {
     ... on AccountConfirmed {
+      channel {
+        ...ChannelFragment
+      }
       user {
         firstName
         email

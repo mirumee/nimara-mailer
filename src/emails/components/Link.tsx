@@ -3,7 +3,7 @@ import { Link as BaseLink, type LinkProps } from "@react-email/components";
 const Link = ({ style, ...props }: LinkProps) => (
   <BaseLink
     style={{
-      textDecoration: "underline",
+      color: "unset",
       ...style,
     }}
     {...props}

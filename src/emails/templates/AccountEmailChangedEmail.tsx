@@ -6,7 +6,7 @@ const AccountEmailChangedEmail = ({
   data,
 }: EventData<AccountEmailChangedSubscription>) => {
   return (
-    <Layout previewText="AccountEmailChangedEmail">
+    <Layout channel={data.channel?.slug} previewText="Account email changed">
       {() => <>Your email address change has been confirmed.</>}
     </Layout>
   );
@@ -17,6 +17,9 @@ const previewProps: EventData<AccountEmailChangedSubscription> = {
     user: {
       email: "user@example.com",
       firstName: "Name",
+    },
+    channel: {
+      slug: "channel-us",
     },
   },
 };

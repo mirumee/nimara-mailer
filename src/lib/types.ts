@@ -11,3 +11,5 @@ export type RequireAtLeastOne<T, Keys extends keyof T = keyof T> = Pick<
 export type EventData<T extends { event: unknown }> = {
   data: NonNullable<T["event"]>;
 };
+
+export type PartialBy<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;

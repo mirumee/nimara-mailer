@@ -8,7 +8,7 @@ const AccountDeletedEmail = ({
   data,
 }: EventData<AccountDeletedSubscription>) => {
   return (
-    <Layout previewText="AccountDeletedEmail">
+    <Layout channel={data.channel?.slug} previewText="AccountDeletedEmail">
       {() => (
         <>
           <Header>Hi {data.user?.firstName}!</Header>
@@ -32,6 +32,9 @@ const previewProps: EventData<AccountDeletedSubscription> = {
     user: {
       email: "user@example.com",
       firstName: "Name",
+    },
+    channel: {
+      slug: "channel-us",
     },
   },
 };

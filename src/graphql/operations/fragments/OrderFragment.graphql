@@ -1,0 +1,30 @@
+fragment OrderFragment on Order {
+  number
+  userEmail
+  displayGrossPrices
+  channel {
+    ...ChannelFragment
+  }
+  languageCodeEnum
+  shippingAddress {
+    ...AddressFragment
+  }
+  shippingPrice {
+    net {
+      ...MoneyFragment
+    }
+  }
+  subtotal {
+    net {
+      ...MoneyFragment
+    }
+  }
+  total {
+    gross {
+      ...MoneyFragment
+    }
+  }
+  lines {
+    ...OrderLineFragment
+  }
+}

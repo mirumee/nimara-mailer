@@ -2,6 +2,9 @@ subscription AccountConfirmationRequestedSubscription {
   event {
     ... on AccountConfirmationRequested {
       redirectUrl
+      channel {
+        ...ChannelFragment
+      }
       user {
         firstName
         email

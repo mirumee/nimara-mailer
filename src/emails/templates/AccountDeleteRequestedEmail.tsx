@@ -9,7 +9,7 @@ const AccountDeleteRequestedEmail = ({
   data,
 }: EventData<AccountDeleteRequestedSubscription>) => {
   return (
-    <Layout previewText="Account delete requested">
+    <Layout channel={data.channel?.slug} previewText="Account delete requested">
       {() => (
         <>
           <Header>Hi {data.user?.firstName}!</Header>
@@ -18,7 +18,7 @@ const AccountDeleteRequestedEmail = ({
             <br />
             <Link
               href={data.redirectUrl ?? "#"}
-              className="font-bold underline text-[inherit]"
+              className="font-bold underline text-[inherit] [text-decoration:underline]"
             >
               Delete account
             </Link>
@@ -35,6 +35,9 @@ const previewProps: EventData<AccountDeleteRequestedSubscription> = {
     user: {
       firstName: "Name",
       email: "user@example.com",
+    },
+    channel: {
+      slug: "channel-us",
     },
   },
 };

@@ -9,7 +9,10 @@ const AccountConfirmationRequestedEmail = ({
   data,
 }: EventData<AccountConfirmationRequestedSubscription>) => {
   return (
-    <Layout previewText="Account confirmation requested email">
+    <Layout
+      channel={data.channel?.slug}
+      previewText="Account confirmation requested email"
+    >
       {() => (
         <>
           <Header>Hi {data.user?.firstName}!</Header>
@@ -19,7 +22,7 @@ const AccountConfirmationRequestedEmail = ({
             <br />
             <Link
               href={data.redirectUrl ?? "#"}
-              className="font-bold underline text-[inherit]"
+              className="font-bold underline text-[inherit] [text-decoration:underline]"
             >
               Activate the account
             </Link>
@@ -36,6 +39,9 @@ const previewProps: EventData<AccountConfirmationRequestedSubscription> = {
     user: {
       firstName: "Name",
       email: "user@example.com",
+    },
+    channel: {
+      slug: "channel-us",
     },
   },
 };

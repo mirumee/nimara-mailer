@@ -1,20 +1,28 @@
 import { Column, Hr, Img, Row, Section } from "@react-email/components";
 
 import { CONFIG } from "@/config";
+import Link from "@/emails/components/Link";
+import { type Paths } from "@/lib/paths";
 
-const Footer = () => (
+const Footer = ({ paths }: { paths: Paths }) => (
   <Section className="bg-stone-900 mx-auto text-center md:px-10 text-white">
-    <Img
-      className="h-9 my-8 px-4"
-      src={`${CONFIG.STATIC_URL}/emails/logo-dark.png`}
-    />
+    <Link href={paths.home()}>
+      <Img
+        className="h-9 my-8 px-4"
+        src={`${CONFIG.STATIC_URL}/logo-dark.png`}
+      />
+    </Link>
     <Hr className="!border-[#d7d3d2]" />
-    <Row className="my-6 px-4 text-right text-[#79716d] text-sm leading-10">
+    <Row className="my-6 px-4 text-right text-subtle text-sm leading-10">
       <Column className="flex md:whitespace-nowrap md:w-1/3 md:table-cell">
-        © Nimara 2024 All rights reserved.
+        <Link href={paths.home()}>© Nimara 2024 All rights reserved.</Link>
       </Column>
-      <Column className="flex md:w-1/3 md:table-cell">Terms of Use</Column>
-      <Column className="flex md:w-1/3 md:table-cell">Privacy Police</Column>
+      <Column className="flex md:w-1/3 md:table-cell">
+        <Link href={paths.terms()}>Terms of Use</Link>
+      </Column>
+      <Column className="flex md:w-1/3 md:table-cell">
+        <Link href={paths.privacyPolicy()}>Privacy Police</Link>
+      </Column>
     </Row>
   </Section>
 );

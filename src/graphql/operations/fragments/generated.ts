@@ -9,7 +9,49 @@ export type AddressFragment_Address_country_CountryDisplay = { code: string };
 
 export type AddressFragment = { id: string, firstName: string, lastName: string, companyName: string, streetAddress1: string, streetAddress2: string, city: string, postalCode: string, countryArea: string, phone: string | null, country: AddressFragment_Address_country_CountryDisplay };
 
+export type ChannelFragment = { slug: string };
+
 export type CountryFragment = { code: string };
+
+export type MoneyFragment = { amount: number, currency: string };
+
+export type OrderFragment_Order_channel_Channel = { slug: string };
+
+export type OrderFragment_Order_shippingAddress_Address = { id: string, firstName: string, lastName: string, companyName: string, streetAddress1: string, streetAddress2: string, city: string, postalCode: string, countryArea: string, phone: string | null, country: AddressFragment_Address_country_CountryDisplay };
+
+export type OrderFragment_Order_shippingPrice_TaxedMoney_net_Money = { amount: number, currency: string };
+
+export type OrderFragment_Order_shippingPrice_TaxedMoney = { net: OrderFragment_Order_shippingPrice_TaxedMoney_net_Money };
+
+export type OrderFragment_Order_subtotal_TaxedMoney_net_Money = { amount: number, currency: string };
+
+export type OrderFragment_Order_subtotal_TaxedMoney = { net: OrderFragment_Order_subtotal_TaxedMoney_net_Money };
+
+export type OrderFragment_Order_total_TaxedMoney_gross_Money = { amount: number, currency: string };
+
+export type OrderFragment_Order_total_TaxedMoney = { gross: OrderFragment_Order_total_TaxedMoney_gross_Money };
+
+export type OrderFragment_Order_lines_OrderLine_thumbnail_Image = { url: string };
+
+export type OrderFragment_Order_lines_OrderLine_unitPrice_TaxedMoney_gross_Money = { amount: number, currency: string };
+
+export type OrderFragment_Order_lines_OrderLine_unitPrice_TaxedMoney_net_Money = { amount: number, currency: string };
+
+export type OrderFragment_Order_lines_OrderLine_unitPrice_TaxedMoney = { gross: OrderFragment_Order_lines_OrderLine_unitPrice_TaxedMoney_gross_Money, net: OrderFragment_Order_lines_OrderLine_unitPrice_TaxedMoney_net_Money };
+
+export type OrderFragment_Order_lines_OrderLine_variant_ProductVariant_product_Product = { slug: string };
+
+export type OrderFragment_Order_lines_OrderLine_variant_ProductVariant = { product: OrderFragment_Order_lines_OrderLine_variant_ProductVariant_product_Product };
+
+export type OrderFragment_Order_lines_OrderLine = { quantity: number, variantName: string, productName: string, thumbnail: OrderFragment_Order_lines_OrderLine_thumbnail_Image | null, unitPrice: OrderFragment_Order_lines_OrderLine_unitPrice_TaxedMoney, variant: OrderFragment_Order_lines_OrderLine_variant_ProductVariant | null };
+
+export type OrderFragment = { number: string, userEmail: string | null, displayGrossPrices: boolean, languageCodeEnum: Types.LanguageCodeEnum, channel: OrderFragment_Order_channel_Channel, shippingAddress: OrderFragment_Order_shippingAddress_Address | null, shippingPrice: OrderFragment_Order_shippingPrice_TaxedMoney, subtotal: OrderFragment_Order_subtotal_TaxedMoney, total: OrderFragment_Order_total_TaxedMoney, lines: Array<OrderFragment_Order_lines_OrderLine> };
+
+export type OrderLineFragment = { quantity: number, variantName: string, productName: string, thumbnail: OrderFragment_Order_lines_OrderLine_thumbnail_Image | null, unitPrice: OrderFragment_Order_lines_OrderLine_unitPrice_TaxedMoney, variant: OrderFragment_Order_lines_OrderLine_variant_ProductVariant | null };
+
+export type TaxedMoneyFragment = { gross: OrderFragment_Order_lines_OrderLine_unitPrice_TaxedMoney_gross_Money, net: OrderFragment_Order_lines_OrderLine_unitPrice_TaxedMoney_net_Money };
+
+export type Thumbnail = { url: string };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -25,7 +67,37 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
-export const AddressFragment = new TypedDocumentString(`
+export const OrderFragment = new TypedDocumentString(`
+    fragment OrderFragment on Order {
+  number
+  userEmail
+  displayGrossPrices
+  channel {
+    ...ChannelFragment
+  }
+  languageCodeEnum
+  shippingAddress {
+    ...AddressFragment
+  }
+  shippingPrice {
+    net {
+      ...MoneyFragment
+    }
+  }
+  subtotal {
+    net {
+      ...MoneyFragment
+    }
+  }
+  total {
+    gross {
+      ...MoneyFragment
+    }
+  }
+  lines {
+    ...OrderLineFragment
+  }
+}
     fragment AddressFragment on Address {
   id
   firstName
@@ -41,6 +113,40 @@ export const AddressFragment = new TypedDocumentString(`
   countryArea
   phone
 }
-    fragment CountryFragment on CountryDisplay {
+fragment ChannelFragment on Channel {
+  slug
+}
+fragment CountryFragment on CountryDisplay {
   code
-}`, {"fragmentName":"AddressFragment"}) as unknown as TypedDocumentString<AddressFragment, unknown>;
+}
+fragment MoneyFragment on Money {
+  amount
+  currency
+}
+fragment OrderLineFragment on OrderLine {
+  quantity
+  variantName
+  productName
+  thumbnail {
+    ...Thumbnail
+  }
+  unitPrice {
+    ...TaxedMoneyFragment
+  }
+  variant {
+    product {
+      slug
+    }
+  }
+}
+fragment TaxedMoneyFragment on TaxedMoney {
+  gross {
+    ...MoneyFragment
+  }
+  net {
+    ...MoneyFragment
+  }
+}
+fragment Thumbnail on Image {
+  url
+}`, {"fragmentName":"OrderFragment"}) as unknown as TypedDocumentString<OrderFragment, unknown>;

@@ -2,6 +2,9 @@ subscription AccountDeleteRequestedSubscription {
   event {
     ... on AccountDeleteRequested {
       redirectUrl
+      channel {
+        ...ChannelFragment
+      }
       user {
         email
         firstName

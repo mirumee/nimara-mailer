@@ -1,0 +1,16 @@
+fragment OrderLineFragment on OrderLine {
+  quantity
+  variantName
+  productName
+  thumbnail {
+    ...Thumbnail
+  }
+  unitPrice {
+    ...TaxedMoneyFragment
+  }
+  variant {
+    product {
+      slug
+    }
+  }
+}

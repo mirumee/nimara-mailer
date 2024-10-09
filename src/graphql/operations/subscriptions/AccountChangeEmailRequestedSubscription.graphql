@@ -2,6 +2,9 @@ subscription AccountChangeEmailRequestedSubscription {
   event {
     ... on AccountChangeEmailRequested {
       redirectUrl
+      channel {
+        ...ChannelFragment
+      }
       user {
         email
         firstName

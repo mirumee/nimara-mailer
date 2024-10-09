@@ -19,6 +19,7 @@ export const configSchema = z
     STOREFRONT_URL: z.string().url(),
     FROM_EMAIL: z.string().email().default("hello@mirumee.com"),
     FROM_NAME: z.string().default("Mirumee"),
+    DEFAULT_REGION: z.string().default("GB"),
   })
   .and(commonConfigSchema)
   .and(appConfigSchema)

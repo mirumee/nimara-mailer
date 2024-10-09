@@ -1,6 +1,9 @@
 subscription AccountDeletedSubscription {
   event {
     ... on AccountDeleted {
+      channel {
+        ...ChannelFragment
+      }
       user {
         firstName
         email

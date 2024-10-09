@@ -10,7 +10,10 @@ const AccountSetPasswordRequestedEmail = ({
   data,
 }: EventData<AccountSetPasswordRequestedSubscription>) => {
   return (
-    <Layout previewText="Account set password requested">
+    <Layout
+      channel={data.channel?.slug}
+      previewText="Account set password requested"
+    >
       {() => (
         <>
           <Header>Hi {data.user?.firstName}!</Header>
@@ -20,7 +23,7 @@ const AccountSetPasswordRequestedEmail = ({
             <br />
             <Link
               href={data.redirectUrl ?? "#"}
-              className="font-bold underline text-[inherit]"
+              className="font-bold underline text-[inherit] [text-decoration:underline]"
             >
               Reset the password
             </Link>
@@ -37,6 +40,9 @@ const previewProps: EventData<AccountSetPasswordRequestedSubscription> = {
     user: {
       email: "user@example.com",
       firstName: "Name",
+    },
+    channel: {
+      slug: "channel-us",
     },
   },
 };
