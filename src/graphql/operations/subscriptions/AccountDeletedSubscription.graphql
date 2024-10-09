@@ -2,6 +2,7 @@ subscription AccountDeletedSubscription {
   event {
     ... on AccountDeleted {
       user {
+        firstName
         email
       }
     }
