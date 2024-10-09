@@ -30,10 +30,11 @@ services:
     environment:
       # LocalStack configuration: https://docs.localstack.cloud/references/configuration/
       - AWS_DEFAULT_REGION=${AWS_REGION?:AWS_REGION env is required}
-      - SERVICES=sqs,ses
+      - SERVICES=sqs,ses,secretsmanager
       - DEBUG=${DEBUG:-0}
       - FROM_EMAIL=${FROM_EMAIL?:FROM_DOMAIN env is required}
       - FROM_DOMAIN=${FROM_DOMAIN?:FROM_DOMAIN env is required for running SES locally}
+      - SECRET_MANAGER_APP_CONFIG_PATH=${SECRET_MANAGER_APP_CONFIG_PATH?:SECRET_MANAGER_APP_CONFIG_PATH env is required}
     ports:
       - "127.0.0.1:4566:4566" # LocalStack Gateway
       - "127.0.0.1:4510-4559:4510-4559" # external services port range

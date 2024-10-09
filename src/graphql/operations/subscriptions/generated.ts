@@ -17,7 +17,7 @@ export type AccountChangeEmailRequestedSubscriptionVariables = Types.Exact<{ [ke
 
 export type AccountChangeEmailRequestedSubscription = AccountChangeEmailRequestedSubscription_Subscription;
 
-export type AccountConfirmationRequestedSubscription_event_AccountConfirmationRequested_user_User = { firstName: string };
+export type AccountConfirmationRequestedSubscription_event_AccountConfirmationRequested_user_User = { firstName: string, email: string };
 
 export type AccountConfirmationRequestedSubscription_event_AccountConfirmationRequested = { redirectUrl: string | null, token: string | null, user: AccountConfirmationRequestedSubscription_event_AccountConfirmationRequested_user_User | null };
 
@@ -29,7 +29,7 @@ export type AccountConfirmationRequestedSubscriptionVariables = Types.Exact<{ [k
 
 export type AccountConfirmationRequestedSubscription = AccountConfirmationRequestedSubscription_Subscription;
 
-export type AccountConfirmedSubscription_event_AccountConfirmed_user_User = { email: string };
+export type AccountConfirmedSubscription_event_AccountConfirmed_user_User = { firstName: string, email: string };
 
 export type AccountConfirmedSubscription_event_AccountConfirmed = { user: AccountConfirmedSubscription_event_AccountConfirmed_user_User | null };
 
@@ -181,6 +181,7 @@ export const AccountConfirmationRequestedSubscriptionDocument = new TypedDocumen
       token
       user {
         firstName
+        email
       }
     }
   }
@@ -191,6 +192,7 @@ export const AccountConfirmedSubscriptionDocument = new TypedDocumentString(`
   event {
     ... on AccountConfirmed {
       user {
+        firstName
         email
       }
     }

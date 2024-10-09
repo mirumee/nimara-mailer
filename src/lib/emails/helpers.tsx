@@ -1,5 +1,6 @@
 import { render } from "@react-email/components";
 import type { Component, ComponentType, FC } from "react";
+import { type ClassNameValue, twJoin, twMerge } from "tailwind-merge";
 
 type PropsFrom<C> =
   C extends FC<infer Props>
@@ -15,3 +16,5 @@ export const renderEmail = async <C extends ComponentType<any>>({
   props: PropsFrom<C>;
   template: C;
 }) => render(<Component {...props} />);
+
+export const cn = (...input: ClassNameValue[]) => twMerge(twJoin(input));

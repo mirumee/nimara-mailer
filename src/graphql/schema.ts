@@ -267,7 +267,6 @@ export type AccountError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type AccountErrorCode =
   | 'ACCOUNT_NOT_CONFIRMED'
   | 'ACTIVATE_OWN_ACCOUNT'
@@ -661,7 +660,6 @@ export type AddressSetDefault = {
   user: Maybe<User>;
 };
 
-/** An enumeration. */
 export type AddressTypeEnum =
   | 'BILLING'
   | 'SHIPPING';
@@ -1107,7 +1105,6 @@ export type AppError = {
   permissions: Maybe<Array<PermissionEnum>>;
 };
 
-/** An enumeration. */
 export type AppErrorCode =
   | 'FORBIDDEN'
   | 'GRAPHQL_ERROR'
@@ -1521,7 +1518,6 @@ export type AppUpdated = Event & {
   version: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type AreaUnitsEnum =
   | 'SQ_CM'
   | 'SQ_DM'
@@ -1730,7 +1726,6 @@ export type AttributeBulkCreateError = {
   path: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type AttributeBulkCreateErrorCode =
   | 'ALREADY_EXISTS'
   | 'BLANK'
@@ -1838,7 +1833,6 @@ export type AttributeBulkUpdateError = {
   path: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type AttributeBulkUpdateErrorCode =
   | 'ALREADY_EXISTS'
   | 'BLANK'
@@ -2012,7 +2006,6 @@ export type AttributeDeleted = Event & {
   version: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type AttributeEntityTypeEnum =
   | 'PAGE'
   | 'PRODUCT'
@@ -2034,7 +2027,6 @@ export type AttributeError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type AttributeErrorCode =
   | 'ALREADY_EXISTS'
   | 'GRAPHQL_ERROR'
@@ -2080,7 +2072,6 @@ export type AttributeInput = {
   valuesRange?: InputMaybe<IntRangeInput>;
 };
 
-/** An enumeration. */
 export type AttributeInputTypeEnum =
   | 'BOOLEAN'
   | 'DATE'
@@ -2184,7 +2175,6 @@ export type AttributeTranslate = {
   translationErrors: Array<TranslationError>;
 };
 
-/** An enumeration. */
 export type AttributeTranslateErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID'
@@ -2207,7 +2197,6 @@ export type AttributeTranslation = Node & {
   translatableContent: Maybe<AttributeTranslatableContent>;
 };
 
-/** An enumeration. */
 export type AttributeTypeEnum =
   | 'PAGE_TYPE'
   | 'PRODUCT_TYPE';
@@ -2661,7 +2650,6 @@ export type AttributeValueTranslate = {
   translationErrors: Array<TranslationError>;
 };
 
-/** An enumeration. */
 export type AttributeValueTranslateErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID'
@@ -3753,7 +3741,6 @@ export type ChannelError = {
   warehouses: Maybe<Array<Scalars['ID']['output']>>;
 };
 
-/** An enumeration. */
 export type ChannelErrorCode =
   | 'ALREADY_EXISTS'
   | 'CHANNELS_CURRENCY_MUST_BE_THE_SAME'
@@ -4362,7 +4349,6 @@ export type CheckoutCreateFromOrderError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type CheckoutCreateFromOrderErrorCode =
   | 'CHANNEL_INACTIVE'
   | 'GRAPHQL_ERROR'
@@ -4381,7 +4367,6 @@ export type CheckoutCreateFromOrderUnavailableVariant = {
   variantId: Scalars['ID']['output'];
 };
 
-/** An enumeration. */
 export type CheckoutCreateFromOrderUnavailableVariantErrorCode =
   | 'INSUFFICIENT_STOCK'
   | 'NOT_FOUND'
@@ -4505,7 +4490,6 @@ export type CheckoutError = {
   variants: Maybe<Array<Scalars['ID']['output']>>;
 };
 
-/** An enumeration. */
 export type CheckoutErrorCode =
   | 'BILLING_ADDRESS_NOT_SET'
   | 'CHANNEL_INACTIVE'
@@ -5388,7 +5372,6 @@ export type CollectionError = {
   products: Maybe<Array<Scalars['ID']['output']>>;
 };
 
-/** An enumeration. */
 export type CollectionErrorCode =
   | 'CANNOT_MANAGE_PRODUCT_WITHOUT_VARIANT'
   | 'DUPLICATED_INPUT_ITEM'
@@ -5705,7 +5688,6 @@ export type ConfigurationItemInput = {
   value?: InputMaybe<Scalars['String']['input']>;
 };
 
-/** An enumeration. */
 export type ConfigurationTypeFieldEnum =
   | 'BOOLEAN'
   | 'MULTILINE'
@@ -6116,7 +6098,6 @@ export type CustomerBulkUpdateError = {
   path: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type CustomerBulkUpdateErrorCode =
   | 'BLANK'
   | 'DUPLICATED_INPUT_ITEM'
@@ -6209,7 +6190,6 @@ export type CustomerEvent = Node & {
   user: Maybe<User>;
 };
 
-/** An enumeration. */
 export type CustomerEventsEnum =
   | 'ACCOUNT_ACTIVATED'
   | 'ACCOUNT_CREATED'
@@ -6654,7 +6634,6 @@ export type DiscountError = {
   voucherCodes: Maybe<Array<Scalars['String']['output']>>;
 };
 
-/** An enumeration. */
 export type DiscountErrorCode =
   | 'ALREADY_EXISTS'
   | 'CANNOT_MANAGE_PRODUCT_WITHOUT_VARIANT'
@@ -6686,7 +6665,6 @@ export type DiscountedObjectWhereInput = {
   baseTotalPrice?: InputMaybe<DecimalFilterInput>;
 };
 
-/** An enumeration. */
 export type DistanceUnitsEnum =
   | 'CM'
   | 'DM'
@@ -7057,7 +7035,6 @@ export type ExportError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type ExportErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID'
@@ -7080,7 +7057,6 @@ export type ExportEvent = Node & {
   user: Maybe<User>;
 };
 
-/** An enumeration. */
 export type ExportEventsEnum =
   | 'EXPORTED_FILE_SENT'
   | 'EXPORT_DELETED'
@@ -7286,7 +7262,6 @@ export type ExternalNotificationError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type ExternalNotificationErrorCodes =
   | 'CHANNEL_INACTIVE'
   | 'INVALID_MODEL_TYPE'
@@ -7361,7 +7336,6 @@ export type File = {
   url: Scalars['String']['output'];
 };
 
-/** An enumeration. */
 export type FileTypesEnum =
   | 'CSV'
   | 'XLSX';
@@ -7642,7 +7616,6 @@ export type FulfillmentReturnProducts = {
   returnFulfillment: Maybe<Fulfillment>;
 };
 
-/** An enumeration. */
 export type FulfillmentStatus =
   | 'CANCELED'
   | 'FULFILLED'
@@ -8156,7 +8129,6 @@ export type GiftCardError = {
   tags: Maybe<Array<Scalars['String']['output']>>;
 };
 
-/** An enumeration. */
 export type GiftCardErrorCode =
   | 'ALREADY_EXISTS'
   | 'DUPLICATED_INPUT_ITEM'
@@ -8219,7 +8191,6 @@ export type GiftCardEventFilterInput = {
   type?: InputMaybe<GiftCardEventsEnum>;
 };
 
-/** An enumeration. */
 export type GiftCardEventsEnum =
   | 'ACTIVATED'
   | 'BALANCE_RESET'
@@ -8350,13 +8321,11 @@ export type GiftCardSettingsError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type GiftCardSettingsErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID'
   | 'REQUIRED';
 
-/** An enumeration. */
 export type GiftCardSettingsExpiryTypeEnum =
   | 'EXPIRY_PERIOD'
   | 'NEVER_EXPIRE';
@@ -8765,7 +8734,6 @@ export type InvoiceError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type InvoiceErrorCode =
   | 'EMAIL_NOT_SET'
   | 'INVALID_STATUS'
@@ -8897,14 +8865,12 @@ export type Job = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
-/** An enumeration. */
 export type JobStatusEnum =
   | 'DELETED'
   | 'FAILED'
   | 'PENDING'
   | 'SUCCESS';
 
-/** An enumeration. */
 export type LanguageCodeEnum =
   | 'AF'
   | 'AF_NA'
@@ -9831,7 +9797,6 @@ export type MarkAsPaidStrategyEnum =
   | 'PAYMENT_FLOW'
   | 'TRANSACTION_FLOW';
 
-/** An enumeration. */
 export type MeasurementUnitsEnum =
   | 'ACRE_FT'
   | 'ACRE_IN'
@@ -10098,7 +10063,6 @@ export type MenuError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type MenuErrorCode =
   | 'CANNOT_ASSIGN_NODE'
   | 'GRAPHQL_ERROR'
@@ -10563,7 +10527,6 @@ export type MetadataError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type MetadataErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID'
@@ -15585,7 +15548,6 @@ export type OrderBulkCreateError = {
   path: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type OrderBulkCreateErrorCode =
   | 'BULK_LIMIT'
   | 'FUTURE_DATE'
@@ -15944,7 +15906,6 @@ export type OrderCreateFromCheckoutError = {
   variants: Maybe<Array<Scalars['ID']['output']>>;
 };
 
-/** An enumeration. */
 export type OrderCreateFromCheckoutErrorCode =
   | 'BILLING_ADDRESS_NOT_SET'
   | 'CHANNEL_INACTIVE'
@@ -16044,7 +16005,6 @@ export type OrderDiscountDelete = {
   orderErrors: Array<OrderError>;
 };
 
-/** An enumeration. */
 export type OrderDiscountType =
   | 'MANUAL'
   | 'ORDER_PROMOTION'
@@ -16090,7 +16050,6 @@ export type OrderError = {
   warehouse: Maybe<Scalars['ID']['output']>;
 };
 
-/** An enumeration. */
 export type OrderErrorCode =
   | 'BILLING_ADDRESS_NOT_SET'
   | 'CANNOT_CANCEL_FULFILLMENT'
@@ -16232,7 +16191,6 @@ export type OrderEventOrderLineObject = {
   quantity: Maybe<Scalars['Int']['output']>;
 };
 
-/** An enumeration. */
 export type OrderEventsEmailsEnum =
   | 'CONFIRMED'
   | 'DIGITAL_LINKS'
@@ -16502,7 +16460,6 @@ export type OrderGrantRefundCreateError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type OrderGrantRefundCreateErrorCode =
   | 'AMOUNT_GREATER_THAN_AVAILABLE'
   | 'GRAPHQL_ERROR'
@@ -16553,7 +16510,6 @@ export type OrderGrantRefundCreateLineError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type OrderGrantRefundCreateLineErrorCode =
   | 'GRAPHQL_ERROR'
   | 'NOT_FOUND'
@@ -16610,7 +16566,6 @@ export type OrderGrantRefundUpdateError = {
   removeLines: Maybe<Array<OrderGrantRefundUpdateLineError>>;
 };
 
-/** An enumeration. */
 export type OrderGrantRefundUpdateErrorCode =
   | 'AMOUNT_GREATER_THAN_AVAILABLE'
   | 'GRAPHQL_ERROR'
@@ -16678,7 +16633,6 @@ export type OrderGrantRefundUpdateLineError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type OrderGrantRefundUpdateLineErrorCode =
   | 'GRAPHQL_ERROR'
   | 'NOT_FOUND'
@@ -17111,7 +17065,6 @@ export type OrderNoteAddError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type OrderNoteAddErrorCode =
   | 'GRAPHQL_ERROR'
   | 'REQUIRED';
@@ -17147,7 +17100,6 @@ export type OrderNoteUpdateError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type OrderNoteUpdateErrorCode =
   | 'GRAPHQL_ERROR'
   | 'NOT_FOUND'
@@ -17155,7 +17107,6 @@ export type OrderNoteUpdateErrorCode =
 
 export type OrderOrCheckout = Checkout | Order;
 
-/** An enumeration. */
 export type OrderOriginEnum =
   | 'BULK_CREATE'
   | 'CHECKOUT'
@@ -17339,7 +17290,6 @@ export type OrderSettingsError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type OrderSettingsErrorCode =
   | 'INVALID';
 
@@ -17447,7 +17397,6 @@ export type OrderSortingInput = {
   field: OrderSortField;
 };
 
-/** An enumeration. */
 export type OrderStatus =
   | 'CANCELED'
   | 'DRAFT'
@@ -17824,7 +17773,6 @@ export type PageError = {
   values: Maybe<Array<Scalars['ID']['output']>>;
 };
 
-/** An enumeration. */
 export type PageErrorCode =
   | 'ATTRIBUTE_ALREADY_ASSIGNED'
   | 'DUPLICATED_INPUT_ITEM'
@@ -18520,7 +18468,6 @@ export type PaymentCaptureEvent = Event & {
   version: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type PaymentChargeStatusEnum =
   | 'CANCELLED'
   | 'FULLY_CHARGED'
@@ -18595,7 +18542,6 @@ export type PaymentError = {
   variants: Maybe<Array<Scalars['ID']['output']>>;
 };
 
-/** An enumeration. */
 export type PaymentErrorCode =
   | 'BALANCE_CHECK_ERROR'
   | 'BILLING_ADDRESS_NOT_SET'
@@ -18655,7 +18601,6 @@ export type PaymentGatewayConfigError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type PaymentGatewayConfigErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID'
@@ -18683,7 +18628,6 @@ export type PaymentGatewayInitializeError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type PaymentGatewayInitializeErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID'
@@ -18742,7 +18686,6 @@ export type PaymentGatewayInitializeTokenizationError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type PaymentGatewayInitializeTokenizationErrorCode =
   | 'CHANNEL_INACTIVE'
   | 'GATEWAY_ERROR'
@@ -18886,7 +18829,6 @@ export type PaymentMethodInitializeTokenizationError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type PaymentMethodInitializeTokenizationErrorCode =
   | 'CHANNEL_INACTIVE'
   | 'GATEWAY_ERROR'
@@ -18951,7 +18893,6 @@ export type PaymentMethodProcessTokenizationError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type PaymentMethodProcessTokenizationErrorCode =
   | 'CHANNEL_INACTIVE'
   | 'GATEWAY_ERROR'
@@ -19141,7 +19082,6 @@ export type Permission = {
   name: Scalars['String']['output'];
 };
 
-/** An enumeration. */
 export type PermissionEnum =
   | 'HANDLE_CHECKOUTS'
   | 'HANDLE_PAYMENTS'
@@ -19274,7 +19214,6 @@ export type PermissionGroupError = {
   users: Maybe<Array<Scalars['ID']['output']>>;
 };
 
-/** An enumeration. */
 export type PermissionGroupErrorCode =
   | 'ASSIGN_NON_STAFF_MEMBER'
   | 'CANNOT_REMOVE_FROM_LAST_GROUP'
@@ -19425,7 +19364,6 @@ export type PluginError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type PluginErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID'
@@ -19475,7 +19413,6 @@ export type PluginUpdateInput = {
   configuration?: InputMaybe<Array<ConfigurationItemInput>>;
 };
 
-/** An enumeration. */
 export type PostalCodeRuleInclusionTypeEnum =
   | 'EXCLUDE'
   | 'INCLUDE';
@@ -19859,7 +19796,6 @@ export type ProductBulkCreateError = {
   warehouses: Maybe<Array<Scalars['ID']['output']>>;
 };
 
-/** An enumeration. */
 export type ProductBulkCreateErrorCode =
   | 'ATTRIBUTE_ALREADY_ASSIGNED'
   | 'ATTRIBUTE_CANNOT_BE_ASSIGNED'
@@ -20312,7 +20248,6 @@ export type ProductError = {
   values: Maybe<Array<Scalars['ID']['output']>>;
 };
 
-/** An enumeration. */
 export type ProductErrorCode =
   | 'ALREADY_EXISTS'
   | 'ATTRIBUTE_ALREADY_ASSIGNED'
@@ -20689,7 +20624,6 @@ export type ProductMediaReorder = {
   productErrors: Array<ProductError>;
 };
 
-/** An enumeration. */
 export type ProductMediaType =
   | 'IMAGE'
   | 'VIDEO';
@@ -20940,7 +20874,6 @@ export type ProductTranslate = {
   translationErrors: Array<TranslationError>;
 };
 
-/** An enumeration. */
 export type ProductTranslateErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID'
@@ -21223,7 +21156,6 @@ export type ProductTypeInput = {
   weight?: InputMaybe<Scalars['WeightScalar']['input']>;
 };
 
-/** An enumeration. */
 export type ProductTypeKindEnum =
   | 'GIFT_CARD'
   | 'NORMAL';
@@ -21633,7 +21565,6 @@ export type ProductVariantBulkError = {
   warehouses: Maybe<Array<Scalars['ID']['output']>>;
 };
 
-/** An enumeration. */
 export type ProductVariantBulkErrorCode =
   | 'ATTRIBUTE_ALREADY_ASSIGNED'
   | 'ATTRIBUTE_CANNOT_BE_ASSIGNED'
@@ -22283,7 +22214,6 @@ export type ProductVariantTranslate = {
   translationErrors: Array<TranslationError>;
 };
 
-/** An enumeration. */
 export type ProductVariantTranslateErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID'
@@ -22601,7 +22531,6 @@ export type PromotionCreateError = {
   rulesLimitExceedBy: Maybe<Scalars['Int']['output']>;
 };
 
-/** An enumeration. */
 export type PromotionCreateErrorCode =
   | 'GIFTS_NUMBER_LIMIT'
   | 'GRAPHQL_ERROR'
@@ -22700,7 +22629,6 @@ export type PromotionDeleteError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type PromotionDeleteErrorCode =
   | 'GRAPHQL_ERROR'
   | 'NOT_FOUND';
@@ -22782,7 +22710,6 @@ export type PromotionEventInterface = {
   type: PromotionEventsEnum;
 };
 
-/** An enumeration. */
 export type PromotionEventsEnum =
   | 'PROMOTION_CREATED'
   | 'PROMOTION_ENDED'
@@ -22915,7 +22842,6 @@ export type PromotionRuleCreateError = {
   rulesLimitExceedBy: Maybe<Scalars['Int']['output']>;
 };
 
-/** An enumeration. */
 export type PromotionRuleCreateErrorCode =
   | 'GIFTS_NUMBER_LIMIT'
   | 'GRAPHQL_ERROR'
@@ -23038,7 +22964,6 @@ export type PromotionRuleDeleteError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type PromotionRuleDeleteErrorCode =
   | 'GRAPHQL_ERROR'
   | 'NOT_FOUND';
@@ -23253,7 +23178,6 @@ export type PromotionRuleUpdateError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type PromotionRuleUpdateErrorCode =
   | 'DUPLICATED_INPUT_ITEM'
   | 'GIFTS_NUMBER_LIMIT'
@@ -23496,7 +23420,6 @@ export type PromotionTranslationInput = {
   name?: InputMaybe<Scalars['String']['input']>;
 };
 
-/** An enumeration. */
 export type PromotionTypeEnum =
   | 'CATALOGUE'
   | 'ORDER';
@@ -23536,7 +23459,6 @@ export type PromotionUpdateError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type PromotionUpdateErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID'
@@ -24733,12 +24655,10 @@ export type RequestPasswordReset = {
   errors: Array<AccountError>;
 };
 
-/** An enumeration. */
 export type RewardTypeEnum =
   | 'GIFT'
   | 'SUBTOTAL_DISCOUNT';
 
-/** An enumeration. */
 export type RewardValueTypeEnum =
   | 'FIXED'
   | 'PERCENTAGE';
@@ -25400,7 +25320,6 @@ export type SendConfirmationEmailError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type SendConfirmationEmailErrorCode =
   | 'ACCOUNT_CONFIRMED'
   | 'CONFIRMATION_ALREADY_REQUESTED'
@@ -25442,7 +25361,6 @@ export type ShippingError = {
   warehouses: Maybe<Array<Scalars['ID']['output']>>;
 };
 
-/** An enumeration. */
 export type ShippingErrorCode =
   | 'ALREADY_EXISTS'
   | 'DUPLICATED_INPUT_ITEM'
@@ -25807,7 +25725,6 @@ export type ShippingMethodTypeTranslationArgs = {
   languageCode: LanguageCodeEnum;
 };
 
-/** An enumeration. */
 export type ShippingMethodTypeEnum =
   | 'PRICE'
   | 'WEIGHT';
@@ -26666,7 +26583,6 @@ export type ShopError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type ShopErrorCode =
   | 'ALREADY_EXISTS'
   | 'CANNOT_FETCH_TAX_RATES'
@@ -27213,7 +27129,6 @@ export type StockBulkUpdateError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type StockBulkUpdateErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID'
@@ -27257,7 +27172,6 @@ export type StockError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type StockErrorCode =
   | 'ALREADY_EXISTS'
   | 'GRAPHQL_ERROR'
@@ -27389,7 +27303,6 @@ export type StoredPaymentMethodRequestDelete = {
   result: StoredPaymentMethodRequestDeleteResult;
 };
 
-/** An enumeration. */
 export type StoredPaymentMethodRequestDeleteErrorCode =
   | 'CHANNEL_INACTIVE'
   | 'GATEWAY_ERROR'
@@ -27772,7 +27685,6 @@ export type TaxClassCreateError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type TaxClassCreateErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID'
@@ -27806,7 +27718,6 @@ export type TaxClassDeleteError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type TaxClassDeleteErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID'
@@ -27859,7 +27770,6 @@ export type TaxClassUpdateError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type TaxClassUpdateErrorCode =
   | 'DUPLICATED_INPUT_ITEM'
   | 'GRAPHQL_ERROR'
@@ -28057,7 +27967,6 @@ export type TaxConfigurationUpdateError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type TaxConfigurationUpdateErrorCode =
   | 'DUPLICATED_INPUT_ITEM'
   | 'GRAPHQL_ERROR'
@@ -28119,7 +28028,6 @@ export type TaxCountryConfigurationDeleteError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type TaxCountryConfigurationDeleteErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID'
@@ -28149,7 +28057,6 @@ export type TaxCountryConfigurationUpdateError = {
   taxClassIds: Array<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type TaxCountryConfigurationUpdateErrorCode =
   | 'CANNOT_CREATE_NEGATIVE_RATE'
   | 'GRAPHQL_ERROR'
@@ -28178,7 +28085,6 @@ export type TaxExemptionManageError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type TaxExemptionManageErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID'
@@ -28317,7 +28223,6 @@ export type ThumbnailCreated = Event & {
   version: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type ThumbnailFormatEnum =
   | 'AVIF'
   | 'ORIGINAL'
@@ -28337,7 +28242,6 @@ export type TimePeriodInputType = {
   type: TimePeriodTypeEnum;
 };
 
-/** An enumeration. */
 export type TimePeriodTypeEnum =
   | 'DAY'
   | 'MONTH'
@@ -28471,7 +28375,6 @@ export type TransactionCreateError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type TransactionCreateErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INCORRECT_CURRENCY'
@@ -28623,7 +28526,6 @@ export type TransactionEventReportError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type TransactionEventReportErrorCode =
   | 'ALREADY_EXISTS'
   | 'GRAPHQL_ERROR'
@@ -28717,7 +28619,6 @@ export type TransactionInitializeError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type TransactionInitializeErrorCode =
   | 'CHECKOUT_COMPLETION_IN_PROGRESS'
   | 'GRAPHQL_ERROR'
@@ -28967,7 +28868,6 @@ export type TransactionItemMetadataUpdated = Event & {
   version: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type TransactionKind =
   | 'ACTION_TO_CONFIRM'
   | 'AUTH'
@@ -29014,7 +28914,6 @@ export type TransactionProcessError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type TransactionProcessErrorCode =
   | 'CHECKOUT_COMPLETION_IN_PROGRESS'
   | 'GRAPHQL_ERROR'
@@ -29111,7 +29010,6 @@ export type TransactionRequestActionError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type TransactionRequestActionErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID'
@@ -29141,7 +29039,6 @@ export type TransactionRequestRefundForGrantedRefundError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type TransactionRequestRefundForGrantedRefundErrorCode =
   | 'AMOUNT_GREATER_THAN_AVAILABLE'
   | 'GRAPHQL_ERROR'
@@ -29174,7 +29071,6 @@ export type TransactionUpdateError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type TransactionUpdateErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INCORRECT_CURRENCY'
@@ -29287,7 +29183,6 @@ export type TranslationError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type TranslationErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID'
@@ -29370,7 +29265,6 @@ export type UploadError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type UploadErrorCode =
   | 'GRAPHQL_ERROR';
 
@@ -29819,7 +29713,6 @@ export type VerifyToken = {
   user: Maybe<User>;
 };
 
-/** An enumeration. */
 export type VolumeUnitsEnum =
   | 'ACRE_FT'
   | 'ACRE_IN'
@@ -30149,7 +30042,6 @@ export type VoucherCodeBulkDeleteError = {
   voucherCodes: Maybe<Array<Scalars['ID']['output']>>;
 };
 
-/** An enumeration. */
 export type VoucherCodeBulkDeleteErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID'
@@ -30712,7 +30604,6 @@ export type WarehouseStocksArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
 };
 
-/** An enumeration. */
 export type WarehouseClickAndCollectOptionEnum =
   | 'ALL'
   | 'DISABLED'
@@ -30827,7 +30718,6 @@ export type WarehouseError = {
   shippingZones: Maybe<Array<Scalars['ID']['output']>>;
 };
 
-/** An enumeration. */
 export type WarehouseErrorCode =
   | 'ALREADY_EXISTS'
   | 'GRAPHQL_ERROR'
@@ -31098,7 +30988,6 @@ export type WebhookDryRunError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type WebhookDryRunErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID_ID'
@@ -31119,7 +31008,6 @@ export type WebhookError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type WebhookErrorCode =
   | 'DELETE_FAILED'
   | 'GRAPHQL_ERROR'
@@ -32091,7 +31979,6 @@ export type WebhookEventTypeSyncEnum =
    */
   | 'TRANSACTION_REFUND_REQUESTED';
 
-/** An enumeration. */
 export type WebhookSampleEventTypeEnum =
   | 'ACCOUNT_CHANGE_EMAIL_REQUESTED'
   | 'ACCOUNT_CONFIRMATION_REQUESTED'
@@ -32258,7 +32145,6 @@ export type WebhookTriggerError = {
   message: Maybe<Scalars['String']['output']>;
 };
 
-/** An enumeration. */
 export type WebhookTriggerErrorCode =
   | 'GRAPHQL_ERROR'
   | 'INVALID_ID'
@@ -32332,7 +32218,6 @@ export type Weight = {
   value: Scalars['Float']['output'];
 };
 
-/** An enumeration. */
 export type WeightUnitsEnum =
   | 'G'
   | 'KG'

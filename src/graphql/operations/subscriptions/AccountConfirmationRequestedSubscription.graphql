@@ -5,6 +5,7 @@ subscription AccountConfirmationRequestedSubscription {
       token
       user {
         firstName
+        email
       }
     }
   }

@@ -1,5 +1,4 @@
-import { Heading } from "@react-email/components";
-
+import Header from "@/emails//components/Header";
 import Layout from "@/emails/components/Layout";
 import Link from "@/emails/components/Link";
 import Text from "@/emails/components/Text";
@@ -13,7 +12,7 @@ const AccountConfirmationRequestedEmail = ({
     <Layout previewText="AccountConfirmationRequestedEmail">
       {() => (
         <>
-          <Heading className="text-4xl">Hi {data?.user?.firstName}!</Heading>
+          <Header>Hi {data.user?.firstName}!</Header>
           <Text className="!mb-2">
             Your account has been created. Please follow the link to activate
             it:
@@ -36,6 +35,7 @@ const previewProps: EventData<AccountConfirmationRequestedSubscription> = {
     token: "123456",
     user: {
       firstName: "Name",
+      email: "user@example.com",
     },
   },
 };
