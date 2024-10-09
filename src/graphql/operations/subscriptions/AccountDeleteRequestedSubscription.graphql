@@ -1,8 +1,10 @@
 subscription AccountDeleteRequestedSubscription {
   event {
     ... on AccountDeleteRequested {
+      redirectUrl
       user {
         email
+        firstName
       }
     }
   }

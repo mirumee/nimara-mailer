@@ -41,9 +41,9 @@ export type AccountConfirmedSubscriptionVariables = Types.Exact<{ [key: string]:
 
 export type AccountConfirmedSubscription = AccountConfirmedSubscription_Subscription;
 
-export type AccountDeleteRequestedSubscription_event_AccountDeleteRequested_user_User = { email: string };
+export type AccountDeleteRequestedSubscription_event_AccountDeleteRequested_user_User = { email: string, firstName: string };
 
-export type AccountDeleteRequestedSubscription_event_AccountDeleteRequested = { user: AccountDeleteRequestedSubscription_event_AccountDeleteRequested_user_User | null };
+export type AccountDeleteRequestedSubscription_event_AccountDeleteRequested = { redirectUrl: string | null, user: AccountDeleteRequestedSubscription_event_AccountDeleteRequested_user_User | null };
 
 export type AccountDeleteRequestedSubscription_Subscription = { event: AccountDeleteRequestedSubscription_event_AccountDeleteRequested | null };
 
@@ -204,8 +204,10 @@ export const AccountDeleteRequestedSubscriptionDocument = new TypedDocumentStrin
     subscription AccountDeleteRequestedSubscription {
   event {
     ... on AccountDeleteRequested {
+      redirectUrl
       user {
         email
+        firstName
       }
     }
   }
