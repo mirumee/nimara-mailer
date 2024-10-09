@@ -17,6 +17,8 @@ export type MoneyFragment = { amount: number, currency: string };
 
 export type OrderFragment_Order_channel_Channel = { slug: string };
 
+export type OrderFragment_Order_user_User = { firstName: string };
+
 export type OrderFragment_Order_shippingAddress_Address = { id: string, firstName: string, lastName: string, companyName: string, streetAddress1: string, streetAddress2: string, city: string, postalCode: string, countryArea: string, phone: string | null, country: AddressFragment_Address_country_CountryDisplay };
 
 export type OrderFragment_Order_shippingPrice_TaxedMoney_net_Money = { amount: number, currency: string };
@@ -45,7 +47,7 @@ export type OrderFragment_Order_lines_OrderLine_variant_ProductVariant = { produ
 
 export type OrderFragment_Order_lines_OrderLine = { quantity: number, variantName: string, productName: string, thumbnail: OrderFragment_Order_lines_OrderLine_thumbnail_Image | null, unitPrice: OrderFragment_Order_lines_OrderLine_unitPrice_TaxedMoney, variant: OrderFragment_Order_lines_OrderLine_variant_ProductVariant | null };
 
-export type OrderFragment = { number: string, userEmail: string | null, displayGrossPrices: boolean, languageCodeEnum: Types.LanguageCodeEnum, channel: OrderFragment_Order_channel_Channel, shippingAddress: OrderFragment_Order_shippingAddress_Address | null, shippingPrice: OrderFragment_Order_shippingPrice_TaxedMoney, subtotal: OrderFragment_Order_subtotal_TaxedMoney, total: OrderFragment_Order_total_TaxedMoney, lines: Array<OrderFragment_Order_lines_OrderLine> };
+export type OrderFragment = { number: string, displayGrossPrices: boolean, languageCodeEnum: Types.LanguageCodeEnum, userEmail: string | null, channel: OrderFragment_Order_channel_Channel, user: OrderFragment_Order_user_User | null, shippingAddress: OrderFragment_Order_shippingAddress_Address | null, shippingPrice: OrderFragment_Order_shippingPrice_TaxedMoney, subtotal: OrderFragment_Order_subtotal_TaxedMoney, total: OrderFragment_Order_total_TaxedMoney, lines: Array<OrderFragment_Order_lines_OrderLine> };
 
 export type OrderLineFragment = { quantity: number, variantName: string, productName: string, thumbnail: OrderFragment_Order_lines_OrderLine_thumbnail_Image | null, unitPrice: OrderFragment_Order_lines_OrderLine_unitPrice_TaxedMoney, variant: OrderFragment_Order_lines_OrderLine_variant_ProductVariant | null };
 
@@ -70,12 +72,15 @@ export class TypedDocumentString<TResult, TVariables>
 export const OrderFragment = new TypedDocumentString(`
     fragment OrderFragment on Order {
   number
-  userEmail
   displayGrossPrices
+  languageCodeEnum
   channel {
     ...ChannelFragment
   }
-  languageCodeEnum
+  userEmail
+  user {
+    firstName
+  }
   shippingAddress {
     ...AddressFragment
   }

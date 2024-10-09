@@ -67,6 +67,9 @@ const previewProps: EventData<OrderCreatedSubscription> = {
     order: {
       number: "939",
       userEmail: "kacper.machel+test@mirumee.com",
+      user: {
+        firstName: "Name",
+      },
       displayGrossPrices: true,
       channel: {
         slug: "channel-us",

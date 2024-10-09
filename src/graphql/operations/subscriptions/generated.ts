@@ -125,7 +125,11 @@ export type GiftCardSentSubscriptionVariables = Types.Exact<{ [key: string]: nev
 
 export type GiftCardSentSubscription = GiftCardSentSubscription_Subscription;
 
-export type OrderCancelledSubscription_event_OrderCancelled_order_Order = { number: string, userEmail: string | null };
+export type OrderCancelledSubscription_event_OrderCancelled_order_Order_channel_Channel = { slug: string };
+
+export type OrderCancelledSubscription_event_OrderCancelled_order_Order_user_User = { firstName: string };
+
+export type OrderCancelledSubscription_event_OrderCancelled_order_Order = { userEmail: string | null, channel: OrderCancelledSubscription_event_OrderCancelled_order_Order_channel_Channel, user: OrderCancelledSubscription_event_OrderCancelled_order_Order_user_User | null };
 
 export type OrderCancelledSubscription_event_OrderCancelled = { order: OrderCancelledSubscription_event_OrderCancelled_order_Order | null };
 
@@ -138,6 +142,8 @@ export type OrderCancelledSubscriptionVariables = Types.Exact<{ [key: string]: n
 export type OrderCancelledSubscription = OrderCancelledSubscription_Subscription;
 
 export type OrderCreatedSubscription_event_OrderCreated_order_Order_channel_Channel = { slug: string };
+
+export type OrderCreatedSubscription_event_OrderCreated_order_Order_user_User = { firstName: string };
 
 export type OrderCreatedSubscription_event_OrderCreated_order_Order_shippingAddress_Address_country_CountryDisplay = { code: string };
 
@@ -169,7 +175,7 @@ export type OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderL
 
 export type OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderLine = { quantity: number, variantName: string, productName: string, thumbnail: OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderLine_thumbnail_Image | null, unitPrice: OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderLine_unitPrice_TaxedMoney, variant: OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderLine_variant_ProductVariant | null };
 
-export type OrderCreatedSubscription_event_OrderCreated_order_Order = { number: string, userEmail: string | null, displayGrossPrices: boolean, languageCodeEnum: Types.LanguageCodeEnum, channel: OrderCreatedSubscription_event_OrderCreated_order_Order_channel_Channel, shippingAddress: OrderCreatedSubscription_event_OrderCreated_order_Order_shippingAddress_Address | null, shippingPrice: OrderCreatedSubscription_event_OrderCreated_order_Order_shippingPrice_TaxedMoney, subtotal: OrderCreatedSubscription_event_OrderCreated_order_Order_subtotal_TaxedMoney, total: OrderCreatedSubscription_event_OrderCreated_order_Order_total_TaxedMoney, lines: Array<OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderLine> };
+export type OrderCreatedSubscription_event_OrderCreated_order_Order = { number: string, displayGrossPrices: boolean, languageCodeEnum: Types.LanguageCodeEnum, userEmail: string | null, channel: OrderCreatedSubscription_event_OrderCreated_order_Order_channel_Channel, user: OrderCreatedSubscription_event_OrderCreated_order_Order_user_User | null, shippingAddress: OrderCreatedSubscription_event_OrderCreated_order_Order_shippingAddress_Address | null, shippingPrice: OrderCreatedSubscription_event_OrderCreated_order_Order_shippingPrice_TaxedMoney, subtotal: OrderCreatedSubscription_event_OrderCreated_order_Order_subtotal_TaxedMoney, total: OrderCreatedSubscription_event_OrderCreated_order_Order_total_TaxedMoney, lines: Array<OrderCreatedSubscription_event_OrderCreated_order_Order_lines_OrderLine> };
 
 export type OrderCreatedSubscription_event_OrderCreated = { order: OrderCreatedSubscription_event_OrderCreated_order_Order | null };
 
@@ -357,13 +363,20 @@ export const OrderCancelledSubscriptionDocument = new TypedDocumentString(`
   event {
     ... on OrderCancelled {
       order {
-        number
+        channel {
+          ...ChannelFragment
+        }
         userEmail
+        user {
+          firstName
+        }
       }
     }
   }
 }
-    `) as unknown as TypedDocumentString<OrderCancelledSubscription, OrderCancelledSubscriptionVariables>;
+    fragment ChannelFragment on Channel {
+  slug
+}`) as unknown as TypedDocumentString<OrderCancelledSubscription, OrderCancelledSubscriptionVariables>;
 export const OrderCreatedSubscriptionDocument = new TypedDocumentString(`
     subscription OrderCreatedSubscription {
   event {
@@ -379,12 +392,15 @@ export const OrderCreatedSubscriptionDocument = new TypedDocumentString(`
 }
 fragment OrderFragment on Order {
   number
-  userEmail
   displayGrossPrices
+  languageCodeEnum
   channel {
     ...ChannelFragment
   }
-  languageCodeEnum
+  userEmail
+  user {
+    firstName
+  }
   shippingAddress {
     ...AddressFragment
   }

@@ -1,11 +1,14 @@
 fragment OrderFragment on Order {
   number
-  userEmail
   displayGrossPrices
+  languageCodeEnum
   channel {
     ...ChannelFragment
   }
-  languageCodeEnum
+  userEmail
+  user {
+    firstName
+  }
   shippingAddress {
     ...AddressFragment
   }
