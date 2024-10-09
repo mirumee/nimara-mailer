@@ -77,9 +77,9 @@ export type AccountEmailChangedSubscriptionVariables = Types.Exact<{ [key: strin
 
 export type AccountEmailChangedSubscription = AccountEmailChangedSubscription_Subscription;
 
-export type AccountSetPasswordRequestedSubscription_event_AccountSetPasswordRequested_user_User = { email: string };
+export type AccountSetPasswordRequestedSubscription_event_AccountSetPasswordRequested_user_User = { email: string, firstName: string };
 
-export type AccountSetPasswordRequestedSubscription_event_AccountSetPasswordRequested = { user: AccountSetPasswordRequestedSubscription_event_AccountSetPasswordRequested_user_User | null };
+export type AccountSetPasswordRequestedSubscription_event_AccountSetPasswordRequested = { redirectUrl: string | null, user: AccountSetPasswordRequestedSubscription_event_AccountSetPasswordRequested_user_User | null };
 
 export type AccountSetPasswordRequestedSubscription_Subscription = { event: AccountSetPasswordRequestedSubscription_event_AccountSetPasswordRequested | null };
 
@@ -236,8 +236,10 @@ export const AccountSetPasswordRequestedSubscriptionDocument = new TypedDocument
     subscription AccountSetPasswordRequestedSubscription {
   event {
     ... on AccountSetPasswordRequested {
+      redirectUrl
       user {
         email
+        firstName
       }
     }
   }

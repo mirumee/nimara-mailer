@@ -32,7 +32,7 @@ const AccountConfirmationRequestedEmail = ({
 const previewProps: EventData<AccountConfirmationRequestedSubscription> = {
   data: {
     redirectUrl: "https://example.com",
-    token: "123456",
+    token: "",
     user: {
       firstName: "Name",
       email: "user@example.com",
