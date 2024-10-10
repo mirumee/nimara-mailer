@@ -16,7 +16,7 @@
     "dev": "concurrently -k -p \"[{name}]\" -n \"TSC,BUILD,EVENTS-RECEIVER,EMAILS-SENDER\" -c \"blue.bold,red.bold,cyan.bold,green.bold\" \"pnpm tsc:watch\" \"pnpm dev:build\" \"pnpm dev:run:events-receiver\" \"pnpm dev:run:emails-sender-proxy\"",
     "dev:build": "dotenv -v NODE_ENV=development -- node ./etc/scripts/dev.mjs",
     "dev:emails": "dotenv -- email dev -d ./src/emails -p 3002",
-    "dev:run:events-receiver": "dotenv -v NODE_ENV=development -- nodemon --inspect=0.0.0.0:9229 --watch build/server.js build/server.js",
+    "dev:run:events-receiver": "dotenv -v NODE_ENV=development -- nodemon --inspect=0.0.0.0:9229 --watch build/events-receiver.js build/events-receiver.js",
     "dev:run:emails-sender-proxy": "dotenv -v NODE_ENV=development -- nodemon --inspect=0.0.0.0:9230 --watch build/emails-sender-proxy.js build/emails-sender-proxy.js",
     "build": "dotenv -v NODE_ENV=production node ./etc/scripts/build.mjs",
     "lint:prettier:fix": "npx prettier --list-different --write 'src/**/*.{ts,tsx}'",

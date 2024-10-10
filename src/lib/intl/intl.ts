@@ -1,8 +1,10 @@
-import { CONFIG } from "@/config";
 import { type CountryCode } from "@/graphql/schema";
 
+import { DEFAULT_REGION } from "../regions";
+
 export const formatAsDateTime = ({
-  locale = CONFIG.DEFAULT_LOCALE,
+  locale = DEFAULT_REGION.locale,
+
   dateTime,
 }: {
   dateTime: string;
@@ -19,7 +21,7 @@ export const formatAsDateTime = ({
   }).format(new Date(dateTime));
 
 export const formatAsDate = ({
-  locale = CONFIG.DEFAULT_LOCALE,
+  locale = DEFAULT_REGION.locale,
   date,
 }: {
   date: string;
@@ -28,8 +30,8 @@ export const formatAsDate = ({
 
 export const formatAsPrice = ({
   amount = 0,
-  locale = CONFIG.DEFAULT_LOCALE,
-  currency = CONFIG.DEFAULT_CURRENCY,
+  locale = DEFAULT_REGION.locale,
+  currency = DEFAULT_REGION.currency,
 }: Partial<{
   amount: number;
   currency: string;
@@ -43,8 +45,8 @@ export const formatAsPrice = ({
 export const formatAsPriceRange = ({
   start = 0,
   stop = 0,
-  locale = CONFIG.DEFAULT_LOCALE,
-  currency = CONFIG.DEFAULT_CURRENCY,
+  locale = DEFAULT_REGION.locale,
+  currency = DEFAULT_REGION.currency,
 }: Partial<{
   currency: string;
   locale: string;
@@ -57,7 +59,8 @@ export const formatAsPriceRange = ({
   }).formatRange(start, stop);
 
 export const formatAsCountry = ({
-  locale = CONFIG.DEFAULT_LOCALE,
+  locale = DEFAULT_REGION.locale,
+
   country,
 }: {
   country: CountryCode | string;

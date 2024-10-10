@@ -8,7 +8,10 @@ const FulfillmentTrackingNumberUpdatedEmail = ({
   const order = data!.order!;
 
   return (
-    <Layout previewText="FulfillmentTrackingNumberUpdatedEmail">
+    <Layout
+      channel={order.channel.slug}
+      previewText="FulfillmentTrackingNumberUpdatedEmail"
+    >
       {() => <>FulfillmentTrackingNumberUpdatedEmail #{order.number}</>}
     </Layout>
   );

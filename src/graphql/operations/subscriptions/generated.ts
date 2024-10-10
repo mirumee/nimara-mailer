@@ -193,7 +193,9 @@ export type OrderCreatedSubscriptionVariables = Types.Exact<{ [key: string]: nev
 
 export type OrderCreatedSubscription = OrderCreatedSubscription_Subscription;
 
-export type OrderRefundedSubscription_event_OrderCancelled_order_Order = { number: string, userEmail: string | null };
+export type OrderRefundedSubscription_event_OrderCancelled_order_Order_channel_Channel = { slug: string };
+
+export type OrderRefundedSubscription_event_OrderCancelled_order_Order = { number: string, userEmail: string | null, channel: OrderRefundedSubscription_event_OrderCancelled_order_Order_channel_Channel };
 
 export type OrderRefundedSubscription_event_OrderCancelled = { order: OrderRefundedSubscription_event_OrderCancelled_order_Order | null };
 
@@ -577,10 +579,15 @@ export const OrderRefundedSubscriptionDocument = new TypedDocumentString(`
   event {
     ... on OrderCancelled {
       order {
+        channel {
+          ...ChannelFragment
+        }
         number
         userEmail
       }
     }
   }
 }
-    `) as unknown as TypedDocumentString<OrderRefundedSubscription, OrderRefundedSubscriptionVariables>;
+    fragment ChannelFragment on Channel {
+  slug
+}`) as unknown as TypedDocumentString<OrderRefundedSubscription, OrderRefundedSubscriptionVariables>;

@@ -26,6 +26,7 @@ RUN corepack prepare pnpm@9.10.0 --activate
 COPY --from=builder /app/package.json /app/package.json
 COPY --from=builder /app/types/ /app/types/
 COPY --from=builder /app/src/ /app/src/
+COPY --from=builder /app/tailwind.config.ts /app/tailwind.config.ts
 COPY --from=builder /app/tsconfig.json /app/tsconfig.json
 COPY --from=builder /app/etc /app/etc
 COPY --from=builder /app/build /app/build

@@ -4,13 +4,6 @@ subscription FulfillmentTrackingNumberUpdatedSubscription {
       order {
         ...OrderFragment
       }
-      fulfillment {
-        lines {
-          orderLine {
-            ...OrderLineFragment
-          }
-        }
-      }
     }
   }
 }

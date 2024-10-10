@@ -6,7 +6,7 @@ const OrderRefundedEmail = ({ data }: EventData<OrderRefundedSubscription>) => {
   const order = data!.order!;
 
   return (
-    <Layout previewText="OrderRefundedEmail">
+    <Layout channel={order.channel.slug} previewText="OrderRefundedEmail">
       {() => <>OrderRefundedEmail #{order.number}</>}
     </Layout>
   );
@@ -15,6 +15,9 @@ const OrderRefundedEmail = ({ data }: EventData<OrderRefundedSubscription>) => {
 const previewProps: EventData<OrderRefundedSubscription> = {
   data: {
     order: {
+      channel: {
+        slug: "channel-us",
+      },
       number: "1",
       userEmail: "user@example.com",
     },

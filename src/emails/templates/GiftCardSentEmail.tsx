@@ -1,3 +1,6 @@
+import { Img } from "@react-email/components";
+
+import { CONFIG } from "@/config";
 import Header from "@/emails/components/Header";
 import Layout from "@/emails/components/Layout";
 import Text from "@/emails/components/Text";
@@ -11,10 +14,14 @@ const GiftCardSentEmail = ({ data }: EventData<GiftCardSentSubscription>) => {
         <>
           <Header>Hi {data.sentToEmail}!</Header>
           <Text>
-            Heres your gift card code <strong>{data.giftCard?.code}</strong>.
+            Heres your gift card number <strong>{data.giftCard?.code}</strong>.
             <br />
             Thank you for being a part of our community!
           </Text>
+          <Img
+            className="mt-4 w-full h-48 md:w-full md:h-[360px]"
+            src={`${CONFIG.STATIC_URL}/gift-card.jpg`}
+          />
         </>
       )}
     </Layout>
