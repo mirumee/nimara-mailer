@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import plugin from "tailwindcss/plugin";
+import plugin from "tailwindcss/plugin.js";
 
 export default {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
@@ -11,7 +11,7 @@ export default {
     },
   },
   plugins: [
-    plugin(function ({ addBase, addComponents, addUtilities, theme }) {
+    plugin(function ({ addUtilities }) {
       addUtilities({
         ".underline": {
           textDecoration: "underline",

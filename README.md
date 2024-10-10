@@ -124,4 +124,10 @@ To start development server run:
 $ pnpm dev:emails
 ```
 
+or using docker
+
+```
+$ docker compose up emails
+```
+
 Now you can see emails preview in the browser - [http://localhost:3002/](http://localhost:3002/)
