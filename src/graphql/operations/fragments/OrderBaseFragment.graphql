@@ -1,0 +1,15 @@
+fragment OrderBaseFragment on Order {
+  number
+  displayGrossPrices
+  languageCodeEnum
+  channel {
+    ...ChannelFragment
+  }
+  userEmail
+  user {
+    firstName
+  }
+  shippingAddress {
+    ...AddressFragment
+  }
+}

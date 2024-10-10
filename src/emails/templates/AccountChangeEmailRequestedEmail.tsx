@@ -23,7 +23,7 @@ const AccountChangeEmailRequestedEmail = ({
             <br />
             <Link
               href={data.redirectUrl ?? "#"}
-              className="font-bold  text-[inherit] [text-decoration:underline]"
+              className="font-bold text-[inherit] underline"
             >
               Change the mail
             </Link>

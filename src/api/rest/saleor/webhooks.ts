@@ -12,6 +12,7 @@ import {
   AccountDeleteRequestedSubscriptionDocument,
   AccountEmailChangedSubscriptionDocument,
   AccountSetPasswordRequestedSubscriptionDocument,
+  FulfillmentCreatedSubscriptionDocument,
   FulfillmentTrackingNumberUpdatedSubscriptionDocument,
   GiftCardSentSubscriptionDocument,
   OrderCancelledSubscriptionDocument,
@@ -71,6 +72,10 @@ export const EVENT_HANDLERS: {
   {
     event: "FULFILLMENT_TRACKING_NUMBER_UPDATED",
     query: FulfillmentTrackingNumberUpdatedSubscriptionDocument.toString(),
+  },
+  {
+    event: "FULFILLMENT_CREATED",
+    query: FulfillmentCreatedSubscriptionDocument.toString(),
   },
   {
     event: "GIFT_CARD_SENT",

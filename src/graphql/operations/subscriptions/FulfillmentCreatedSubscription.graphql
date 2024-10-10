@@ -1,10 +1,9 @@
-subscription FulfillmentTrackingNumberUpdatedSubscription {
+subscription FulfillmentCreatedSubscription {
   event {
-    ... on FulfillmentTrackingNumberUpdated {
+    ... on FulfillmentCreated {
       order {
         ...OrderBaseFragment
         fulfillments {
-          trackingNumber
           lines {
             quantity
             orderLine {

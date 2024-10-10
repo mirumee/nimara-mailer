@@ -5,21 +5,19 @@ import Header from "@/emails/components/Header";
 import Layout from "@/emails/components/Layout";
 import LinsSection from "@/emails/components/LinesSection";
 import { type Line } from "@/emails/components/LinesSummary";
-import Link from "@/emails/components/Link";
 import Text from "@/emails/components/Text";
-import { type FulfillmentTrackingNumberUpdatedSubscription } from "@/graphql/operations/subscriptions/generated";
+import { type FulfillmentCreatedSubscription } from "@/graphql/operations/subscriptions/generated";
 import { orderLinetoLine } from "@/lib/saleor/utils";
 import { type EventData } from "@/lib/types";
-import { isURL } from "@/lib/utils";
 
-const FulfillmentTrackingNumberUpdatedEmail = ({
+const FulfillmentCreatedEmail = ({
   data,
-}: EventData<FulfillmentTrackingNumberUpdatedSubscription>) => {
+}: EventData<FulfillmentCreatedSubscription>) => {
   const order = data!.order!;
 
   return (
-    <Layout channel={order.channel.slug} previewText="Tracking number updated">
-      {({ paths, formatter }) => {
+    <Layout channel={order.channel.slug} previewText="Fulfillment updated">
+      {({ formatter, paths }) => {
         const lines = order.fulfillments
           .map(({ lines }) =>
             lines?.map(
@@ -36,10 +34,6 @@ const FulfillmentTrackingNumberUpdatedEmail = ({
           )
           .filter(Boolean)
           .flat() as Line[];
-        const tracking = order.fulfillments.find(
-          ({ trackingNumber }) => trackingNumber
-        )?.trackingNumber;
-        const isTrackingURL = isURL(tracking ?? "");
 
         return (
           <>
@@ -47,20 +41,12 @@ const FulfillmentTrackingNumberUpdatedEmail = ({
             <Text>
               Fulfillment for the order <strong>{order.number}</strong> has been
               updated.
-              <br />
-              {isTrackingURL ? (
-                <>
-                  Tracking url:{" "}
-                  <Link href={tracking} className="underline font-bold">
-                    {tracking}
-                  </Link>
-                </>
-              ) : (
-                <>
-                  Tracking number:{" "}
-                  <span className="underline font-bold">{tracking}</span>
-                </>
-              )}
+            </Text>
+            <br />
+            <Text>
+              Thank you for placing your order! You will soon receive further
+              details regarding processing and shipping. If you have any
+              questions, feel free to reach out to us.
             </Text>
 
             {order.shippingAddress && (
@@ -81,7 +67,7 @@ const FulfillmentTrackingNumberUpdatedEmail = ({
   );
 };
 
-const previewProps: EventData<FulfillmentTrackingNumberUpdatedSubscription> = {
+const previewProps: EventData<FulfillmentCreatedSubscription> = {
   data: {
     order: {
       number: "941",
@@ -111,7 +97,6 @@ const previewProps: EventData<FulfillmentTrackingNumberUpdatedSubscription> = {
       },
       fulfillments: [
         {
-          trackingNumber: "123",
           lines: [
             {
               quantity: 1,
@@ -146,7 +131,7 @@ const previewProps: EventData<FulfillmentTrackingNumberUpdatedSubscription> = {
   },
 };
 
-FulfillmentTrackingNumberUpdatedEmail.PreviewProps = previewProps;
-FulfillmentTrackingNumberUpdatedEmail.Subject = "Tracking number updated";
+FulfillmentCreatedEmail.PreviewProps = previewProps;
+FulfillmentCreatedEmail.Subject = "Fulfillment updated";
 
-export default FulfillmentTrackingNumberUpdatedEmail;
+export default FulfillmentCreatedEmail;

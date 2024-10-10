@@ -8,7 +8,7 @@ import { cn } from "@/lib/emails/helpers";
 const SubHeader = ({ className, ...props }: HeadingProps) => (
   <BaseHeading
     {...props}
-    className={cn("text-2xl !m-0 font-normal", className)}
+    className={cn("text-2xl mt-0 mb-0 font-normal", className)}
   />
 );
 

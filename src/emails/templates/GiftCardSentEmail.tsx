@@ -9,7 +9,7 @@ import { type EventData } from "@/lib/types";
 
 const GiftCardSentEmail = ({ data }: EventData<GiftCardSentSubscription>) => {
   return (
-    <Layout channel={data.channel} previewText="GiftCardSentEmail">
+    <Layout channel={data.channel} previewText="Gift card sent">
       {() => (
         <>
           <Header>Hi {data.sentToEmail}!</Header>

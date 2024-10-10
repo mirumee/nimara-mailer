@@ -1,17 +1,5 @@
 fragment OrderFragment on Order {
-  number
-  displayGrossPrices
-  languageCodeEnum
-  channel {
-    ...ChannelFragment
-  }
-  userEmail
-  user {
-    firstName
-  }
-  shippingAddress {
-    ...AddressFragment
-  }
+  ...OrderBaseFragment
   shippingPrice {
     net {
       ...MoneyFragment

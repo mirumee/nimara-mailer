@@ -18,7 +18,7 @@ const AccountDeleteRequestedEmail = ({
             <br />
             <Link
               href={data.redirectUrl ?? "#"}
-              className="font-bold underline text-[inherit] [text-decoration:underline]"
+              className="font-bold underline text-[inherit] underline"
             >
               Delete account
             </Link>

@@ -12,8 +12,8 @@ const LinsSection = ({
   header: string;
 }) => (
   <>
-    <SubHeader>{header}</SubHeader>
     <Section>
+      <SubHeader className="mb-8">{header}</SubHeader>
       <LinesSummary {...linesSummaryProps} />
     </Section>
   </>
