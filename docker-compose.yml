@@ -1,14 +1,19 @@
-x-base: &base
+networks:
+  nimara:
+    external: true # docker network create nimara
+
+x-app: &app
   build:
     context: .
     dockerfile: Dockerfile
     args:
       INSTALL_DEV: "true"
   environment:
-    - LOG_LEVEL=info
+    - LOG_LEVEL=${LOG_LEVEL:?-debug}
     - NODE_ENV=development
     - SALEOR_URL=${SALEOR_URL:?SALEOR_URL env var is required}
     - STATIC_URL=${STATIC_URL:?STATIC_URL env is required}
+    - STOREFRONT_URL=${STOREFRONT_URL:?STOREFRONT_URL env is required}
     - SQS_QUEUE_URL=${SQS_QUEUE_URL:?SQS_QUEUE_URL env is required}
     - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID?:AWS_ACCESS_KEY_ID env is required}
     - AWS_REGION=${AWS_REGION?:AWS_REGION env is required}
@@ -19,16 +24,18 @@ x-base: &base
   volumes:
     - ./src/:/app/src/
     - ./build/:/app/build/
+  networks:
+    - nimara
 
 services:
   app:
-    <<: *base
+    <<: *app
     container_name: "app"
     ports:
       - "3000:3000"
 
   emails:
-    <<: *base
+    <<: *app
     container_name: "emails"
     command: pnpm dev:emails
     ports:
@@ -51,4 +58,6 @@ services:
     volumes:
       - "./localstack:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - "./etc/init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh" # ready hook
+      - "./etc/commands/init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh" # ready hook
+    networks:
+      - nimara
