@@ -2,8 +2,13 @@ subscription OrderCancelledSubscription {
   event {
     ... on OrderCancelled {
       order {
-        number
+        channel {
+          ...ChannelFragment
+        }
         userEmail
+        user {
+          firstName
+        }
       }
     }
   }

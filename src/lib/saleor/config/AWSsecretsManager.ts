@@ -35,7 +35,16 @@ export const SaleorAWSSecretsManagerConfigProvider: SaleorConfigProviderFactory<
       return config;
     }
 
-    return saleorBaseConfig.parse(config);
+    if (Object.entries(config).length) {
+      try {
+        return saleorBaseConfig.parse(config);
+      } catch (err) {
+        logger.error(err);
+        throw err;
+      }
+    }
+
+    return null;
   };
 
   const getBySaleorAppId: SaleorConfigProvider["getBySaleorAppId"] =
@@ -54,8 +63,6 @@ export const SaleorAWSSecretsManagerConfigProvider: SaleorConfigProviderFactory<
   const createOrUpdate: SaleorConfigProvider["createOrUpdate"] = async (
     opts
   ) => {
-    validateDomain(opts.saleorDomain);
-
     let config = await getBySaleorDomain({ saleorDomain: opts.saleorDomain });
 
     if (config) {

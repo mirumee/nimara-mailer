@@ -13,6 +13,10 @@ echo -e "Running AWS create queue command for ${QUEUE_NAME}.\n"
 aws sqs create-queue --region ${AWS_DEFAULT_REGION} --endpoint-url=${ENDPOINT_URL} --queue-name ${QUEUE_NAME}
 echo -e "\nCreated queue ${QUEUE_NAME}"
 
+echo $SEPARATOR
+echo -e "Running AWS create secret command for ${SECRET_MANAGER_APP_CONFIG_PATH}.\n"
+aws secretsmanager create-secret --region ${AWS_DEFAULT_REGION} --endpoint-url=${ENDPOINT_URL} --name ${SECRET_MANAGER_APP_CONFIG_PATH}
+echo -e "\nCreated ${SECRET_MANAGER_APP_CONFIG_PATH}"
 
 echo $SEPARATOR
 echo -e "Running AWS verify email identity command for ${FROM_EMAIL}.\n"
