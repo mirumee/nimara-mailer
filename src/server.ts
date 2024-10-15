@@ -24,7 +24,7 @@ export async function createServer() {
   const registrations = [];
   const server = Fastify({
     disableRequestLogging: true,
-    logger,
+    loggerInstance: logger,
   });
 
   server.addHook("onRegister", (instance) => {

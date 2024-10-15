@@ -38,6 +38,7 @@ export const createLogger = ({
       nodeEvn: PLUGIN_CONFIG.NODE_ENV,
       service,
     },
+
     format: format.combine(
       format((info) => {
         info.level = `[${info.level.toUpperCase()}]`;
