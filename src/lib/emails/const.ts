@@ -1,18 +1,18 @@
 import { type ComponentType } from "react";
 
+import AccountChangeEmailRequestedEmail from "@/emails/templates/AccountChangeEmailRequestedEmail";
+import AccountConfirmationRequestedEmail from "@/emails/templates/AccountConfirmationRequestedEmail";
+import AccountConfirmedEmail from "@/emails/templates/AccountConfirmedEmail";
+import AccountDeletedEmail from "@/emails/templates/AccountDeletedEmail";
+import AccountDeleteRequestedEmail from "@/emails/templates/AccountDeleteRequestedEmail";
+import AccountEmailChangedEmail from "@/emails/templates/AccountEmailChangedEmail";
+import AccountSetPasswordRequestedEmail from "@/emails/templates/AccountSetPasswordRequestedEmail";
+import FulfillmentTrackingNumberUpdatedEmail from "@/emails/templates/FulfillmentTrackingNumberUpdatedEmail";
+import GiftCardSentEmail from "@/emails/templates/GiftCardSentEmail";
+import OrderCancelledEmail from "@/emails/templates/OrderCancelledEmail";
+import OrderCreatedEmail from "@/emails/templates/OrderCreatedEmail";
+import OrderRefundedEmail from "@/emails/templates/OrderRefundedEmail";
 import { type WebhookEventTypeAsyncEnum } from "@/graphql/schema";
-import { AccountChangeEmailRequestedEmail } from "@/templates/AccountChangeEmailRequestedEmail";
-import { AccountConfirmationRequestedEmail } from "@/templates/AccountConfirmationRequestedEmail";
-import { AccountConfirmedEmail } from "@/templates/AccountConfirmedEmail";
-import { AccountDeletedEmail } from "@/templates/AccountDeletedEmail";
-import { AccountDeleteRequestedEmail } from "@/templates/AccountDeleteRequestedEmail";
-import { AccountEmailChangedEmail } from "@/templates/AccountEmailChangedEmail";
-import { AccountSetPasswordRequestedEmail } from "@/templates/AccountSetPasswordRequestedEmail";
-import { FulfillmentTrackingNumberUpdatedEmail } from "@/templates/FulfillmentTrackingNumberUpdatedEmail";
-import { GiftCardSentEmail } from "@/templates/GiftCardSentEmail";
-import { OrderCancelledEmail } from "@/templates/OrderCancelledEmail";
-import { OrderCreatedEmail } from "@/templates/OrderCreatedEmail";
-import { OrderRefundedEmail } from "@/templates/OrderRefundedEmail";
 
 const extractEmailFromOrder = (data: { order: { userEmail: string } }) =>
   data.order.userEmail;

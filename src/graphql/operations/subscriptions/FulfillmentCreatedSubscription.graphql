@@ -1,0 +1,17 @@
+subscription FulfillmentCreatedSubscription {
+  event {
+    ... on FulfillmentCreated {
+      order {
+        ...OrderBaseFragment
+        fulfillments {
+          lines {
+            quantity
+            orderLine {
+              ...OrderLineFragment
+            }
+          }
+        }
+      }
+    }
+  }
+}

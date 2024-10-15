@@ -6,7 +6,7 @@ import { esbuildConfig } from "./common.mjs";
 try {
   const ctx = await esbuild.context({
     ...esbuildConfig,
-    entryPoints: ["src/server.ts", "src/emails-sender-proxy.ts"],
+    entryPoints: ["src/events-receiver.ts", "src/emails-sender-proxy.ts"],
   });
   await ctx.watch();
   console.log("Watching for changes...");
