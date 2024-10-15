@@ -16,11 +16,11 @@ const OrderCancelledEmail = ({
           <Header>Hi {order?.user?.firstName ?? order.userEmail}!</Header>
           <Text className="!mb-4">
             We want to inform you that your order has been successfully
-            canceled.
+            cancelled.
           </Text>
           <Text>
-            Thank you for choosing our service, and we hope to serve you again
-            in the future.
+            Thank you for choosing our service! We look forward to serving you
+            again in the future.
           </Text>
         </>
       )}

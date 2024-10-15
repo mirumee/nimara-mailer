@@ -14,7 +14,7 @@ const GiftCardSentEmail = ({ data }: EventData<GiftCardSentSubscription>) => {
         <>
           <Header>Hi {data.sentToEmail}!</Header>
           <Text>
-            Heres your gift card number <strong>{data.giftCard?.code}</strong>.
+            Here's your gift card number <strong>{data.giftCard?.code}</strong>.
             <br />
             Thank you for being a part of our community!
           </Text>

@@ -2,10 +2,10 @@ import AddressSection from "@/emails/components/AddressSection";
 import CostSummary from "@/emails/components/CostSummary";
 import Header from "@/emails/components/Header";
 import Layout from "@/emails/components/Layout";
-import LinsSection from "@/emails/components/LinesSection";
+import LinesSection from "@/emails/components/LinesSection";
 import Text from "@/emails/components/Text";
 import { type OrderCreatedSubscription } from "@/graphql/operations/subscriptions/generated";
-import { orderLinetoLine } from "@/lib/saleor/utils";
+import { orderLineToLine } from "@/lib/saleor/utils";
 import { type EventData } from "@/lib/types";
 
 const OrderCreatedEmail = ({ data }: EventData<OrderCreatedSubscription>) => {
@@ -35,11 +35,11 @@ const OrderCreatedEmail = ({ data }: EventData<OrderCreatedSubscription>) => {
             />
           )}
 
-          <LinsSection
+          <LinesSection
             paths={paths}
             header="Your order"
             lines={order.lines.map((line) =>
-              orderLinetoLine({
+              orderLineToLine({
                 line,
                 formatter,
                 displayGrossPrices: order.displayGrossPrices,

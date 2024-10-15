@@ -5,7 +5,7 @@ import Section from "@/emails/components/Section";
 import LinesSummary from "./LinesSummary";
 import SubHeader from "./SubHeader";
 
-const LinsSection = ({
+const LinesSection = ({
   header,
   ...linesSummaryProps
 }: ComponentProps<typeof LinesSummary> & {
@@ -19,4 +19,4 @@ const LinsSection = ({
   </>
 );
 
-export default LinsSection;
+export default LinesSection;

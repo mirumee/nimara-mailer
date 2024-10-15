@@ -21,7 +21,7 @@ const Footer = ({ paths }: { paths: Paths }) => (
         <Link href={paths.terms()}>Terms of Use</Link>
       </Column>
       <Column className="flex md:w-1/3 md:table-cell">
-        <Link href={paths.privacyPolicy()}>Privacy Police</Link>
+        <Link href={paths.privacyPolicy()}>Privacy Policy</Link>
       </Column>
     </Row>
   </Section>

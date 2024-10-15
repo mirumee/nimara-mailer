@@ -14,7 +14,8 @@ const AccountConfirmedEmail = ({
           <Header>Hi {data.user?.firstName}!</Header>
           <Text className="!mb-10">
             We are pleased to inform you that your account has been successfully
-            confirmed. You can now fully access all the features of our service.
+            confirmed. You now have full access to all the features of our
+            service.
           </Text>
           <Text>Thank you for joining us!</Text>
         </>

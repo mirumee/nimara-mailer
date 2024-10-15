@@ -2,10 +2,10 @@ import AddressSection from "@/emails/components/AddressSection";
 import CostSummary from "@/emails/components/CostSummary";
 import Header from "@/emails/components/Header";
 import Layout from "@/emails/components/Layout";
-import LinsSection from "@/emails/components/LinesSection";
+import LinesSection from "@/emails/components/LinesSection";
 import Text from "@/emails/components/Text";
 import { type OrderRefundedSubscription } from "@/graphql/operations/subscriptions/generated";
-import { orderLinetoLine } from "@/lib/saleor/utils";
+import { orderLineToLine } from "@/lib/saleor/utils";
 import { type EventData } from "@/lib/types";
 
 const OrderRefundedEmail = ({ data }: EventData<OrderRefundedSubscription>) => {
@@ -33,11 +33,11 @@ const OrderRefundedEmail = ({ data }: EventData<OrderRefundedSubscription>) => {
             />
           )}
 
-          <LinsSection
+          <LinesSection
             paths={paths}
             header="Your order"
             lines={order.lines.map((line) =>
-              orderLinetoLine({
+              orderLineToLine({
                 line,
                 formatter,
                 displayGrossPrices: order.displayGrossPrices,

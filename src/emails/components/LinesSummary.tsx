@@ -30,8 +30,7 @@ const LinesSummary = ({ lines, paths }: { lines: Line[]; paths: Paths }) =>
             src={
               thumbnail
                 ? thumbnail
-                : `${CONFIG.STATIC_URL}/product-placeholder.png
-`
+                : `${CONFIG.STATIC_URL}/product-placeholder.png`
             }
           />
         </Column>

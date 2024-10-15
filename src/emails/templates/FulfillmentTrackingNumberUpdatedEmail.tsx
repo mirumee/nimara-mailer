@@ -3,12 +3,12 @@ import { Hr } from "@react-email/components";
 import AddressSection from "@/emails/components/AddressSection";
 import Header from "@/emails/components/Header";
 import Layout from "@/emails/components/Layout";
-import LinsSection from "@/emails/components/LinesSection";
+import LinesSection from "@/emails/components/LinesSection";
 import { type Line } from "@/emails/components/LinesSummary";
 import Link from "@/emails/components/Link";
 import Text from "@/emails/components/Text";
 import { type FulfillmentTrackingNumberUpdatedSubscription } from "@/graphql/operations/subscriptions/generated";
-import { orderLinetoLine } from "@/lib/saleor/utils";
+import { orderLineToLine } from "@/lib/saleor/utils";
 import { type EventData } from "@/lib/types";
 import { isURL } from "@/lib/utils";
 
@@ -25,7 +25,7 @@ const FulfillmentTrackingNumberUpdatedEmail = ({
             lines?.map(
               ({ orderLine, quantity }) =>
                 orderLine && {
-                  ...orderLinetoLine({
+                  ...orderLineToLine({
                     line: orderLine,
                     formatter,
                     displayGrossPrices: order.displayGrossPrices,
@@ -73,7 +73,7 @@ const FulfillmentTrackingNumberUpdatedEmail = ({
 
             <Hr />
 
-            <LinsSection paths={paths} header="Your order" lines={lines} />
+            <LinesSection paths={paths} header="Your order" lines={lines} />
           </>
         );
       }}
