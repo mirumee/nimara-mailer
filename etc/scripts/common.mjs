@@ -7,7 +7,7 @@ const isSentryEnabled =
   process.env.SENTRY_AUTH_TOKEN;
 
 export const esbuildConfig = {
-  entryPoints: ["src/emails-sender.ts", "src/events-receiver.ts"],
+  entryPoints: ["src/events-receiver.ts", "src/emails-sender.ts"],
   outdir: "build",
   bundle: true,
   allowOverwrite: true,

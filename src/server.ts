@@ -31,6 +31,9 @@ export async function createServer() {
   });
 
   server.addHook("onRegister", (instance) => {
+    /**
+     * This won't apply to plugins wrapped with `fastifyPlugin`.
+     */
     registrations.push(instance.pluginName);
   });
 
