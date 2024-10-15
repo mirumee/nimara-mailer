@@ -28,9 +28,6 @@ export async function createServer() {
   });
 
   server.addHook("onRegister", (instance) => {
-    /**
-     * This won't apply to plugins wrapped with `fastifyPlugin`.
-     */
     registrations.push(instance.pluginName);
   });
 
@@ -48,7 +45,7 @@ export async function createServer() {
     [AWSSQSPlugin],
   ]) {
     // @ts-ignore
-    const pluginName = plugin?.[Symbol.for("plugin-meta")]?.name ?? plugin.name;
+    const pluginName = plugin[Symbol.for("plugin-meta")]?.name ?? plugin.name;
     registrations.push(pluginName);
 
     await server.register(plugin as FastifyPlugin, opts);
@@ -63,7 +60,7 @@ export async function createServer() {
     prefix: "/api",
   });
 
-  server.log.info(`Registrations: ${registrations.join(", ")}.`);
+  server.log.info("Registering plugins", { registrations });
 
   return server;
 }

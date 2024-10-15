@@ -13,7 +13,7 @@
     "node": "20"
   },
   "scripts": {
-    "dev": "concurrently -k -p \"[{name}]\" -n \"TSC,BUILD,EVENTS-RECEIVER,EMAILS-SENDER\" -c \"blue.bold,red.bold,cyan.bold,green.bold\" \"pnpm tsc:watch\" \"pnpm dev:build\" \"pnpm dev:run:events-receiver\" \"pnpm dev:run:emails-sender-proxy\"",
+    "dev": "concurrently -k -p \"[{name}]\" -n \"TSC,BUILD,RECEIVER,SENDER\" -c \"blue.bold,red.bold,cyan.bold,green.bold\" \"pnpm tsc:watch\" \"pnpm dev:build\" \"pnpm dev:run:events-receiver\" \"pnpm dev:run:emails-sender-proxy\"",
     "dev:build": "dotenv -v NODE_ENV=development -- node ./etc/scripts/dev.mjs",
     "dev:emails": "dotenv -- email dev -d ./src/emails -p 3002",
     "dev:run:events-receiver": "dotenv -v NODE_ENV=development -- nodemon --inspect=0.0.0.0:9229 --watch build/events-receiver.js build/events-receiver.js",
@@ -75,6 +75,7 @@
     "vite": "^5.3.5",
     "vite-tsconfig-paths": "^4.3.2",
     "winston": "^3.14.2",
+    "winston-console-format": "^1.0.8",
     "zod": "^3.23.8"
   },
   "devDependencies": {
