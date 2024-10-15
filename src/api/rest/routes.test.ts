@@ -20,7 +20,7 @@ describe("apiRoutes", () => {
     });
   });
 
-  describe.only("/api/send-notification", () => {
+  describe("/api/send-notification", () => {
     const url = "/api/send-notification";
     const sendSpy = vi.fn();
 

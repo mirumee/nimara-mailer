@@ -1,5 +1,8 @@
+import "./instrument.events-receiver";
+
 import { fileURLToPath } from "node:url";
 
+import * as Sentry from "@sentry/node";
 import Fastify from "fastify";
 import {
   serializerCompiler,
@@ -18,7 +21,7 @@ import WinstonLoggingPlugin from "@/lib/plugins/winstonLoggingPlugin";
 
 import { getLogger } from "./providers/logger";
 
-export const logger = getLogger("emails-sender");
+export const logger = getLogger();
 
 export async function createServer() {
   const registrations = [];
@@ -67,6 +70,8 @@ export async function createServer() {
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const app = await createServer();
+
+  Sentry.setupFastifyErrorHandler(app);
 
   app.ready((err) => {
     if (err) {
