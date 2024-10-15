@@ -22,13 +22,14 @@ const app = Consumer.create({
 });
 
 app.on("error", (error) => {
-  logger.error("Proxy error.");
-  logger.error(error.message);
+  logger.error(`Proxy error: ${error.message}`, { error, stack: error.stack });
 });
 
 app.on("processing_error", (error) => {
-  logger.error("Proxy processing error.");
-  logger.error(error.message);
+  logger.error(`Proxy processing error: ${error.message}`, {
+    error,
+    stack: error.stack,
+  });
 });
 
 app.on("started", () => {

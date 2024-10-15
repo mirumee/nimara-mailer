@@ -336,6 +336,8 @@ table td {
 }
 `;
 
-export const ResetStyles = () => (
+const ResetStyles = () => (
   <style dangerouslySetInnerHTML={{ __html: resetStyles }} />
 );
+
+export default ResetStyles;

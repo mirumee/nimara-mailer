@@ -1,0 +1,21 @@
+fragment OrderFragment on Order {
+  ...OrderBaseFragment
+  shippingPrice {
+    net {
+      ...MoneyFragment
+    }
+  }
+  subtotal {
+    net {
+      ...MoneyFragment
+    }
+  }
+  total {
+    gross {
+      ...MoneyFragment
+    }
+  }
+  lines {
+    ...OrderLineFragment
+  }
+}

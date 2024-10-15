@@ -1,8 +1,12 @@
 subscription AccountEmailChangedSubscription {
   event {
     ... on AccountEmailChanged {
+      channel {
+        ...ChannelFragment
+      }
       user {
         email
+        firstName
       }
     }
   }

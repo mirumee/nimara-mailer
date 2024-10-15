@@ -1,28 +1,45 @@
+networks:
+  nimara:
+    external: true # docker network create nimara
+
+x-app: &app
+  build:
+    context: .
+    dockerfile: Dockerfile
+    args:
+      INSTALL_DEV: "true"
+  environment:
+    - LOG_LEVEL=${LOG_LEVEL:?-debug}
+    - NODE_ENV=development
+    - SALEOR_URL=${SALEOR_URL:?SALEOR_URL env var is required}
+    - STATIC_URL=${STATIC_URL:?STATIC_URL env is required}
+    - STOREFRONT_URL=${STOREFRONT_URL:?STOREFRONT_URL env is required}
+    - SQS_QUEUE_URL=${SQS_QUEUE_URL:?SQS_QUEUE_URL env is required}
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID?:AWS_ACCESS_KEY_ID env is required}
+    - AWS_REGION=${AWS_REGION?:AWS_REGION env is required}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY?:AWS_SECRET_ACCESS_KEY env is required}
+    - SECRET_MANAGER_APP_CONFIG_PATH=${SECRET_MANAGER_APP_CONFIG_PATH?:SECRET_MANAGER_APP_CONFIG_PATH env is required}
+  env_file:
+    - .env
+  volumes:
+    - ./src/:/app/src/
+    - ./build/:/app/build/
+  networks:
+    - nimara
+
 services:
   app:
+    <<: *app
     container_name: "app"
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        INSTALL_DEV: "true"
     ports:
-      - "3000:3000" # event receiver
-      - "3001:3001" # emails sender proxy
-    env_file:
-      - .env
-    environment:
-      - LOG_LEVEL=info
-      - NODE_ENV=development
-      - SALEOR_URL=${SALEOR_URL:?SALEOR_URL env var is required}
-      - STATIC_URL=${STATIC_URL:?STATIC_URL env is required}
-      - SQS_QUEUE_URL=${SQS_QUEUE_URL:?SQS_QUEUE_URL env is required}
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID?:AWS_ACCESS_KEY_ID env is required}
-      - AWS_REGION=${AWS_REGION?:AWS_REGION env is required}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY?:AWS_SECRET_ACCESS_KEY env is required}
-      - SECRET_MANAGER_APP_CONFIG_PATH=${SECRET_MANAGER_APP_CONFIG_PATH?:SECRET_MANAGER_APP_CONFIG_PATH env is required}
-    volumes:
-      - ./src/:/app/src/
+      - "3000:3000"
+
+  emails:
+    <<: *app
+    container_name: "emails"
+    command: pnpm dev:emails
+    ports:
+      - "3002:3002"
 
   localstack:
     container_name: "${LOCALSTACK_DOCKER_NAME:-localstack}"
@@ -30,14 +47,17 @@ services:
     environment:
       # LocalStack configuration: https://docs.localstack.cloud/references/configuration/
       - AWS_DEFAULT_REGION=${AWS_REGION?:AWS_REGION env is required}
-      - SERVICES=sqs,ses
+      - SERVICES=sqs,ses,secretsmanager
       - DEBUG=${DEBUG:-0}
       - FROM_EMAIL=${FROM_EMAIL?:FROM_DOMAIN env is required}
       - FROM_DOMAIN=${FROM_DOMAIN?:FROM_DOMAIN env is required for running SES locally}
+      - SECRET_MANAGER_APP_CONFIG_PATH=${SECRET_MANAGER_APP_CONFIG_PATH?:SECRET_MANAGER_APP_CONFIG_PATH env is required}
     ports:
       - "127.0.0.1:4566:4566" # LocalStack Gateway
       - "127.0.0.1:4510-4559:4510-4559" # external services port range
     volumes:
       - "./localstack:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - "./etc/init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh" # ready hook
+      - "./etc/commands/init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh" # ready hook
+    networks:
+      - nimara

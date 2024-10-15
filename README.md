@@ -75,9 +75,12 @@ To run localstack in the background:
 $ docker compose up localstack -d
 ```
 
-On startup, a queue will be created automatically with name `nimara-mailer-queue`.
+On startup:
 
-Also the script will confirm email ($FROM_EMAIL env) identity and domain ($FROM_DOMAIN env) identity.
+- sqs queue will be created automatically with name `nimara-mailer-queue`.
+- secret value will be created ($SECRET_MANAGER_APP_CONFIG_PATH env)
+- email identity will be confirmed in SNS ($FROM_EMAIL env).
+- domain will be confirmed in SNS ($FROM_DOMAIN env).
 
 Check the [init-aws.sh](/etc/init-aws.sh) script for more details.
 
@@ -106,3 +109,25 @@ Verifying domain identity:
 ```
 $ awslocal ses verify-domain-identity --region ap-southeast-1 --domain mirumee.com --endpoint-url=http://localhost:4566
 ```
+
+### Envs, Prerequisite etc info
+
+TBD
+
+### Local email develpment
+
+App is using [React Email](https://react.email/) for email templating.
+
+To start development server run:
+
+```
+$ pnpm dev:emails
+```
+
+or using docker
+
+```
+$ docker compose up emails
+```
+
+Now you can see emails preview in the browser - [http://localhost:3002/](http://localhost:3002/)

@@ -46,7 +46,7 @@ describe("apiRoutes", () => {
       expect(response.statusCode).toStrictEqual(expectedStatusCode);
     });
 
-    test.skip("Should return proper response.", async () => {
+    test("Should return proper response.", async () => {
       const spy = vi.spyOn(auth, "verifyJWTSignature");
       const app = await createServer();
       const expectedJson = { status: "ok" };
