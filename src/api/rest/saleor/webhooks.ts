@@ -110,7 +110,6 @@ export const saleorWebhooksRoutes: FastifyPluginAsync = async (fastify) => {
           `Received webhook for '${request.headers["saleor-event"]}'.`
         );
         fastify.log.debug("Webhook payload:", { payload: request.body });
-
         const payload = serializePayload({
           data: request.body,
           event: request.headers["saleor-event"],
