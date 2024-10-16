@@ -55,6 +55,8 @@ Alternatively, you can use docker to run the app.
 
 ## Localstack
 
+Localstack is used for local development to replace need of usage AWS services. Everything needed is automatically configured on container startup.
+
 ### Install [awscli-local](https://github.com/localstack/awscli-local)
 
 ```
@@ -110,11 +112,37 @@ Verifying domain identity:
 $ awslocal ses verify-domain-identity --region ap-southeast-1 --domain mirumee.com --endpoint-url=http://localhost:4566
 ```
 
-### Envs, Prerequisite etc info
+## Using AWS
 
-TBD
+You can use AWS services directly, without using localstack.
 
-### Local email develpment
+You will need:
+
+- set your AWS envs:
+  - `AWS_ACCESS_KEY_ID`
+  - `AWS_SECRET_ACCESS_KEY`
+  - `AWS_REGION`
+- create a [SQS queue](https://aws.amazon.com/sqs/) and set the `SQS_QUEUE_URL` env.
+- create a [secret manager](https://aws.amazon.com/secrets-manager/) entry and set the `SECRET_MANAGER_APP_CONFIG_PATH` env. The initial secret should be pre populated with empty object `{}`.
+
+## Email providers
+
+To change the email provider, change the `getEmailProvider` function in [src/providers/email.ts](src/providers/email.ts) to return the provider of your choice.
+
+### [Amazon Simple Email Service](https://aws.amazon.com/ses/)
+
+```
+import { awsSESEmailProvider } from "@/lib/emails/providers/awsSESEmailProvider";
+
+export const getEmailProvider = awsSESEmailProvider;
+```
+
+In AWS you will have to:
+
+- verify domain identity from `FROM_EMAIL` env.
+- verify email identity from `FROM_DOMAIN` env.
+
+### Local email development
 
 App is using [React Email](https://react.email/) for email templating.
 
@@ -131,3 +159,19 @@ $ docker compose up emails
 ```
 
 Now you can see emails preview in the browser - [http://localhost:3002/](http://localhost:3002/)
+
+### Tests
+
+App is using [vitest](https://vitest.dev/) for testing.
+
+To run tests:
+
+```
+$ pnpm test
+```
+
+or
+
+```
+$ pnpm test:watch
+```
