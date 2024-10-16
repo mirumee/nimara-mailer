@@ -15,7 +15,7 @@ RUN bash -c "if [ $INSTALL_DEV == 'true' ] ; then pnpm install --frozen-lockfile
 RUN pnpm build
 
 
-FROM node:20-alpine as runner
+FROM node:20-alpine AS runner
 
 WORKDIR /app
 
@@ -32,9 +32,7 @@ COPY --from=builder /app/etc /app/etc
 COPY --from=builder /app/build /app/build
 COPY --from=builder /app/node_modules /app/node_modules
 
-# ENTRYPOINT ["/bin/bash", "./etc/commands/docker-entrypoint.sh"]
-
 EXPOSE 3000
-EXPOSE 3001
+EXPOSE 3002
 
 CMD [ "pnpm",  "dev" ]

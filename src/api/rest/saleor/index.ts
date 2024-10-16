@@ -8,8 +8,8 @@ import { getConfigProvider } from "@/providers/config";
 import { getJWKSProvider } from "@/providers/jwks";
 import { getSaleorClient } from "@/providers/saleorClient";
 
-import { saleor } from "./saleor";
-import { EVENT_HANDLERS, webhooks } from "./webhooks";
+import { saleorRestRoutes } from "./saleor";
+import { EVENT_HANDLERS, saleorWebhooksRoutes } from "./webhooks";
 
 const getManifestWebhooks = (request: FastifyRequest): AppManifestWebhook[] =>
   EVENT_HANDLERS.map(({ event, query }) => {
@@ -58,7 +58,7 @@ export const saleorRoutes: FastifyPluginAsync = async (
       }),
     }),
 
-    fastify.register(webhooks, { prefix: "/webhooks" }),
-    fastify.register(saleor),
+    fastify.register(saleorWebhooksRoutes, { prefix: "/webhooks" }),
+    fastify.register(saleorRestRoutes),
   ]);
 };

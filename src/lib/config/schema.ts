@@ -13,18 +13,24 @@ export const commonConfigSchema = z.object({
 
 export const appConfigSchema = (
   z.object({
-    IS_DEVELOPMENT: z.boolean().default(process.env.NODE_ENV === "development"),
     NAME: z.string(),
     RELEASE: z.string().optional(),
     VERSION: z.string(),
+    SERVICE: z.string().optional(),
   }) as any as z.ZodObject<{
     NAME: z.ZodString;
     RELEASE: z.ZodString;
+    SERVICE: z.ZodString;
     VERSION: z.ZodString;
   }>
 ).refine((data) => {
   if (data.VERSION && data.NAME) {
     data.RELEASE = `${data.NAME}@${data.VERSION}`;
   }
+
+  data.SERVICE = data.SERVICE
+    ? `${data.SERVICE}/${data.RELEASE}`
+    : data.RELEASE;
+
   return data;
 });

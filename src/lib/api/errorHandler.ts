@@ -1,8 +1,8 @@
 import { STATUS_CODES } from "node:http";
 
 import { type FastifyInstance } from "fastify";
+import { hasZodFastifySchemaValidationErrors } from "fastify-type-provider-zod";
 import { JOSEError } from "jose/errors";
-import { ZodError } from "zod";
 
 import { logger } from "@/server";
 
@@ -38,24 +38,18 @@ export const errorHandler: FastifyInstance["errorHandler"] = (
     });
   }
 
-  /**
-   * Fastify by default stringifies responses which makes the message really ugly.
-   * https://github.com/turkerdev/fastify-type-provider-zod/issues/26
-   * Additionally, add validation context if present to point the source of the error.
-   * TODO: Maybe serialize message to proper text instead of stringified object?
-   */
-  if (err instanceof ZodError) {
+  if (hasZodFastifySchemaValidationErrors(err)) {
     return reply.status(statusCode).send({
       error,
       code: "VALIDATION_ERROR",
       requestId,
-      errors: err.issues.map(({ code, message, path }) => ({
-        code: formatCode(code),
-        message,
+      errors: err.validation.map(({ message, keyword, params }) => ({
+        code: formatCode(keyword),
         context: (err.validationContext
-          ? [err.validationContext, ...path]
-          : path
+          ? [err.validationContext, ...params.issue.path]
+          : params.issue.path
         ).join(" > "),
+        message,
       })),
     });
   }

@@ -1,5 +1,8 @@
+import "./instrument.events-receiver";
+
 import { fileURLToPath } from "node:url";
 
+import * as Sentry from "@sentry/node";
 import Fastify from "fastify";
 import {
   serializerCompiler,
@@ -18,13 +21,13 @@ import WinstonLoggingPlugin from "@/lib/plugins/winstonLoggingPlugin";
 
 import { getLogger } from "./providers/logger";
 
-export const logger = getLogger("emails-sender");
+export const logger = getLogger();
 
 export async function createServer() {
   const registrations = [];
   const server = Fastify({
     disableRequestLogging: true,
-    logger,
+    loggerInstance: logger,
   });
 
   server.addHook("onRegister", (instance) => {
@@ -48,7 +51,7 @@ export async function createServer() {
     [AWSSQSPlugin],
   ]) {
     // @ts-ignore
-    const pluginName = plugin?.[Symbol.for("plugin-meta")]?.name ?? plugin.name;
+    const pluginName = plugin[Symbol.for("plugin-meta")]?.name ?? plugin.name;
     registrations.push(pluginName);
 
     await server.register(plugin as FastifyPlugin, opts);
@@ -63,13 +66,15 @@ export async function createServer() {
     prefix: "/api",
   });
 
-  server.log.info(`Registrations: ${registrations.join(", ")}.`);
+  server.log.info("Registering plugins", { registrations });
 
   return server;
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const app = await createServer();
+
+  Sentry.setupFastifyErrorHandler(app);
 
   app.ready((err) => {
     if (err) {
