@@ -1,36 +1,16 @@
 import "./instrument.emails-sender";
 
 import * as Sentry from "@sentry/aws-serverless";
-import {
-  type Context,
-  type SQSBatchResponse,
-  type SQSEvent,
-  type SQSRecord,
-} from "aws-lambda";
+import { type Context, type SQSBatchResponse, type SQSEvent } from "aws-lambda";
 
 import { CONFIG } from "@/config";
+import { parseRecord } from "@/lib/aws/serverless/utils";
 import { TEMPLATES_MAP } from "@/lib/emails/const";
-import { EmailParsePayloadError } from "@/lib/emails/errors";
-import { type SerializedPayload } from "@/lib/emails/events/helpers";
 import { getJSONFormatHeader } from "@/lib/saleor/apps/utils";
 import { getEmailProvider } from "@/providers/email";
 import { getLogger } from "@/providers/logger";
 
 export const logger = getLogger();
-
-const parseRecord = (record: SQSRecord) => {
-  try {
-    // Proxy events has invalid types.
-    const data = JSON.parse((record as any).Body);
-    return data as SerializedPayload;
-  } catch (error) {
-    logger.error("Failed to parse record payload.", { record, error });
-
-    throw new EmailParsePayloadError("Failed to parse record payload.", {
-      cause: { source: error as Error },
-    });
-  }
-};
 
 export const handler = Sentry.wrapHandler(
   async (event: SQSEvent, context: Context) => {

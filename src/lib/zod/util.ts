@@ -34,16 +34,3 @@ export const prepareConfig = <Schema extends AnyZodSchema = AnyZodSchema>({
 
   return parsedConfig.data;
 };
-
-export const envToStrList = (
-  env: string | undefined,
-  defaultEmpty = false
-): string[] | undefined => {
-  const parsed = env?.split(",").filter(Boolean);
-
-  if (!parsed && !defaultEmpty) {
-    return [];
-  }
-
-  return parsed;
-};

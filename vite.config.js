@@ -29,6 +29,7 @@ export default defineConfig({
         "src/graphql/schema.ts",
         "src/**/*/generated.ts",
         "src/**/*/types.ts",
+        "src/**/*/const.ts",
         "src/**/*/tailwind.ts",
         "src/emails-sender-proxy.ts",
         "src/**/*/*.d.ts",

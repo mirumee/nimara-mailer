@@ -139,8 +139,8 @@ export const getEmailProvider = awsSESEmailProvider;
 
 In AWS you will have to:
 
-- verify domain identity from `FROM_EMAIL` env.
-- verify email identity from `FROM_DOMAIN` env.
+- verify [domain identity](https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#just-verify-domain-proc) from `FROM_EMAIL` env.
+- verify [email identity](https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#just-verify-email-proc) from `FROM_DOMAIN` env.
 
 ### Local email development
 
