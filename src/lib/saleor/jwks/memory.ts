@@ -1,5 +1,3 @@
-import { URL } from "node:url";
-
 import { createRemoteJWKSet } from "jose";
 
 import { invariant } from "@/lib/invariant";

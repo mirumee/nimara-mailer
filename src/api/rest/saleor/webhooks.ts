@@ -83,11 +83,11 @@ export const EVENT_HANDLERS: {
   },
 ];
 
-export const webhooks: FastifyPluginAsync = async (fastify) => {
+export const saleorWebhooksRoutes: FastifyPluginAsync = async (fastify) => {
   await fastify.register(rawBody);
 
   EVENT_HANDLERS.forEach(({ event }) => {
-    const name = event.toLocaleLowerCase().replaceAll("_", "-");
+    const name = event.toLowerCase().replaceAll("_", "-");
 
     fastify.withTypeProvider<ZodTypeProvider>().post(
       `/email/${name}`,
@@ -110,7 +110,6 @@ export const webhooks: FastifyPluginAsync = async (fastify) => {
           `Received webhook for '${request.headers["saleor-event"]}'.`
         );
         fastify.log.debug("Webhook payload:", { payload: request.body });
-
         const payload = serializePayload({
           data: request.body,
           event: request.headers["saleor-event"],

@@ -15686,6 +15686,12 @@ export type OrderBulkCreateOrderLineInput = {
   privateMetadata?: InputMaybe<Array<MetadataInput>>;
   /** The name of the product. */
   productName?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * The SKU of the product.
+   *
+   * Added in Saleor 3.18.
+   */
+  productSku?: InputMaybe<Scalars['String']['input']>;
   /** Number of items in the order line */
   quantity: Scalars['Int']['input'];
   /** The ID of the tax class. */
@@ -15706,6 +15712,24 @@ export type OrderBulkCreateOrderLineInput = {
   translatedVariantName?: InputMaybe<Scalars['String']['input']>;
   /** Price of the order line excluding applied discount. */
   undiscountedTotalPrice: TaxedMoneyInput;
+  /**
+   * Reason of the discount on order line.
+   *
+   * Added in Saleor 3.19.
+   */
+  unitDiscountReason?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Type of the discount: fixed or percent
+   *
+   * Added in Saleor 3.19.
+   */
+  unitDiscountType?: InputMaybe<DiscountValueTypeEnum>;
+  /**
+   * Value of the discount. Can store fixed value or percent value
+   *
+   * Added in Saleor 3.19.
+   */
+  unitDiscountValue?: InputMaybe<Scalars['PositiveDecimal']['input']>;
   /** The external ID of the product variant. */
   variantExternalReference?: InputMaybe<Scalars['String']['input']>;
   /** The ID of the product variant. */
