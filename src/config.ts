@@ -8,18 +8,24 @@ import { appConfigSchema, commonConfigSchema } from "./lib/config/schema";
 
 export const configSchema = z
   .object({
-    SQS_QUEUE_URL: z.string().url(),
     FETCH_TIMEOUT: z
       .number()
       .default(10000)
       .describe("Fetch timeout in milliseconds."),
     SERVER_PORT: z.number().default(3000),
-    PROXY_PORT: z.number().default(3001),
+    // Queue where Saleor events are pushed by events-receiver, and pulled by emails-sender.
+    SQS_QUEUE_URL: z.string().url(),
+    // Paths & assets population.
     STATIC_URL: z.string().url(),
     STOREFRONT_URL: z.string().url(),
+    // Used for generating paths, selecting localized formatters.
+    DEFAULT_REGION: z.string().default("GB"),
+    // Email sender info.
     FROM_EMAIL: z.string().email().default("hello@mirumee.com"),
     FROM_NAME: z.string().default("Mirumee"),
-    DEFAULT_REGION: z.string().default("GB"),
+    // Sentry.
+    SENTRY_DEBUG: z.boolean().default(false),
+    SENTRY_DSN: z.string().url().optional(),
   })
   .and(commonConfigSchema)
   .and(appConfigSchema)

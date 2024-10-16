@@ -16,8 +16,9 @@ const app = Consumer.create({
       Records: messages as SQSRecord[],
     };
     const context = {} as Context;
+    const callback = () => null;
 
-    await handler(event, context);
+    await handler(event, context, () => callback);
   },
 });
 

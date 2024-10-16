@@ -1,97 +1,82 @@
-import {
-  type Context,
-  type SQSBatchResponse,
-  type SQSEvent,
-  type SQSRecord,
-} from "aws-lambda";
+import "./instrument.emails-sender";
+
+import * as Sentry from "@sentry/aws-serverless";
+import { type Context, type SQSBatchResponse, type SQSEvent } from "aws-lambda";
 
 import { CONFIG } from "@/config";
+import { parseRecord } from "@/lib/aws/serverless/utils";
 import { TEMPLATES_MAP } from "@/lib/emails/const";
-import { EmailParsePayloadError } from "@/lib/emails/errors";
-import { type SerializedPayload } from "@/lib/emails/events/helpers";
 import { getJSONFormatHeader } from "@/lib/saleor/apps/utils";
 import { getEmailProvider } from "@/providers/email";
 import { getLogger } from "@/providers/logger";
 
-export const logger = getLogger("emails-sender");
+export const logger = getLogger();
 
-const parseRecord = (record: SQSRecord) => {
-  try {
-    // FIXME: Proxy events has invalid format? Test with real data.
-    const data = JSON.parse((record as any).Body);
-    return data as SerializedPayload;
-  } catch (error) {
-    logger.error("Failed to parse record payload.", { record, error });
+export const handler = Sentry.wrapHandler(
+  async (event: SQSEvent, context: Context) => {
+    const failures: string[] = [];
 
-    throw new EmailParsePayloadError("Failed to parse record payload.", {
-      cause: { source: error as Error },
-    });
-  }
-};
+    logger.info(`Received event with ${event.Records.length} records.`);
 
-export const handler = async (event: SQSEvent, context: Context) => {
-  const failures: string[] = [];
+    for await (const record of event.Records) {
+      logger.debug("Processing record", { record });
 
-  logger.info(`Received event with ${event.Records.length} records.`);
+      const {
+        format,
+        payload: { data, event },
+      } = parseRecord(record);
 
-  for await (const record of event.Records) {
-    logger.debug("Processing record", { record });
+      if (format === getJSONFormatHeader({ version: 1, name: CONFIG.NAME })) {
+        const match = TEMPLATES_MAP[event];
 
-    const {
-      format,
-      payload: { data, event },
-    } = parseRecord(record);
+        if (!match) {
+          return logger.warn("Received payload with unhandled template.", {
+            format,
+            data,
+            event,
+          });
+        }
 
-    if (format === getJSONFormatHeader({ version: 1, name: CONFIG.NAME })) {
-      const match = TEMPLATES_MAP[event];
+        const { extractFn, template } = match;
+        const toEmail = extractFn(data);
+        const fromEmail = CONFIG.FROM_EMAIL;
+        const from = CONFIG.FROM_NAME;
 
-      if (!match) {
-        return logger.warn("Received payload with unhandled template.", {
+        const sender = getEmailProvider({
+          fromEmail,
+          from,
+          toEmail,
+        });
+
+        const html = await sender.render({
+          props: { data },
+          template,
+        });
+        // TODO: Handle properly
+        // Will throw TypeError if failed to render / non transient
+
+        await sender.send({
+          html,
+          subject: template.Subject,
+        });
+
+        logger.info("Email sent successfully.", { toEmail, event });
+      } else {
+        return logger.warn("Received payload with unsupported format.", {
           format,
           data,
           event,
         });
       }
+    }
 
-      const { extractFn, template } = match;
-      const toEmail = extractFn(data);
-      const fromEmail = CONFIG.FROM_EMAIL;
-      const from = CONFIG.FROM_NAME;
+    if (failures.length) {
+      const batchFailure: SQSBatchResponse = {
+        batchItemFailures: failures.map((id) => ({ itemIdentifier: id })),
+      };
+      logger.error(`FAILING messages: ${JSON.stringify(batchFailure)}`);
 
-      const sender = getEmailProvider({
-        fromEmail,
-        from,
-        toEmail,
-      });
-
-      const html = await sender.render({
-        props: { data },
-        template,
-      });
-      // TODO: Handle properly
-      // Will throw TypeError if failed to render / non transient
-
-      await sender.send({
-        html,
-        subject: template.Subject,
-      });
-
-      logger.info("Email sent successfully.", { toEmail, event });
-    } else {
-      return logger.warn("Received payload with unsupported format.", {
-        format,
-        data,
-        event,
-      });
+      return batchFailure;
     }
   }
-
-  if (failures.length) {
-    const batchFailure: SQSBatchResponse = {
-      batchItemFailures: failures.map((id) => ({ itemIdentifier: id })),
-    };
-    logger.error(`FAILING messages: ${JSON.stringify(batchFailure)}`);
-
-    return batchFailure;
-  }
-};
+);

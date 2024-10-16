@@ -4,6 +4,7 @@ import {
   format,
   transports,
 } from "winston";
+import { consoleFormat } from "winston-console-format";
 
 import { PLUGIN_CONFIG } from "./config";
 
@@ -16,10 +17,17 @@ export const createLogger = ({
 }) => {
   const formatters = PLUGIN_CONFIG.IS_DEVELOPMENT
     ? [
-        format.colorize({ level: true }),
-        format.printf((info) => {
-          const { timestamp, message, level, ...args } = info;
-          return `[${timestamp} ${level}]: ${message}\n${Object.keys(args).length ? JSON.stringify(args, null, 2) : ""}`;
+        consoleFormat({
+          showMeta: true,
+          metaStrip: ["timestamp"],
+          inspectOptions: {
+            depth: Infinity,
+            colors: true,
+            maxArrayLength: Infinity,
+            breakLength: 120,
+            compact: Infinity,
+            sorted: true,
+          },
         }),
       ]
     : [format.json()];
@@ -30,9 +38,10 @@ export const createLogger = ({
       nodeEvn: PLUGIN_CONFIG.NODE_ENV,
       service,
     },
+
     format: format.combine(
       format((info) => {
-        info.level = info.level.toUpperCase();
+        info.level = `[${info.level.toUpperCase()}]`;
         return info;
       })(),
       format.errors({ stack: true }),
