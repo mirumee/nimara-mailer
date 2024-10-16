@@ -76,7 +76,7 @@ describe("helpers", () => {
       expect(getOperationName(document)).toBe("");
     });
 
-    test.only("should return the correct operation names when there are multiple operations", () => {
+    test("should return the correct operation names when there are multiple operations", () => {
       const document = `
       query GetUser {
         user(id: "1") {
