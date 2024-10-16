@@ -29,6 +29,7 @@
     "test": "npx vitest --run",
     "test:watch": "npx vitest",
     "test:coverage": "npx vitest --coverage --run",
+    "test:coverage:avg": "pnpm test:coverage | grep -E \"All files\" -A 0 | awk '{print ($4 + $6 + $8+ $10) / 4}'",
     "tsc:watch": "tsc --watch --noEmit",
     "codegen": "graphql-codegen --require dotenv/config --config ./codegen.ts",
     "prepare": "husky"

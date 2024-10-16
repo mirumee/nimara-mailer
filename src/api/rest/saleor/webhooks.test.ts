@@ -140,7 +140,7 @@ describe("saleorWebhooksRoutes", () => {
         url,
         headers: {
           "saleor-event": event,
-          "saleor-signature": "wrong",
+          "saleor-signature": "signature",
           "saleor-domain": "mirumee.com",
           "saleor-api-url": "https://mirumee.com",
         },
@@ -150,7 +150,6 @@ describe("saleorWebhooksRoutes", () => {
       // Then
       expect(response.json()).toStrictEqual(expectedJson);
       expect(response.statusCode).toStrictEqual(expectedStatusCode);
-      // expect(sendSpy).toHaveBeenLastCalledWith(expectedSQSCommand);
       expect(sendSpy).toHaveBeenCalledWith(
         expect.objectContaining(expectedSQSCommandData)
       );
