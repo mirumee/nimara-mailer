@@ -26,6 +26,8 @@ export const configSchema = z
     // Sentry.
     SENTRY_DEBUG: z.boolean().default(false),
     SENTRY_DSN: z.string().url().optional(),
+
+    EMAIL_PROVIDER: z.enum(["NODE_MAILER", "AWS_SES"]).default("AWS_SES"),
   })
   .and(commonConfigSchema)
   .and(appConfigSchema)

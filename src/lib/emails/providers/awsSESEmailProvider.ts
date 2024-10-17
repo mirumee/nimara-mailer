@@ -11,16 +11,6 @@ import { EmailSendError } from "../errors";
 import { renderEmail } from "../helpers";
 import { type EmailProviderFactory } from "./types";
 
-prepareConfig({
-  name: "awsSESEmailProvider",
-  schema: z.object({
-    AWS_ACCESS_KEY_ID: z.string(),
-    AWS_REGION: z.string(),
-    AWS_SECRET_ACCESS_KEY: z.string(),
-    AWS_ENDPOINT_URL: z.string().url().optional(),
-  }),
-});
-
 export const awsSESEmailProvider: EmailProviderFactory = ({
   fromEmail,
   from,
@@ -29,7 +19,18 @@ export const awsSESEmailProvider: EmailProviderFactory = ({
   /**
    * Envs are injected automatically by @aws-sdk - no need to pass them explicitly.
    */
+  prepareConfig({
+    name: "awsSESEmailProvider",
+    schema: z.object({
+      AWS_ACCESS_KEY_ID: z.string(),
+      AWS_REGION: z.string(),
+      AWS_SECRET_ACCESS_KEY: z.string(),
+      AWS_ENDPOINT_URL: z.string().url().optional(),
+    }),
+  });
+
   const client = new SESClient();
+
   const render = renderEmail;
 
   const send = async ({ html, subject }: { html: string; subject: string }) => {
