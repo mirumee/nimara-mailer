@@ -1,17 +1,17 @@
 import { type SQSRecord } from "aws-lambda";
 
 import { EmailParsePayloadError } from "@/lib/emails/errors";
-import { type SerializedPayload } from "@/lib/emails/events/helpers";
+import { parsePayload } from "@/lib/emails/events/helpers";
 import { getLogger } from "@/providers/logger";
 
 const logger = getLogger();
 
 export const parseRecord = (record: SQSRecord) => {
   try {
-    // Proxy events has invalid types.
+    // Proxy events have invalid types.
     const data = JSON.parse((record as any).Body);
 
-    return data as SerializedPayload;
+    return parsePayload(data);
   } catch (error) {
     logger.error("Failed to parse record payload.", { record, error });
 
