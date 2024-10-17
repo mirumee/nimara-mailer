@@ -2,6 +2,7 @@ import { type SQSRecord } from "aws-lambda";
 import { describe, expect, test, vi } from "vitest";
 
 import { EmailParsePayloadError } from "@/lib/emails/errors";
+import { SUPPORTED_EVENTS } from "@/lib/emails/events/helpers";
 import { getLogger } from "@/providers/logger"; // Mock the logger provider
 
 import { parseRecord } from "./utils";
@@ -18,11 +19,14 @@ describe("utils", () => {
       };
     });
 
-    test("should parse valid record and return data", () => {
+    test.only("should parse valid record and return data", () => {
       // given
       const data = {
-        event: "some_event",
-        data: { key: "value" },
+        payload: {
+          event: SUPPORTED_EVENTS[0],
+          data: { key: "value" },
+        },
+        format: "any",
       };
       const validRecord = {
         Body: JSON.stringify(data),
@@ -38,7 +42,8 @@ describe("utils", () => {
     test("should log and throw error when parsing fails", () => {
       // given
       const invalidRecord = {
-        Body: "{invalidJson",
+        format: "any",
+        data: "How about not valid",
       } as any as SQSRecord;
       const logger = getLogger();
 

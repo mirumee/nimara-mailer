@@ -160,6 +160,8 @@ $ docker compose up emails
 
 Now you can see emails preview in the browser - [http://localhost:3002/](http://localhost:3002/)
 
+### Local SMTP server
+
 ### Tests
 
 App is using [vitest](https://vitest.dev/) for testing.
