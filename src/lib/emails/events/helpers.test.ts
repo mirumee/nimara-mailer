@@ -35,20 +35,20 @@ describe("helpers", () => {
       expect(() => {
         serializePayload({
           data: mockData,
-          event: invalidEvent as any, // Casting to bypass TypeScript for testing purposes
+          event: invalidEvent as any,
         });
       }).toThrow(z.ZodError);
     });
 
     it("should throw an error when invalid data format is provided", () => {
       // given
-      const invalidData = null; // Invalid data (null)
+      const invalidData = null;
       const mockEvent = "order_created";
 
       // when / then
       expect(() => {
         serializePayload({
-          data: invalidData as any, // Casting to bypass TypeScript for testing purposes
+          data: invalidData as any,
           event: mockEvent,
         });
       }).toThrow(z.ZodError);

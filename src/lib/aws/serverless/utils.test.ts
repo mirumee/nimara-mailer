@@ -3,7 +3,7 @@ import { describe, expect, test, vi } from "vitest";
 
 import { EmailParsePayloadError } from "@/lib/emails/errors";
 import { SUPPORTED_EVENTS } from "@/lib/emails/events/helpers";
-import { getLogger } from "@/providers/logger"; // Mock the logger provider
+import { getLogger } from "@/providers/logger";
 
 import { parseRecord } from "./utils";
 
@@ -19,7 +19,7 @@ describe("utils", () => {
       };
     });
 
-    test.only("should parse valid record and return data", () => {
+    test("should parse valid record and return data", () => {
       // given
       const data = {
         payload: {
