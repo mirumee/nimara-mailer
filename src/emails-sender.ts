@@ -42,7 +42,8 @@ export const handler = Sentry.wrapHandler(
         const fromEmail = CONFIG.FROM_EMAIL;
         const from = CONFIG.FROM_NAME;
 
-        const sender = getEmailProvider({
+        const emailProvider = await getEmailProvider();
+        const sender = emailProvider({
           fromEmail,
           from,
           toEmail,
