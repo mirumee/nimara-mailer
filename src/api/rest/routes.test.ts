@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import * as validate from "@/lib/graphql/validate";
 import * as auth from "@/lib/saleor/auth";
@@ -8,7 +8,7 @@ import { EVENT_HANDLERS } from "./saleor/webhooks";
 
 describe("apiRoutes", () => {
   describe("/api/healthcheck", () => {
-    test("200", async () => {
+    it("200", async () => {
       const app = await createServer();
       const response = await app.inject({
         method: "GET",
@@ -31,7 +31,7 @@ describe("apiRoutes", () => {
       app.sqs.send = sendSpy;
     });
 
-    test("Should return 401 with invalid JWT.", async () => {
+    it("Should return 401 with invalid JWT.", async () => {
       // given
       const expectedStatusCode = 401;
       const expectedJson = {
@@ -56,7 +56,7 @@ describe("apiRoutes", () => {
       expect(response.statusCode).toStrictEqual(expectedStatusCode);
     });
 
-    test("Should return 400 passed when event is not supported.", async () => {
+    it("Should return 400 passed when event is not supported.", async () => {
       // given
       const expectedStatusCode = 400;
       const expectedJson = {
@@ -87,7 +87,7 @@ describe("apiRoutes", () => {
       expect(response.statusCode).toStrictEqual(expectedStatusCode);
     });
 
-    test("Should return proper response.", async () => {
+    it("Should return proper response.", async () => {
       const jwtVerifySpy = vi.spyOn(auth, "verifyJWTSignature");
       const validateSpy = vi.spyOn(validate, "validateDocumentAgainstData");
       const expectedJson = { status: "ok" };

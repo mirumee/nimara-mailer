@@ -31,7 +31,11 @@ export const configSchema = z
   })
   .and(commonConfigSchema)
   .and(appConfigSchema)
-  .and(saleorAppConfigSchema);
+  .and(saleorAppConfigSchema)
+  .refine((data) => {
+    data.STOREFRONT_URL = new URL(data.STOREFRONT_URL).origin;
+    return data;
+  });
 
 export type ConfigSchema = z.infer<typeof configSchema>;
 

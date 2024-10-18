@@ -1,4 +1,4 @@
-import { HttpError } from "@/lib/errors";
+import { HttpError } from "@/lib/errors/api";
 import { type GraphqlError } from "@/lib/graphql/types";
 
 export class GraphQLClientError extends HttpError {

@@ -5,8 +5,8 @@ import { z } from "zod";
 
 import { CONFIG } from "@/config";
 import { OrderCreatedSubscriptionDocument } from "@/graphql/operations/subscriptions/generated";
-import { serializePayload } from "@/lib/emails/events/helpers";
 import { validateDocumentAgainstData } from "@/lib/graphql/validate";
+import { serializePayload } from "@/lib/payload";
 import { verifyJWTSignature } from "@/lib/saleor/auth";
 import { saleorBearerHeader } from "@/lib/saleor/schema";
 import { getJWKSProvider } from "@/providers/jwks";

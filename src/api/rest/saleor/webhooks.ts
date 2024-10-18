@@ -20,7 +20,7 @@ import {
   OrderRefundedSubscriptionDocument,
 } from "@/graphql/operations/subscriptions/generated";
 import { type WebhookEventTypeAsyncEnum } from "@/graphql/schema";
-import { serializePayload } from "@/lib/emails/events/helpers";
+import { serializePayload } from "@/lib/payload";
 import { verifyWebhookSignature } from "@/lib/saleor/auth";
 import { saleorWebhookHeaders } from "@/lib/saleor/schema";
 import { getJWKSProvider } from "@/providers/jwks";
