@@ -1,4 +1,3 @@
-import { SQSClient } from "@aws-sdk/client-sqs";
 import { type Context, type SQSEvent, type SQSRecord } from "aws-lambda";
 import { Consumer } from "sqs-consumer";
 
@@ -7,10 +6,6 @@ import { handler, logger } from "@/emails-sender";
 
 const app = Consumer.create({
   queueUrl: CONFIG.SQS_QUEUE_URL,
-  sqs: new SQSClient({
-    useQueueUrlAsEndpoint: false,
-    endpoint: CONFIG.SQS_QUEUE_URL,
-  }),
   handleMessageBatch: async (messages) => {
     const event: SQSEvent = {
       Records: messages as SQSRecord[],
@@ -18,7 +13,7 @@ const app = Consumer.create({
     const context = {} as Context;
     const callback = () => null;
 
-    await handler(event, context, () => callback);
+    return await handler(event, context, () => callback);
   },
 });
 

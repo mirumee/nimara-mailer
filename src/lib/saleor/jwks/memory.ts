@@ -1,6 +1,5 @@
 import { createRemoteJWKSet } from "jose";
-
-import { invariant } from "@/lib/invariant";
+import invariant from "ts-invariant";
 
 import { type JWKSProviderFactory, type JWSProvider } from "./types";
 

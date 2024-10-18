@@ -1,13 +1,17 @@
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { decodeJwt } from "jose";
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 import { z } from "zod";
 
-import { HttpError, UnauthorizedError, ValidationError } from "@/lib/errors";
+import {
+  HttpError,
+  UnauthorizedError,
+  ValidationError,
+} from "@/lib/errors/api";
 import { createServer } from "@/server";
 
 describe("errorHandler", () => {
-  test("Default error handling", async () => {
+  it("Default error handling", async () => {
     // Given
     const expectedMessage = "Oh snap";
     const expectedStatusCode = 500;
@@ -33,7 +37,7 @@ describe("errorHandler", () => {
     expect(response.statusCode).toBe(expectedStatusCode);
   });
 
-  test("ZodError errors handling", async () => {
+  it("ZodError errors handling", async () => {
     // Given
     const expectedStatusCode = 400;
     const expectedJson = {
@@ -70,7 +74,7 @@ describe("errorHandler", () => {
     expect(response.statusCode).toBe(expectedStatusCode);
   });
 
-  test("Jose errors handling", async () => {
+  it("Jose errors handling", async () => {
     // Given
     const expectedStatusCode = 401;
     const expectedJson = {
@@ -93,7 +97,7 @@ describe("errorHandler", () => {
     expect(response.statusCode).toBe(expectedStatusCode);
   });
 
-  test.each([
+  it.each([
     {
       error: new UnauthorizedError({ message: "You have no power here!" }),
       json: {

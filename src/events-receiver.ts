@@ -1,5 +1,3 @@
-// TODO: Saleor events receiver & queue dispatcher
-
 import AWSLambdaFastify from "@fastify/aws-lambda";
 
 import { createServer } from "./server";

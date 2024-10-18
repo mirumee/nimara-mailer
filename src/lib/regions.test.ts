@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { CONFIG } from "@/config";
 
@@ -6,7 +6,7 @@ import { DEFAULT_REGION, getRegion, REGIONS } from "./regions";
 
 describe("regions", () => {
   describe("getRegion", () => {
-    test("should return the correct region for a valid slug", () => {
+    it("should return the correct region for a valid slug", () => {
       // given
       const validSlug = "channel-us";
 
@@ -17,7 +17,7 @@ describe("regions", () => {
       expect(result).toEqual(REGIONS.US);
     });
 
-    test("should return the default region when slug is not found", () => {
+    it("should return the default region when slug is not found", () => {
       // given
       const invalidSlug = "channel-invalid";
 
@@ -28,7 +28,7 @@ describe("regions", () => {
       expect(result).toEqual(DEFAULT_REGION);
     });
 
-    test("should throw an error if no default region exists in CONFIG", () => {
+    it("should throw an error if no default region exists in CONFIG", () => {
       // given
       const invalidSlug = "channel-invalid";
       const originalDefaultRegion = CONFIG.DEFAULT_REGION;
@@ -47,7 +47,7 @@ describe("regions", () => {
       );
     });
 
-    test("should return region even if slug case is different", () => {
+    it("should return region even if slug case is different", () => {
       // given
       const slugWithDifferentCase = "CHANNEL-UK";
 

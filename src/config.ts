@@ -21,7 +21,7 @@ export const configSchema = z
     // Used for generating paths, selecting localized formatters.
     DEFAULT_REGION: z.string().default("GB"),
     // Email sender info.
-    FROM_EMAIL: z.string().email().default("hello@mirumee.com"),
+    FROM_EMAIL: z.string().email().default("noreply@mirumee.com"),
     FROM_NAME: z.string().default("Mirumee"),
     // Sentry.
     SENTRY_DEBUG: z.boolean().default(false),
@@ -31,7 +31,11 @@ export const configSchema = z
   })
   .and(commonConfigSchema)
   .and(appConfigSchema)
-  .and(saleorAppConfigSchema);
+  .and(saleorAppConfigSchema)
+  .refine((data) => {
+    data.STOREFRONT_URL = new URL(data.STOREFRONT_URL).origin;
+    return data;
+  });
 
 export type ConfigSchema = z.infer<typeof configSchema>;
 

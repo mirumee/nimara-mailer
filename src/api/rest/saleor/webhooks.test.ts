@@ -1,8 +1,8 @@
 import { JWTInvalid } from "jose/errors";
-import { beforeEach, describe, expect, test, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { CONFIG } from "@/config";
-import { serializePayload } from "@/lib/emails/events/helpers";
+import { serializePayload } from "@/lib/payload";
 import * as auth from "@/lib/saleor/auth";
 import { createServer } from "@/server";
 
@@ -21,7 +21,7 @@ describe("saleorWebhooksRoutes", () => {
   });
 
   describe("/api/saleor/webhooks/email/*", () => {
-    test.each(EVENT_HANDLERS)(
+    it.each(EVENT_HANDLERS)(
       "should register route for $event event",
       ({ event }) => {
         // Given
@@ -37,7 +37,7 @@ describe("saleorWebhooksRoutes", () => {
       }
     );
 
-    test("require saleor headers", async () => {
+    it("require saleor headers", async () => {
       // Given
       const url = `${baseUrl}account-confirmed`;
       const expectedStatusCode = 400;
@@ -82,7 +82,7 @@ describe("saleorWebhooksRoutes", () => {
       expect(response.statusCode).toStrictEqual(expectedStatusCode);
     });
 
-    test("is protected by JWT", async () => {
+    it("is protected by JWT", async () => {
       // Given
       const url = `${baseUrl}account-confirmed`;
       const expectedStatusCode = 401;
@@ -116,7 +116,7 @@ describe("saleorWebhooksRoutes", () => {
       expect(response.statusCode).toStrictEqual(expectedStatusCode);
     });
 
-    test("it should send SQS message with proper payload", async () => {
+    it("it should send SQS message with proper payload", async () => {
       // Given
       const url = `${baseUrl}account-confirmed`;
       const event = "account_confirmed";

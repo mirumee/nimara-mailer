@@ -12,7 +12,7 @@ import GiftCardSentEmail from "@/emails/templates/GiftCardSentEmail";
 import OrderCancelledEmail from "@/emails/templates/OrderCancelledEmail";
 import OrderCreatedEmail from "@/emails/templates/OrderCreatedEmail";
 import OrderRefundedEmail from "@/emails/templates/OrderRefundedEmail";
-import { type WebhookEventTypeAsyncEnum } from "@/graphql/schema";
+import { type Event } from "@/lib/payload";
 
 const extractEmailFromOrder = (data: { order: { userEmail: string } }) =>
   data.order.userEmail;
@@ -24,7 +24,7 @@ const extractEmailFromUser = (data: { user: { email: string } }) =>
   data.user.email;
 
 export const TEMPLATES_MAP: {
-  [key in Lowercase<WebhookEventTypeAsyncEnum>]?: {
+  [key in Event]?: {
     extractFn: (data: any) => string;
     template: ComponentType<any> & { Subject: string };
   };
