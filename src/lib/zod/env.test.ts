@@ -1,11 +1,11 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 import { z } from "zod";
 
 import { envBool, envToStrList } from "./env";
 
 describe("env", () => {
   describe("envBool", () => {
-    test('should return true for "true"', () => {
+    it('should return true for "true"', () => {
       // given
       const input = "true";
 
@@ -16,7 +16,7 @@ describe("env", () => {
       expect(result).toBe(true);
     });
 
-    test('should return false for "false"', () => {
+    it('should return false for "false"', () => {
       // given
       const input = "false";
 
@@ -27,7 +27,7 @@ describe("env", () => {
       expect(result).toBe(false);
     });
 
-    test("should return false for an empty string", () => {
+    it("should return false for an empty string", () => {
       // given
       const input = "";
 
@@ -38,7 +38,7 @@ describe("env", () => {
       expect(result).toBe(false);
     });
 
-    test("should throw an error for invalid values", () => {
+    it("should throw an error for invalid values", () => {
       // given
       const input = "invalid";
 
@@ -48,7 +48,7 @@ describe("env", () => {
   });
 
   describe("envToStrList", () => {
-    test("should return an array of strings for a valid comma-separated string", () => {
+    it("should return an array of strings for a valid comma-separated string", () => {
       // given
       const input = "value1,value2,value3";
 
@@ -59,7 +59,7 @@ describe("env", () => {
       expect(result).toEqual(["value1", "value2", "value3"]);
     });
 
-    test("should return an empty array when env is undefined and defaultEmpty is false", () => {
+    it("should return an empty array when env is undefined and defaultEmpty is false", () => {
       // given
       const input = undefined;
       const defaultEmpty = false;
@@ -71,7 +71,7 @@ describe("env", () => {
       expect(result).toEqual([]);
     });
 
-    test("should return undefined when env is undefined and defaultEmpty is true", () => {
+    it("should return undefined when env is undefined and defaultEmpty is true", () => {
       // given
       const input = undefined;
       const defaultEmpty = true;
@@ -83,7 +83,7 @@ describe("env", () => {
       expect(result).toBeUndefined();
     });
 
-    test("should filter out empty values in a comma-separated string", () => {
+    it("should filter out empty values in a comma-separated string", () => {
       // given
       const input = "value1,,value3";
 
@@ -94,7 +94,7 @@ describe("env", () => {
       expect(result).toEqual(["value1", "value3"]);
     });
 
-    test("should return an empty array when env is an empty string", () => {
+    it("should return an empty array when env is an empty string", () => {
       // given
       const input = "";
 

@@ -1,9 +1,16 @@
+import { type SQSRecord } from "aws-lambda";
 import { describe, expect, it } from "vitest";
 import { z } from "zod";
 
-import { parsePayload, serializePayload, SUPPORTED_EVENTS } from "./helpers";
+import { ParsePayloadError } from "./errors/serverless";
+import {
+  parsePayload,
+  parseRecord,
+  serializePayload,
+  SUPPORTED_EVENTS,
+} from "./payload";
 
-describe("helpers", () => {
+describe("payload", () => {
   describe("serializePayload", () => {
     it("should serialize payload correctly when valid data is provided", () => {
       // given
@@ -87,6 +94,39 @@ describe("helpers", () => {
       expect(() => {
         parsePayload(invalidData);
       }).toThrow(z.ZodError);
+    });
+  });
+
+  describe("parseRecord", () => {
+    it("should parse valid record and return data", () => {
+      // given
+      const data = {
+        payload: {
+          event: SUPPORTED_EVENTS[0],
+          data: { key: "value" },
+        },
+        format: "any",
+      };
+      const validRecord = {
+        Body: JSON.stringify(data),
+      } as any as SQSRecord;
+
+      // when
+      const result = parseRecord(validRecord);
+
+      // when
+      expect(result).toEqual(data);
+    });
+
+    it("should throw  an error when parsing fails", () => {
+      // given
+      const invalidRecord = {
+        format: "any",
+        data: "How about not valid",
+      } as any as SQSRecord;
+
+      // when & then
+      expect(() => parseRecord(invalidRecord)).toThrow(ParsePayloadError);
     });
   });
 });

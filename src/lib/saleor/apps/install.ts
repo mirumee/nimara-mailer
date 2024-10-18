@@ -1,4 +1,4 @@
-import { SaleorAppInstallationError } from "@/lib/errors";
+import { SaleorAppInstallationError } from "@/lib/errors/api";
 import { type SaleorClient } from "@/lib/saleor/client/types";
 import { type SaleorConfigProvider } from "@/lib/saleor/config/types";
 import { type JWSProvider } from "@/lib/saleor/jwks/types";

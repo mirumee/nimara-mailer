@@ -1,10 +1,10 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import { isURL } from "./utils";
 
 describe("utils", () => {
   describe("isURL", () => {
-    test("should return true for a valid URL", () => {
+    it("should return true for a valid URL", () => {
       // given
       const validUrl = "http://example.com";
 
@@ -15,7 +15,7 @@ describe("utils", () => {
       expect(result).toBe(true);
     });
 
-    test("should return false for an invalid URL", () => {
+    it("should return false for an invalid URL", () => {
       // given
       const invalidUrl = "not a valid url";
 
@@ -26,7 +26,7 @@ describe("utils", () => {
       expect(result).toBe(false);
     });
 
-    test("should return false for an empty string", () => {
+    it("should return false for an empty string", () => {
       // given
       const emptyString = "";
 
@@ -37,7 +37,7 @@ describe("utils", () => {
       expect(result).toBe(false);
     });
 
-    test("should return true for a valid URL with query parameters", () => {
+    it("should return true for a valid URL with query parameters", () => {
       // given
       const validUrlWithParams = "https://example.com?query=test";
 
@@ -48,7 +48,7 @@ describe("utils", () => {
       expect(result).toBe(true);
     });
 
-    test("should return false for a malformed URL", () => {
+    it("should return false for a malformed URL", () => {
       // given
       const malformedUrl = "http://example.com:port";
 

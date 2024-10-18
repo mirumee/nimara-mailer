@@ -1,10 +1,11 @@
+import { type SQSRecord } from "aws-lambda";
 import { type FastifyRequest } from "fastify";
 import { z } from "zod";
 
 import { EVENT_HANDLERS } from "@/api/rest/saleor/webhooks";
 import { CONFIG } from "@/config";
 import { type WebhookEventTypeAsyncEnum } from "@/graphql/schema";
-import { getJSONFormatHeader } from "@/lib/saleor/apps/utils";
+import { ParsePayloadError } from "@/lib/errors/serverless";
 
 export const SUPPORTED_EVENTS = EVENT_HANDLERS.map(({ event }) =>
   event.toLowerCase()
@@ -37,4 +38,22 @@ export const serializePayload = ({
 
 export const parsePayload = (data: unknown) => payloadSchema.parse(data);
 
-export type SerializedPayload = ReturnType<typeof serializePayload>;
+export const getJSONFormatHeader = ({
+  name,
+  version = 1,
+}: {
+  name: string;
+  version?: number;
+}) => `application/vnd.mirumee.nimara.${name}.v${version}+json`;
+
+export const parseRecord = (record: SQSRecord) => {
+  try {
+    const data = JSON.parse(record.Body);
+
+    return parsePayload(data);
+  } catch (error) {
+    throw new ParsePayloadError("Failed to parse record payload.", {
+      cause: { source: error as Error },
+    });
+  }
+};

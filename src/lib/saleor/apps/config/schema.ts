@@ -12,8 +12,11 @@ export const saleorAppConfigSchema = (
   }>
 ).refine((data) => {
   if (data.SALEOR_URL) {
-    data.SALEOR_GRAPHQL_URL = `${data.SALEOR_URL}/graphql/`;
-    data.SALEOR_DOMAIN = new URL(data.SALEOR_URL ?? "").hostname;
+    const url = new URL(data.SALEOR_URL);
+
+    data.SALEOR_URL = url.origin;
+    data.SALEOR_GRAPHQL_URL = `${url.origin}/graphql/`;
+    data.SALEOR_DOMAIN = url.hostname;
   }
   return data;
 });

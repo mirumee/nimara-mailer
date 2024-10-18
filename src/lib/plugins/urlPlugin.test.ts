@@ -1,5 +1,5 @@
 import Fastify, { type FastifyInstance, type FastifyRequest } from "fastify";
-import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { MagicMock } from "@/lib/test/mock";
 
@@ -16,7 +16,7 @@ afterEach(async () => {
 });
 
 describe("urlPlugin", () => {
-  test("Adds appUrl & urlFull properties to the request object.", async () => {
+  it("Adds appUrl & urlFull properties to the request object.", async () => {
     // Given
     await fastify.register(UrlPlugin);
 
@@ -28,7 +28,7 @@ describe("urlPlugin", () => {
     expect(fastify.hasRequestDecorator("urlFull")).toBeTruthy();
   });
 
-  test("Populates proper appUrl & urlFull and adds it to the request.", async () => {
+  it("Populates proper appUrl & urlFull and adds it to the request.", async () => {
     // Given
     const mockedRequest = MagicMock<FastifyRequest>({
       headers: {
