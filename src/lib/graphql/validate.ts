@@ -6,10 +6,11 @@ import {
   type SelectionSetNode,
 } from "graphql";
 
-import { BaseError } from "../errors";
+import { NonTransientError } from "@/lib/errors/base";
+
 import { type TypedDocumentTypeDecoration } from "./types";
 
-export class ValidationError extends BaseError {}
+export class ValidationError extends NonTransientError {}
 
 type FieldInfo = {
   selectionSet?: FieldMap;

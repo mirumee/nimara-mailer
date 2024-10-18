@@ -32,14 +32,6 @@ export const esbuildConfig = {
       disable: !isSentryEnabled,
     }),
     copy({
-      watch: true,
-      resolveFrom: "cwd",
-      assets: {
-        from: ["./src/api/graphql/schema.graphql"],
-        to: ["./build"],
-      },
-    }),
-    copy({
       resolveFrom: "cwd",
       assets: {
         from: ["./package.json"],

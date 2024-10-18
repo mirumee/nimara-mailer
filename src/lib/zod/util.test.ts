@@ -1,11 +1,11 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 import { z } from "zod";
 
 import { prepareConfig } from "./util";
 
 describe("utils", () => {
   describe("prepareConfig", () => {
-    test("should return parsed config for valid input", () => {
+    it("should return parsed config for valid input", () => {
       // given
       const schema = z.object({
         key: z.string(),
@@ -19,7 +19,7 @@ describe("utils", () => {
       expect(result).toEqual({ key: "value" });
     });
 
-    test("should return parsed config from process.env", () => {
+    it("should return parsed config from process.env", () => {
       // given
       const schema = z.object({
         ENV_KEY: z.string(),
@@ -33,7 +33,7 @@ describe("utils", () => {
       expect(result).toEqual({ ENV_KEY: "env_value" });
     });
 
-    test("should throw an error for invalid input", () => {
+    it("should throw an error for invalid input", () => {
       // given
       const schema = z.object({
         key: z.string(),
@@ -48,7 +48,7 @@ describe("utils", () => {
       );
     });
 
-    test("should return empty object when serverOnly is true and window is defined", () => {
+    it("should return empty object when serverOnly is true and window is defined", () => {
       // given
       const schema = z.object({
         key: z.string(),
@@ -66,7 +66,7 @@ describe("utils", () => {
       delete global.window; // Clean up global window after test
     });
 
-    test("should throw an error with multiple validation issues", () => {
+    it("should throw an error with multiple validation issues", () => {
       // given
       const schema = z.object({
         key1: z.string(),
@@ -82,7 +82,7 @@ describe("utils", () => {
       );
     });
 
-    test("should merge process.env and input values", () => {
+    it("should merge process.env and input values", () => {
       // given
       process.env.ENV_KEY = "env_value";
       const schema = z.object({

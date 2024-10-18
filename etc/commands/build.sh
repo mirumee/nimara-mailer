@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # Cleanup
-rm -rf build package.zip
+rm -rf build artifact.zip
 # Install deps
 pnpm install --frozen-lockfile --prod
-pnpm build:serverless
+# Create bundle
+pnpm build
 # Create zip
 cd build;	zip -r -D ../artifact.zip .

@@ -1,6 +1,6 @@
 import Fastify, { type FastifyInstance } from "fastify";
 import { type compile } from "path-to-regexp";
-import { afterEach, beforeEach, describe, expect, test } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import UrlForPlugin, { addRoute, urlFor, urlPathFor } from "./urlForPlugin";
 
@@ -19,7 +19,7 @@ afterEach(async () => {
 
 describe("urlForPlugin", () => {
   describe("Plugin", () => {
-    test("Adds urlFor & urlPathFor methods to the request object.", async () => {
+    it("Adds urlFor & urlPathFor methods to the request object.", async () => {
       // Given
       await fastify.register(UrlForPlugin);
 
@@ -31,7 +31,7 @@ describe("urlForPlugin", () => {
       expect(fastify.hasRequestDecorator("urlFor")).toBeTruthy();
     });
 
-    test("Throws an error for duplicated routes.", async () => {
+    it("Throws an error for duplicated routes.", async () => {
       // Given
       const routeName = "test-route";
       await fastify.register(UrlForPlugin);
@@ -47,7 +47,7 @@ describe("urlForPlugin", () => {
   });
 
   describe("urlPathFor", () => {
-    test("Throws an error for non existing route.", async () => {
+    it("Throws an error for non existing route.", async () => {
       // Given
       const routeName = "not-there";
 
@@ -61,7 +61,7 @@ describe("urlForPlugin", () => {
       );
     });
 
-    test("Generates path for name.", async () => {
+    it("Generates path for name.", async () => {
       // Given
       const routeName = "not-there";
       const expectedPath = "/super/cool/path";
@@ -81,7 +81,7 @@ describe("urlForPlugin", () => {
   });
 
   describe("urlFor", () => {
-    test("Throws an error when appUrl is not defined.", async () => {
+    it("Throws an error when appUrl is not defined.", async () => {
       // Given-When-Then
       // @ts-expect-error intended to use within FastifyRequest context.
       expect(() => urlFor(routesMap)).toThrowError(
@@ -89,7 +89,7 @@ describe("urlForPlugin", () => {
       );
     });
 
-    test("Generates url for name.", async () => {
+    it("Generates url for name.", async () => {
       const routeName = "cool-route";
       const expectedPath = "/super/cool/another-path";
       const appUrl = "http://cool.app.com";
@@ -114,7 +114,7 @@ describe("urlForPlugin", () => {
   });
 
   describe("addRoute", () => {
-    test("Adds route to the routes map", () => {
+    it("Adds route to the routes map", () => {
       // Given
       const routeName = "another-route";
 

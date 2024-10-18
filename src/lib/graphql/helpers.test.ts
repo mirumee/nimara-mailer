@@ -1,10 +1,10 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import { getOperationName } from "./helpers";
 
 describe("helpers", () => {
   describe("getOperationName", () => {
-    test("should return the operation name for a query", () => {
+    it("should return the operation name for a query", () => {
       const document = `
       query GetUser {
         user(id: "1") {
@@ -16,7 +16,7 @@ describe("helpers", () => {
       expect(getOperationName(document)).toBe("GetUser");
     });
 
-    test("should return the operation name for a mutation", () => {
+    it("should return the operation name for a mutation", () => {
       const document = `
       mutation CreateUser {
         createUser(input: { name: "John" }) {
@@ -28,7 +28,7 @@ describe("helpers", () => {
       expect(getOperationName(document)).toBe("CreateUser");
     });
 
-    test("should return the operation name for a subscription", () => {
+    it("should return the operation name for a subscription", () => {
       const document = `
       subscription OnUserCreated {
         userCreated {
@@ -40,7 +40,7 @@ describe("helpers", () => {
       expect(getOperationName(document)).toBe("OnUserCreated");
     });
 
-    test("should return an empty string if the document has no operation name", () => {
+    it("should return an empty string if the document has no operation name", () => {
       const document = `
       query {
         user(id: "1") {
@@ -52,7 +52,7 @@ describe("helpers", () => {
       expect(getOperationName(document)).toBe("");
     });
 
-    test("should return an empty string for invalid document format", () => {
+    it("should return an empty string for invalid document format", () => {
       const document = `
       {
         user(id: "1") {
@@ -64,7 +64,7 @@ describe("helpers", () => {
       expect(getOperationName(document)).toBe("");
     });
 
-    test("should return an empty string if the operation type is missing", () => {
+    it("should return an empty string if the operation type is missing", () => {
       const document = `
       GetUser {
         user(id: "1") {
@@ -76,7 +76,7 @@ describe("helpers", () => {
       expect(getOperationName(document)).toBe("");
     });
 
-    test("should return the correct operation names when there are multiple operations", () => {
+    it("should return the correct operation names when there are multiple operations", () => {
       const document = `
       query GetUser {
         user(id: "1") {
