@@ -30,17 +30,17 @@ export const SaleorAWSSecretsManagerConfigProvider: SaleorConfigProviderFactory<
     try {
       const response = await secretsManager.send(command);
       config = JSON.parse(response.SecretString ?? "");
-    } catch (err) {
-      logger.error(err);
+    } catch (error) {
+      logger.error("Failed to parse config.", { error });
       return config;
     }
 
     if (Object.entries(config).length) {
       try {
         return saleorBaseConfig.parse(config);
-      } catch (err) {
-        logger.error(err);
-        throw err;
+      } catch (error) {
+        logger.error("Failed to parse config.", { error });
+        throw error;
       }
     }
 

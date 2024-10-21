@@ -1,4 +1,5 @@
 import { render } from "@react-email/components";
+import { type FastifyBaseLogger } from "fastify";
 import type { Component, ComponentType, FC } from "react";
 import { type ClassNameValue, twJoin, twMerge } from "tailwind-merge";
 
@@ -14,13 +15,16 @@ type PropsFrom<C> =
 export const renderEmail = async <C extends ComponentType<any>>({
   template: Component,
   props,
+  logger,
 }: {
+  logger?: FastifyBaseLogger;
   props: PropsFrom<C>;
   template: C;
 }) => {
   try {
     return render(<Component {...props} />);
   } catch (err) {
+    logger?.error("Failed to render email template.", { Component, props });
     throw new EmailRenderError("Failed to render email template.", {
       cause: { source: err as Error },
     });

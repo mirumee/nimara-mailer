@@ -7,6 +7,7 @@ import AccountDeletedEmail from "@/emails/templates/AccountDeletedEmail";
 import AccountDeleteRequestedEmail from "@/emails/templates/AccountDeleteRequestedEmail";
 import AccountEmailChangedEmail from "@/emails/templates/AccountEmailChangedEmail";
 import AccountSetPasswordRequestedEmail from "@/emails/templates/AccountSetPasswordRequestedEmail";
+import FulfillmentCreatedEmail from "@/emails/templates/FulfillmentCreatedEmail";
 import FulfillmentTrackingNumberUpdatedEmail from "@/emails/templates/FulfillmentTrackingNumberUpdatedEmail";
 import GiftCardSentEmail from "@/emails/templates/GiftCardSentEmail";
 import OrderCancelledEmail from "@/emails/templates/OrderCancelledEmail";
@@ -39,6 +40,10 @@ export const TEMPLATES_MAP: {
   },
   order_refunded: {
     template: OrderRefundedEmail,
+    extractFn: extractEmailFromOrder,
+  },
+  fulfillment_created: {
+    template: FulfillmentCreatedEmail,
     extractFn: extractEmailFromOrder,
   },
   fulfillment_tracking_number_updated: {

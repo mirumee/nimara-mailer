@@ -3,7 +3,7 @@ import { z } from "zod";
 export const commonConfigSchema = z.object({
   ENVIRONMENT: z
     .enum(["development", "local", "test", "production"])
-    .default("local"),
+    .default("production"),
   IS_BROWSER: z.boolean().default(typeof window !== "undefined"),
   IS_DEVELOPMENT: z.boolean().default(process.env.NODE_ENV === "development"),
   IS_TEST: z.boolean().default(process.env.NODE_ENV === "test"),

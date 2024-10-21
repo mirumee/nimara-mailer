@@ -13,6 +13,7 @@ export const nodeMailerProvider: EmailProviderFactory = ({
   fromEmail,
   from,
   toEmail,
+  logger,
 }) => {
   const CONFIG = prepareConfig({
     name: "nodeMailerProvider",
@@ -52,6 +53,7 @@ export const nodeMailerProvider: EmailProviderFactory = ({
     try {
       await transporter.sendMail(options);
     } catch (error) {
+      logger.error("Failed to send email.", { error, options });
       throw new EmailSendError("Failed to send email.", {
         cause: {
           source: error as Error,

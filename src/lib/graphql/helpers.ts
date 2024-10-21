@@ -1,8 +1,8 @@
 const OPERATION_NAME_RE = new RegExp(
-  /[subscription|query|mutation]\s+([^{\s]+)\s*{/g
+  /\b(query|mutation|subscription)\s+([^\s({]+)\s*[{(]/gi
 );
 
 export const getOperationName = (document: string) => {
   const matches = [...document.matchAll(OPERATION_NAME_RE)];
-  return matches.map((match) => match[1]).join(", ");
+  return matches.map((match) => match[2]).join(", ");
 };
