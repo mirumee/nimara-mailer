@@ -71,7 +71,12 @@ module.exports = defineConfig({
         "import/no-default-export": "off",
         "import/no-anonymous-default-export": "off",
       },
-      files: ["**/plugins/**/*.ts", "**/emails/**/*.tsx", "*.config.*"],
+      files: [
+        "**/plugins/**/*.ts",
+        "**/emails/**/*.tsx",
+        "*.config.*",
+        "codegen.*",
+      ],
     },
   ],
 });

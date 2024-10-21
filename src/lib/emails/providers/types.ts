@@ -1,8 +1,11 @@
+import { type FastifyBaseLogger } from "fastify";
+
 import { type renderEmail } from "../helpers";
 
 export type EmailProviderFactory = (opts: {
   from: string;
   fromEmail: string;
+  logger: FastifyBaseLogger;
   toEmail: string;
 }) => {
   render: typeof renderEmail;

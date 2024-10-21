@@ -2,10 +2,9 @@ import "aws-lambda";
 
 declare module "aws-lambda" {
   /**
-   * `aws-lambda` has wrong types. Every key should be staring in capital letters.
-   * Beware, lowercase properties are still available, due to TS interface merging!
-   * Please do not use them!
-   * https://github.com/aws/aws-lambda-go/issues/368
+   * `aws-lambda` has mismatched types based on usage.
+   * 1. When using `awslocal` or pulling messages directly from SQS - keys are title cased.
+   * 2. When used directly on AWS and SQS is triggering the lambda - keys are correct wit the aws-lambda types - lowercased.
    */
   export interface SQSRecord {
     MessageId: string;

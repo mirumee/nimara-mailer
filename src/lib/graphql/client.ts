@@ -63,30 +63,29 @@ export const graphqlClient = (
       });
     }
 
+    const operationName = getOperationName(stringQuery);
     let responseJson: GraphQLResponse<TResult>;
 
     try {
-      logger?.debug(
-        `Executing ${getOperationName(stringQuery)} operation with variables ${JSON.stringify(variables ?? {})}`
-      );
+      logger?.debug(`Executing ${operationName} operation.`, { variables });
 
       responseJson = (await response.json()) as GraphQLResponse<TResult>;
-    } catch (err) {
-      logger?.error(`Invalid response: ${err}`);
+    } catch (error) {
+      logger?.error(`Invalid response.`, { error });
       throw new GraphQLClientInvalidResponseError();
     }
 
     if (!isObject(responseJson) || !("data" in responseJson)) {
-      logger?.error(`Invalid json response: ${responseJson}`);
+      logger?.error("Invalid json response.", { response: responseJson });
       throw new GraphQLClientInvalidResponseError();
     }
 
     const data = responseJson["data"];
     const errors = responseJson["errors"];
 
-    logger?.debug(
-      `${getOperationName(stringQuery)} operation response: ${JSON.stringify(responseJson ?? {})}`
-    );
+    logger?.debug(`${operationName} operation response.`, {
+      response: responseJson,
+    });
 
     if (errors) {
       throw GraphQLClientMultiGraphQLError.fromErrors(errors);
