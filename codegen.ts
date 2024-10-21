@@ -2,7 +2,8 @@ import * as process from "node:process";
 
 import { type CodegenConfig } from "@graphql-codegen/cli";
 import { type IGraphQLConfig } from "graphql-config";
-import invariant from "ts-invariant";
+
+import { invariant } from "./src/lib/invariant";
 
 export const baseCodegenConfig: CodegenConfig["config"] = {
   avoidOptionals: {
@@ -49,6 +50,8 @@ const addContent = [
 
 invariant(process.env.SALEOR_URL, "SALEOR_URL not set.");
 
+const schemaUrl = new URL(process.env.SALEOR_URL).origin;
+
 const config: IGraphQLConfig = {
   projects: {
     default: {
@@ -89,7 +92,7 @@ const config: IGraphQLConfig = {
           overwrite: true,
         },
       },
-      schema: `${process.env.SALEOR_URL}/graphql/`,
+      schema: `${schemaUrl}/graphql/`,
     },
   },
 };

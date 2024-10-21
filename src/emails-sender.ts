@@ -11,10 +11,6 @@ import {
 
 import { CONFIG } from "@/config";
 import { TEMPLATES_MAP } from "@/lib/emails/const";
-import {
-  EventNotSupportedError,
-  FormatNotSupportedError,
-} from "@/lib/emails/errors";
 import { getJSONFormatHeader, parseRecord } from "@/lib/payload";
 import { getEmailProvider } from "@/providers/email";
 import { getLogger } from "@/providers/logger";
@@ -52,10 +48,7 @@ export const handler = Sentry.wrapHandler(
             data,
             event,
           });
-          throw new EventNotSupportedError(
-            `No template matched for event: ${event}.`,
-            { cause: { format, data, event } }
-          );
+          continue;
         }
 
         const { extractFn, template } = match;
@@ -68,6 +61,7 @@ export const handler = Sentry.wrapHandler(
           fromEmail,
           from,
           toEmail,
+          logger,
         });
 
         const html = await sender.render({
@@ -87,17 +81,7 @@ export const handler = Sentry.wrapHandler(
           data,
           event,
         });
-        throw new FormatNotSupportedError(
-          `Unsupported payload format header: ${format}`,
-          {
-            cause: {
-              supportedFormat: supportedJSONFormat,
-              incomingFormat: format,
-              data,
-              event,
-            },
-          }
-        );
+        continue;
       }
     }
 
