@@ -1,6 +1,6 @@
 {
   "name": "nimara-mailer",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "type": "module",
   "author": {
     "name": "Mirumee Labs",
@@ -76,7 +76,6 @@
     "tailwind-merge": "^2.5.4",
     "tailwindcss": "^3.4.14",
     "traverse": "^0.6.10",
-    "ts-invariant": "^0.10.3",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.6.3",
     "vite": "^5.4.9",
@@ -93,6 +92,7 @@
     "@graphql-codegen/typescript": "^4.1.0",
     "@graphql-codegen/typescript-operations": "^4.3.0",
     "@graphql-typed-document-node/core": "^3.2.0",
+    "@release-it/conventional-changelog": "^9.0.1",
     "@types/aws-lambda": "^8.10.145",
     "@types/graphql": "^14.5.0",
     "@types/jsonwebtoken": "^9.0.7",
@@ -120,6 +120,7 @@
     "lint-staged": "^15.2.10",
     "nodemon": "^3.1.7",
     "prettier": "^3.3.3",
+    "release-it": "^17.10.0",
     "sqs-consumer": "^11.1.0",
     "ts-essentials": "^10.0.2",
     "typescript-eslint": "^7.18.0",

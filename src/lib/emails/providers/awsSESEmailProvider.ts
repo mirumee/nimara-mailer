@@ -5,6 +5,7 @@ import {
 } from "@aws-sdk/client-ses";
 import { z } from "zod";
 
+import { logger } from "@/emails-sender";
 import { prepareConfig } from "@/lib/zod/util";
 
 import { EmailSendError } from "../errors";
@@ -54,15 +55,16 @@ export const awsSESEmailProvider: EmailProviderFactory = ({
       await client.send(command);
     } catch (error) {
       if (error instanceof SESServiceException) {
+        logger.error("Failed to send email.", {
+          error,
+          message: error.message,
+          $fault: error?.$fault,
+          subject,
+          toEmail,
+          ...error.$metadata,
+        });
         throw new EmailSendError("Failed to send email.", {
-          cause: {
-            source: error as Error,
-            message: error.message,
-            $fault: error?.$fault,
-            subject,
-            toEmail,
-            ...error.$metadata,
-          },
+          cause: { source: error as Error },
         });
       }
 

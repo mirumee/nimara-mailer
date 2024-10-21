@@ -48,10 +48,12 @@ export const getJSONFormatHeader = ({
 
 export const parseRecord = (record: SQSRecord) => {
   try {
-    const data = JSON.parse(record.Body);
+    // NOTE: Check aws-lambda.d.ts for explanation.
+    const data = JSON.parse(record?.body ?? record?.Body);
 
     return parsePayload(data);
   } catch (error) {
+    console.error("Failed to parse record payload.", { record });
     throw new ParsePayloadError("Failed to parse record payload.", {
       cause: { source: error as Error },
     });
