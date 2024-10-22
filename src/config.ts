@@ -28,6 +28,8 @@ export const configSchema = z
     SENTRY_DSN: z.string().url().optional(),
 
     EMAIL_PROVIDER: z.enum(["NODE_MAILER", "AWS_SES"]).default("AWS_SES"),
+
+    BASE_PATH: z.string().default("").optional(),
   })
   .and(commonConfigSchema)
   .and(appConfigSchema)
