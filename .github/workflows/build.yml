@@ -2,6 +2,8 @@ name: Build
 
 on:
   push:
+    branches:
+      - "*"
     tags:
       - "*"
 
@@ -15,6 +17,10 @@ jobs:
       AWS_DEFAULT_REGION: eu-central-1
     steps:
       - uses: actions/checkout@v4
+
+      - name: Create GIT_DESCRIBE variable
+        run: |
+          echo "GIT_DESCRIBE=$(git describe --broken --tags --always)" >> $GITHUB_ENV
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -37,7 +43,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@master
         with:
-          role-to-assume: arn:aws:iam::414357773561:role/github-actions/mirumee_nimara-mailer
+          role-to-assume: arn:aws:iam::414357773561:role/nimara-mailer
           aws-region: eu-central-1
 
       - name: Copy ZIP
