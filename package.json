@@ -32,7 +32,9 @@
     "test:coverage:avg": "pnpm test:coverage | grep -E \"All files\" -A 0 | awk '{print ($4 + $6 + $8+ $10) / 4}'",
     "tsc:watch": "tsc --watch --noEmit",
     "codegen": "graphql-codegen --require dotenv/config --config ./codegen.ts",
-    "prepare": "husky"
+    "prepare": "husky",
+    "release": "release-it",
+    "release:dry": "release-it --dry-run --no-npm"
   },
   "lint-staged": {
     "*.{js,mjs,cjs,ts,tsx}": "pnpm lint:fix"
