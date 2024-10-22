@@ -15,7 +15,7 @@ build/*
 package*
 dist/
 vite.config.js.timestamp*
-artifact.zip
+*.zip
 
 # IDE
 

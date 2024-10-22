@@ -61,10 +61,6 @@ export const createLogger = ({
             sorted: true,
           },
         }),
-        format((info) => {
-          info.level = `[${info.level.toUpperCase()}]`;
-          return info;
-        })(),
       ]
     : [format.json()];
 
@@ -78,6 +74,10 @@ export const createLogger = ({
         },
 
     format: format.combine(
+      format((info) => {
+        info.level = `[${info.level.toUpperCase()}]`;
+        return info;
+      })(),
       format(redact)(),
       format.errors({ stack: true }),
       format.timestamp({ format: "DD/MM/YYYY HH:mm:ss" }),
