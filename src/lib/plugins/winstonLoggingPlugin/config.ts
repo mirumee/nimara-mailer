@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { envBool } from "@/lib/zod/env";
 import { prepareConfig } from "@/lib/zod/util";
 
 import { LOG_LEVELS } from "./const";
@@ -11,6 +12,7 @@ export const configSchema = z.object({
     .default("error"),
   NODE_ENV: z.string(),
   IS_DEVELOPMENT: z.boolean(),
+  REDACT_LOG_KEYS: envBool.default("true"),
 });
 
 export const PLUGIN_CONFIG = prepareConfig({

@@ -78,7 +78,7 @@ export const createLogger = ({
         info.level = `[${info.level.toUpperCase()}]`;
         return info;
       })(),
-      format(redact)(),
+      format((info) => (PLUGIN_CONFIG.REDACT_LOG_KEYS ? redact(info) : info))(),
       format.errors({ stack: true }),
       format.timestamp({ format: "DD/MM/YYYY HH:mm:ss" }),
       ...formatters
