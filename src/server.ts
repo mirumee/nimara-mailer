@@ -63,7 +63,7 @@ export async function createServer() {
    * Apis registration
    */
   await server.register(restRoutes, {
-    prefix: `${CONFIG.BASE_PATH}/api`,
+    prefix: CONFIG.BASE_PATH ? `${CONFIG.BASE_PATH}/api` : "/api",
   });
 
   server.log.info("Registering plugins", { registrations });

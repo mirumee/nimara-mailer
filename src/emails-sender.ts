@@ -64,6 +64,8 @@ export const handler = Sentry.wrapHandler(
           logger,
         });
 
+        logger.debug("Sending email.", { data, fromEmail, from, toEmail });
+
         const html = await sender.render({
           props: { data },
           template,
