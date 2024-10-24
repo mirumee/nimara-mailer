@@ -5,6 +5,7 @@ import { prepareConfig } from "@/lib/zod/util";
 
 import packageJson from "../package.json";
 import { appConfigSchema, commonConfigSchema } from "./lib/config/schema";
+import { envToStrList } from "./lib/zod/env";
 
 export const configSchema = z
   .object({
@@ -26,10 +27,9 @@ export const configSchema = z
     // Sentry.
     SENTRY_DEBUG: z.boolean().default(false),
     SENTRY_DSN: z.string().url().optional(),
-
     EMAIL_PROVIDER: z.enum(["NODE_MAILER", "AWS_SES"]).default("AWS_SES"),
-
     BASE_PATH: z.string().default("").optional(),
+    WHITELISTED_DOMAINS: z.array(z.string()).optional(),
   })
   .and(commonConfigSchema)
   .and(appConfigSchema)
@@ -45,6 +45,7 @@ export const CONFIG = prepareConfig({
   input: {
     NAME: packageJson.name,
     VERSION: packageJson.version,
+    WHITELISTED_DOMAINS: envToStrList(process.env.WHITELISTED_DOMAINS),
   },
   schema: configSchema,
 });
