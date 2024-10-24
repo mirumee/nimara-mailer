@@ -11,6 +11,7 @@ import {
 
 import { CONFIG } from "@/config";
 import { TEMPLATES_MAP } from "@/lib/emails/const";
+import { isEmailAllowed } from "@/lib/emails/helpers";
 import { getJSONFormatHeader, parseRecord } from "@/lib/payload";
 import { getEmailProvider } from "@/providers/email";
 import { getLogger } from "@/providers/logger";
@@ -55,6 +56,20 @@ export const handler = Sentry.wrapHandler(
         const toEmail = extractFn(data);
         const fromEmail = CONFIG.FROM_EMAIL;
         const from = CONFIG.FROM_NAME;
+
+        if (
+          !isEmailAllowed({
+            email: toEmail,
+            allowedDomains: CONFIG.WHITELISTED_DOMAINS,
+          })
+        ) {
+          logger.info("Email domain is not allowed, skipping.", {
+            toEmail,
+            event,
+            allowedDomains: CONFIG.WHITELISTED_DOMAINS,
+          });
+          continue;
+        }
 
         const emailProvider = await getEmailProvider();
         const sender = emailProvider({

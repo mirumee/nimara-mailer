@@ -3,6 +3,8 @@ import { type FastifyBaseLogger } from "fastify";
 import type { Component, ComponentType, FC } from "react";
 import { type ClassNameValue, twJoin, twMerge } from "tailwind-merge";
 
+import { type Maybe } from "@/lib/types";
+
 import { EmailRenderError } from "./errors";
 
 type PropsFrom<C> =
@@ -32,3 +34,19 @@ export const renderEmail = async <C extends ComponentType<any>>({
 };
 
 export const cn = (...input: ClassNameValue[]) => twMerge(twJoin(input));
+
+export const isEmailAllowed = ({
+  email,
+  allowedDomains,
+}: {
+  allowedDomains: Maybe<string[]>;
+  email: string;
+}) => {
+  if (allowedDomains) {
+    const emailDomain = email.split("@")[1];
+
+    return allowedDomains.some((domain) => domain === emailDomain);
+  }
+
+  return true;
+};

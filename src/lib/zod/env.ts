@@ -14,13 +14,13 @@ export const envBool = z
 
 export const envToStrList = (
   env: string | undefined,
-  defaultEmpty = false
+  defaultValue: any = undefined
 ): string[] | undefined => {
-  const parsed = env?.split(",").filter(Boolean);
+  if (env) {
+    const parsed = env?.split(",").filter(Boolean);
 
-  if (!parsed && !defaultEmpty) {
-    return [];
+    return parsed;
   }
 
-  return parsed;
+  return defaultValue;
 };

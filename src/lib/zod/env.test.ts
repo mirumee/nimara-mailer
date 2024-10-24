@@ -48,61 +48,49 @@ describe("env", () => {
   });
 
   describe("envToStrList", () => {
-    it("should return an array of strings for a valid comma-separated string", () => {
+    it("should return an array of strings when a valid env string is provided", () => {
       // given
-      const input = "value1,value2,value3";
+      const env = "value1,value2,value3";
 
       // when
-      const result = envToStrList(input);
+      const result = envToStrList(env);
 
       // then
       expect(result).toEqual(["value1", "value2", "value3"]);
     });
 
-    it("should return an empty array when env is undefined and defaultEmpty is false", () => {
+    it("should return undefined when env is undefined and no default value is provided", () => {
       // given
-      const input = undefined;
-      const defaultEmpty = false;
+      const env = undefined;
 
       // when
-      const result = envToStrList(input, defaultEmpty);
-
-      // then
-      expect(result).toEqual([]);
-    });
-
-    it("should return undefined when env is undefined and defaultEmpty is true", () => {
-      // given
-      const input = undefined;
-      const defaultEmpty = true;
-
-      // when
-      const result = envToStrList(input, defaultEmpty);
+      const result = envToStrList(env);
 
       // then
       expect(result).toBeUndefined();
     });
 
-    it("should filter out empty values in a comma-separated string", () => {
+    it("should return the default value when env is undefined and a default value is provided", () => {
       // given
-      const input = "value1,,value3";
+      const env = undefined;
+      const defaultValue = ["default"];
 
       // when
-      const result = envToStrList(input);
+      const result = envToStrList(env, defaultValue);
+
+      // then
+      expect(result).toEqual(defaultValue);
+    });
+
+    it("should filter out empty strings from the parsed env string", () => {
+      // given
+      const env = "value1,,value3";
+
+      // when
+      const result = envToStrList(env);
 
       // then
       expect(result).toEqual(["value1", "value3"]);
-    });
-
-    it("should return an empty array when env is an empty string", () => {
-      // given
-      const input = "";
-
-      // when
-      const result = envToStrList(input);
-
-      // then
-      expect(result).toEqual([]);
     });
   });
 });
