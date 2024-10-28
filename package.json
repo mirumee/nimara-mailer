@@ -54,7 +54,7 @@
     "dataloader": "^2.2.2",
     "dotenv-cli": "^7.4.2",
     "drizzle-kit": "^0.23.2",
-    "drizzle-orm": "^0.32.2",
+    "drizzle-orm": "^0.35.3",
     "esbuild": "^0.23.1",
     "esbuild-plugin-copy": "^2.1.1",
     "eslint-define-config": "^2.1.0",
