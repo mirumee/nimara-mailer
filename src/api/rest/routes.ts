@@ -4,7 +4,6 @@ import { type ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 
 import { CONFIG } from "@/config";
-import { OrderCreatedSubscriptionDocument } from "@/graphql/operations/subscriptions/generated";
 import { validateDocumentAgainstData } from "@/lib/graphql/validate";
 import { serializePayload } from "@/lib/payload";
 import { verifyJWTSignature } from "@/lib/saleor/auth";
@@ -40,9 +39,13 @@ export const restRoutes: FastifyPluginAsync = async (fastify) => {
         jwt: request.headers.authorization,
       });
 
+      const document = EVENT_HANDLERS.find(
+        ({ event }) => event.toLowerCase() === request.body.event
+      )!.query;
+
       const { isValid, error } = validateDocumentAgainstData({
         data: request.body.data,
-        document: OrderCreatedSubscriptionDocument,
+        document,
       });
 
       if (!isValid) {

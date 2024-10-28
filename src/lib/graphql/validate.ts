@@ -8,8 +8,6 @@ import {
 
 import { NonTransientError } from "@/lib/errors/base";
 
-import { type TypedDocumentTypeDecoration } from "./types";
-
 export class ValidationError extends NonTransientError {}
 
 type FieldInfo = {
@@ -102,10 +100,10 @@ export const validateDocumentAgainstData = ({
   rootField = "event",
 }: {
   data: any;
-  document: TypedDocumentTypeDecoration<any, any>;
+  document: string;
   rootField?: string;
 }) => {
-  const ast = parse(document.toString());
+  const ast = parse(document);
 
   const definitions = ast.definitions[0] as ExecutableDefinitionNode;
 
