@@ -123,7 +123,7 @@
     "nodemon": "^3.1.7",
     "prettier": "^3.3.3",
     "release-it": "^17.10.0",
-    "sqs-consumer": "^11.1.0",
+    "sqs-consumer": "^11.2.0",
     "ts-essentials": "^10.0.2",
     "typescript-eslint": "^7.18.0",
     "vitest": "^2.1.3"
