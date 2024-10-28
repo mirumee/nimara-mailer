@@ -23,7 +23,7 @@ export const handler = Sentry.wrapHandler(
     event: SQSEvent,
     context: Context,
     callback: Callback
-  ): Promise<SQSBatchResponse> => {
+  ): Promise<SQSBatchResponse | void> => {
     const batchItemFailures: SQSBatchItemFailure[] = [];
 
     logger.info(`Received event with ${event.Records.length} records.`);
@@ -107,8 +107,8 @@ export const handler = Sentry.wrapHandler(
         ({ itemIdentifier }) => itemIdentifier
       );
       logger.error(`Failed messages: ${failedMessagesId.join(", ")}.`);
-    }
 
-    return { batchItemFailures };
+      return { batchItemFailures };
+    }
   }
 );
