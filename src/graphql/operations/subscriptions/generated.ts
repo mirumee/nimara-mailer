@@ -217,23 +217,23 @@ export type OrderCreatedSubscriptionVariables = Types.Exact<{ [key: string]: nev
 
 export type OrderCreatedSubscription = OrderCreatedSubscription_Subscription;
 
-export type OrderRefundedSubscription_event_OrderCancelled_order_Order_lines_OrderLine_thumbnail_Image = { url: string };
+export type OrderRefundedSubscription_event_OrderRefunded_order_Order_lines_OrderLine_thumbnail_Image = { url: string };
 
-export type OrderRefundedSubscription_event_OrderCancelled_order_Order_lines_OrderLine_unitPrice_TaxedMoney_gross_Money = { amount: number, currency: string };
+export type OrderRefundedSubscription_event_OrderRefunded_order_Order_lines_OrderLine_unitPrice_TaxedMoney_gross_Money = { amount: number, currency: string };
 
-export type OrderRefundedSubscription_event_OrderCancelled_order_Order_lines_OrderLine_unitPrice_TaxedMoney = { gross: OrderRefundedSubscription_event_OrderCancelled_order_Order_lines_OrderLine_unitPrice_TaxedMoney_gross_Money, net: OrderRefundedSubscription_event_OrderCancelled_order_Order_lines_OrderLine_unitPrice_TaxedMoney_gross_Money };
+export type OrderRefundedSubscription_event_OrderRefunded_order_Order_lines_OrderLine_unitPrice_TaxedMoney = { gross: OrderRefundedSubscription_event_OrderRefunded_order_Order_lines_OrderLine_unitPrice_TaxedMoney_gross_Money, net: OrderRefundedSubscription_event_OrderRefunded_order_Order_lines_OrderLine_unitPrice_TaxedMoney_gross_Money };
 
-export type OrderRefundedSubscription_event_OrderCancelled_order_Order_lines_OrderLine_variant_ProductVariant_product_Product = { slug: string };
+export type OrderRefundedSubscription_event_OrderRefunded_order_Order_lines_OrderLine_variant_ProductVariant_product_Product = { slug: string };
 
-export type OrderRefundedSubscription_event_OrderCancelled_order_Order_lines_OrderLine_variant_ProductVariant = { product: OrderRefundedSubscription_event_OrderCancelled_order_Order_lines_OrderLine_variant_ProductVariant_product_Product };
+export type OrderRefundedSubscription_event_OrderRefunded_order_Order_lines_OrderLine_variant_ProductVariant = { product: OrderRefundedSubscription_event_OrderRefunded_order_Order_lines_OrderLine_variant_ProductVariant_product_Product };
 
-export type OrderRefundedSubscription_event_OrderCancelled_order_Order_lines_OrderLine = { quantity: number, variantName: string, productName: string, thumbnail: OrderRefundedSubscription_event_OrderCancelled_order_Order_lines_OrderLine_thumbnail_Image | null, unitPrice: OrderRefundedSubscription_event_OrderCancelled_order_Order_lines_OrderLine_unitPrice_TaxedMoney, variant: OrderRefundedSubscription_event_OrderCancelled_order_Order_lines_OrderLine_variant_ProductVariant | null };
+export type OrderRefundedSubscription_event_OrderRefunded_order_Order_lines_OrderLine = { quantity: number, variantName: string, productName: string, thumbnail: OrderRefundedSubscription_event_OrderRefunded_order_Order_lines_OrderLine_thumbnail_Image | null, unitPrice: OrderRefundedSubscription_event_OrderRefunded_order_Order_lines_OrderLine_unitPrice_TaxedMoney, variant: OrderRefundedSubscription_event_OrderRefunded_order_Order_lines_OrderLine_variant_ProductVariant | null };
 
-export type OrderRefundedSubscription_event_OrderCancelled_order_Order = { number: string, displayGrossPrices: boolean, languageCodeEnum: Types.LanguageCodeEnum, userEmail: string | null, lines: Array<OrderRefundedSubscription_event_OrderCancelled_order_Order_lines_OrderLine>, shippingPrice: OrderCreatedSubscription_event_OrderCreated_order_Order_shippingPrice_TaxedMoney, subtotal: OrderCreatedSubscription_event_OrderCreated_order_Order_subtotal_TaxedMoney, total: OrderCreatedSubscription_event_OrderCreated_order_Order_total_TaxedMoney, channel: FulfillmentCreatedSubscription_event_FulfillmentCreated_order_Order_channel_Channel, user: FulfillmentCreatedSubscription_event_FulfillmentCreated_order_Order_user_User | null, shippingAddress: FulfillmentCreatedSubscription_event_FulfillmentCreated_order_Order_shippingAddress_Address | null };
+export type OrderRefundedSubscription_event_OrderRefunded_order_Order = { number: string, displayGrossPrices: boolean, languageCodeEnum: Types.LanguageCodeEnum, userEmail: string | null, lines: Array<OrderRefundedSubscription_event_OrderRefunded_order_Order_lines_OrderLine>, shippingPrice: OrderCreatedSubscription_event_OrderCreated_order_Order_shippingPrice_TaxedMoney, subtotal: OrderCreatedSubscription_event_OrderCreated_order_Order_subtotal_TaxedMoney, total: OrderCreatedSubscription_event_OrderCreated_order_Order_total_TaxedMoney, channel: FulfillmentCreatedSubscription_event_FulfillmentCreated_order_Order_channel_Channel, user: FulfillmentCreatedSubscription_event_FulfillmentCreated_order_Order_user_User | null, shippingAddress: FulfillmentCreatedSubscription_event_FulfillmentCreated_order_Order_shippingAddress_Address | null };
 
-export type OrderRefundedSubscription_event_OrderCancelled = { order: OrderRefundedSubscription_event_OrderCancelled_order_Order | null };
+export type OrderRefundedSubscription_event_OrderRefunded = { order: OrderRefundedSubscription_event_OrderRefunded_order_Order | null };
 
-export type OrderRefundedSubscription_Subscription = { event: OrderRefundedSubscription_event_OrderCancelled | null };
+export type OrderRefundedSubscription_Subscription = { event: OrderRefundedSubscription_event_OrderRefunded | null };
 
 
 export type OrderRefundedSubscriptionVariables = Types.Exact<{ [key: string]: never; }>;
@@ -690,7 +690,7 @@ fragment OrderFragment on Order {
 export const OrderRefundedSubscriptionDocument = new TypedDocumentString(`
     subscription OrderRefundedSubscription {
   event {
-    ... on OrderCancelled {
+    ... on OrderRefunded {
       order {
         ...OrderFragment
         lines {

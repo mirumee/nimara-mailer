@@ -1,6 +1,6 @@
 subscription OrderRefundedSubscription {
   event {
-    ... on OrderCancelled {
+    ... on OrderRefunded {
       order {
         ...OrderFragment
         lines {
