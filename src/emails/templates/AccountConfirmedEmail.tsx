@@ -8,7 +8,7 @@ const AccountConfirmedEmail = ({
   data,
 }: EventData<AccountConfirmedSubscription>) => {
   return (
-    <Layout channel={data.channel?.slug} previewText="Account Confirmed">
+    <Layout channel={data.channel?.slug} previewText="Account confirmed">
       {() => (
         <>
           <Header>Hi {data.user?.firstName}!</Header>
@@ -37,6 +37,6 @@ const previewProps: EventData<AccountConfirmedSubscription> = {
 };
 
 AccountConfirmedEmail.PreviewProps = previewProps;
-AccountConfirmedEmail.Subject = "Account Confirmed";
+AccountConfirmedEmail.Subject = "Account confirmed";
 
 export default AccountConfirmedEmail;
