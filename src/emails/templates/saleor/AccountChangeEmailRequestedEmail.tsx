@@ -51,6 +51,9 @@ const previewProps: AccountChangeEmailRequestedEmailProps = {
 };
 
 AccountChangeEmailRequestedEmail.PreviewProps = previewProps;
-AccountChangeEmailRequestedEmail.Subject = "Account change email requested";
+
+AccountChangeEmailRequestedEmail.getSubject = (
+  data: AccountChangeEmailRequestedEmailProps
+) => "Account change email requested";
 
 export default AccountChangeEmailRequestedEmail;

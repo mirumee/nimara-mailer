@@ -11,7 +11,7 @@ type CustomEventEmailProps = CustomEventData<
 >;
 
 const CustomEventEmail = ({
-  data: { channel, email, name },
+  data: { channel, name },
 }: CustomEventEmailProps) => {
   return (
     <Layout channel={channel} previewText="Custom event">
@@ -34,6 +34,7 @@ const previewProps: CustomEventEmailProps = {
 };
 
 CustomEventEmail.PreviewProps = previewProps;
-CustomEventEmail.Subject = "Custom event";
+
+CustomEventEmail.getSubject = (data: CustomEventEmailProps) => "Custom event";
 
 export default CustomEventEmail;

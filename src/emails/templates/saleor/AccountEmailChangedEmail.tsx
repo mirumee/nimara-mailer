@@ -32,6 +32,8 @@ const previewProps: AccountEmailChangedEmailProps = {
 };
 
 AccountEmailChangedEmail.PreviewProps = previewProps;
-AccountEmailChangedEmail.Subject = "Account email changed";
+
+AccountEmailChangedEmail.getSubject = (data: AccountEmailChangedEmailProps) =>
+  "Account email changed";
 
 export default AccountEmailChangedEmail;

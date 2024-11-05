@@ -88,7 +88,7 @@ export const handler = Sentry.wrapHandler(
 
         await sender.send({
           html,
-          subject: template.Subject,
+          subject: template.getSubject(data),
         });
 
         logger.info("Email sent successfully.", { toEmail, event });

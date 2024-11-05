@@ -132,6 +132,8 @@ const previewProps: FulfillmentCreatedEmailProps = {
 };
 
 FulfillmentCreatedEmail.PreviewProps = previewProps;
-FulfillmentCreatedEmail.Subject = "Fulfillment updated";
+
+FulfillmentCreatedEmail.getSubject = (data: FulfillmentCreatedEmailProps) =>
+  "Fulfillment updated";
 
 export default FulfillmentCreatedEmail;

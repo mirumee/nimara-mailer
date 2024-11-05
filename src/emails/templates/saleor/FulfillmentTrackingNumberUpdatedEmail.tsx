@@ -150,6 +150,9 @@ const previewProps: FulfillmentTrackingNumberUpdatedEmailProps = {
 };
 
 FulfillmentTrackingNumberUpdatedEmail.PreviewProps = previewProps;
-FulfillmentTrackingNumberUpdatedEmail.Subject = "Tracking number updated";
+
+FulfillmentTrackingNumberUpdatedEmail.getSubject = (
+  data: FulfillmentTrackingNumberUpdatedEmailProps
+) => "Tracking number updated";
 
 export default FulfillmentTrackingNumberUpdatedEmail;

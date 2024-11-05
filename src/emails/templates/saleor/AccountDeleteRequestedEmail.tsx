@@ -46,6 +46,9 @@ const previewProps: AccountDeleteRequestedEmailProps = {
 };
 
 AccountDeleteRequestedEmail.PreviewProps = previewProps;
-AccountDeleteRequestedEmail.Subject = "Account delete requested";
+
+AccountDeleteRequestedEmail.getSubject = (
+  data: AccountDeleteRequestedEmailProps
+) => "Account delete requested";
 
 export default AccountDeleteRequestedEmail;

@@ -138,6 +138,8 @@ const previewProps: OrderRefundedEmailProps = {
 };
 
 OrderRefundedEmail.PreviewProps = previewProps;
-OrderRefundedEmail.Subject = "Order refunded";
+
+OrderRefundedEmail.getSubject = (data: OrderRefundedEmailProps) =>
+  "Order refunded";
 
 export default OrderRefundedEmail;

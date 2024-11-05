@@ -37,6 +37,8 @@ const previewProps: AccountConfirmedEmailProps = {
 };
 
 AccountConfirmedEmail.PreviewProps = previewProps;
-AccountConfirmedEmail.Subject = "Account confirmed";
+
+AccountConfirmedEmail.getSubject = (data: AccountConfirmedEmailProps) =>
+  "Account confirmed";
 
 export default AccountConfirmedEmail;
