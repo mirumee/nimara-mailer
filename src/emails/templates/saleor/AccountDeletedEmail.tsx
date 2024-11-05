@@ -4,9 +4,9 @@ import Text from "@/emails/components/Text";
 import { type AccountDeletedSubscription } from "@/graphql/operations/subscriptions/generated";
 import { type EventData } from "@/lib/types";
 
-const AccountDeletedEmail = ({
-  data,
-}: EventData<AccountDeletedSubscription>) => {
+type AccountDeletedEmailProps = EventData<AccountDeletedSubscription>;
+
+const AccountDeletedEmail = ({ data }: AccountDeletedEmailProps) => {
   return (
     <Layout channel={data.channel?.slug} previewText="Account Deleted">
       {() => (
@@ -27,7 +27,7 @@ const AccountDeletedEmail = ({
   );
 };
 
-const previewProps: EventData<AccountDeletedSubscription> = {
+const previewProps: AccountDeletedEmailProps = {
   data: {
     user: {
       email: "user@example.com",

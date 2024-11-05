@@ -4,6 +4,12 @@ import { type ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 
 import { CONFIG } from "@/config";
+import {
+  CUSTOM_EVENTS_SCHEMA,
+  type CustomEventType,
+  EMAIL_EVENTS,
+} from "@/const";
+import { UnauthorizedError } from "@/lib/errors/api";
 import { validateDocumentAgainstData } from "@/lib/graphql/validate";
 import { serializePayload } from "@/lib/payload";
 import { verifyJWTSignature } from "@/lib/saleor/auth";
@@ -11,7 +17,7 @@ import { saleorBearerHeader } from "@/lib/saleor/schema";
 import { getJWKSProvider } from "@/providers/jwks";
 
 import { saleorRoutes } from "./saleor";
-import { EVENT_HANDLERS } from "./saleor/webhooks";
+import { SALEOR_EVENTS_MAP } from "./saleor/webhooks";
 
 export const restRoutes: FastifyPluginAsync = async (fastify) => {
   await fastify.register(saleorRoutes, { prefix: "/saleor" });
@@ -26,40 +32,55 @@ export const restRoutes: FastifyPluginAsync = async (fastify) => {
         headers: saleorBearerHeader,
         body: z.object({
           data: z.any(),
-          event: z.enum(
-            EVENT_HANDLERS.map(({ event }) => event.toLowerCase()) as any
-          ),
+          event: z.enum(EMAIL_EVENTS),
         }),
       },
     },
 
     async (request, response) => {
-      await verifyJWTSignature({
-        jwksProvider: getJWKSProvider(),
-        jwt: request.headers.authorization,
-      });
+      if (CONFIG.AUTHORIZATION_TOKEN) {
+        if (CONFIG.AUTHORIZATION_TOKEN !== request.headers.authorization) {
+          throw new UnauthorizedError({
+            message: "Invalid authorization token.",
+          });
+        }
+      } else {
+        await verifyJWTSignature({
+          jwksProvider: getJWKSProvider(),
+          jwt: request.headers.authorization,
+        });
+      }
 
-      const document = EVENT_HANDLERS.find(
+      const saleorEvent = SALEOR_EVENTS_MAP.find(
         ({ event }) => event.toLowerCase() === request.body.event
-      )!.query;
+      );
+      let data: unknown;
 
-      const { isValid, error } = validateDocumentAgainstData({
-        data: request.body.data,
-        document,
-      });
+      if (saleorEvent) {
+        const { isValid, error } = validateDocumentAgainstData({
+          data: request.body.data,
+          document: saleorEvent.query,
+        });
+        data = request.body.data;
 
-      if (!isValid) {
-        throw new z.ZodError([
-          {
-            path: ["body > data"],
-            message: error ?? "",
-            code: "custom",
-          },
-        ]);
+        if (!isValid) {
+          throw new z.ZodError([
+            {
+              path: ["body > data"],
+              message: error ?? "",
+              code: "custom",
+            },
+          ]);
+        }
+      } else {
+        const schema =
+          CUSTOM_EVENTS_SCHEMA[request.body.event as CustomEventType];
+
+        data = schema.parse(request.body.data, { path: ["body > data"] });
       }
 
       const payload = serializePayload({
-        data: request.body.data,
+        data,
         event: request.body.event,
       });
 

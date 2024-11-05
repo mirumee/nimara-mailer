@@ -4,9 +4,9 @@ import Text from "@/emails/components/Text";
 import { type AccountEmailChangedSubscription } from "@/graphql/operations/subscriptions/generated";
 import { type EventData } from "@/lib/types";
 
-const AccountEmailChangedEmail = ({
-  data,
-}: EventData<AccountEmailChangedSubscription>) => {
+type AccountEmailChangedEmailProps = EventData<AccountEmailChangedSubscription>;
+
+const AccountEmailChangedEmail = ({ data }: AccountEmailChangedEmailProps) => {
   return (
     <Layout channel={data.channel?.slug} previewText="Account email changed">
       {() => (
@@ -19,7 +19,7 @@ const AccountEmailChangedEmail = ({
   );
 };
 
-const previewProps: EventData<AccountEmailChangedSubscription> = {
+const previewProps: AccountEmailChangedEmailProps = {
   data: {
     user: {
       email: "user@example.com",

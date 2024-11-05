@@ -2,20 +2,24 @@ import { type FastifyRequest } from "fastify";
 import type { FastifyPluginAsync } from "fastify/types/plugin";
 
 import { CONFIG } from "@/config";
-import { type AppManifestWebhook } from "@/graphql/schema";
+import {
+  type AppManifestWebhook,
+  type WebhookEventTypeAsyncEnum,
+} from "@/graphql/schema";
 import { saleorAppRouter } from "@/lib/saleor/apps/router";
 import { getConfigProvider } from "@/providers/config";
 import { getJWKSProvider } from "@/providers/jwks";
 import { getSaleorClient } from "@/providers/saleorClient";
 
 import { saleorRestRoutes } from "./saleor";
-import { EVENT_HANDLERS, saleorWebhooksRoutes } from "./webhooks";
+import { SALEOR_EVENTS_MAP, saleorWebhooksRoutes } from "./webhooks";
 
 const getManifestWebhooks = (request: FastifyRequest): AppManifestWebhook[] =>
-  EVENT_HANDLERS.map(({ event, query }) => {
-    const name = event.toLocaleLowerCase().replaceAll("_", "-");
+  SALEOR_EVENTS_MAP.map(({ event, query }) => {
+    const name = event.replaceAll("_", "-");
+
     return {
-      asyncEvents: [event],
+      asyncEvents: [event.toUpperCase() as WebhookEventTypeAsyncEnum],
       name,
       query,
       syncEvents: [],

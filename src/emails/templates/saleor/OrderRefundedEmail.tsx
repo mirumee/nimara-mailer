@@ -8,7 +8,9 @@ import { type OrderRefundedSubscription } from "@/graphql/operations/subscriptio
 import { orderLineToLine } from "@/lib/saleor/utils";
 import { type EventData } from "@/lib/types";
 
-const OrderRefundedEmail = ({ data }: EventData<OrderRefundedSubscription>) => {
+type OrderRefundedEmailProps = EventData<OrderRefundedSubscription>;
+
+const OrderRefundedEmail = ({ data }: OrderRefundedEmailProps) => {
   const order = data!.order!;
 
   return (
@@ -60,7 +62,7 @@ const OrderRefundedEmail = ({ data }: EventData<OrderRefundedSubscription>) => {
   );
 };
 
-const previewProps: EventData<OrderRefundedSubscription> = {
+const previewProps: OrderRefundedEmailProps = {
   data: {
     order: {
       number: "939",

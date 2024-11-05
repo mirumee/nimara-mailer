@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
+import { CONFIG } from "@/config";
+import { EMAIL_EVENTS } from "@/const";
 import * as validate from "@/lib/graphql/validate";
 import * as auth from "@/lib/saleor/auth";
 import { createServer } from "@/server";
-
-import { EVENT_HANDLERS } from "./saleor/webhooks";
 
 describe("apiRoutes", () => {
   describe("/api/healthcheck", () => {
@@ -56,6 +56,36 @@ describe("apiRoutes", () => {
       expect(response.statusCode).toStrictEqual(expectedStatusCode);
     });
 
+    it("Should return 401 with invalid config authorization token.", async () => {
+      // given
+      const expectedStatusCode = 401;
+      const expectedJson = {
+        error: "UNAUTHORIZED",
+        code: "UNAUTHORIZED_ERROR",
+        requestId: expect.any(String),
+        errors: [{ message: "Invalid authorization token." }],
+      };
+      const event = EMAIL_EVENTS[0];
+
+      vi.spyOn(CONFIG, "AUTHORIZATION_TOKEN", "get").mockReturnValue(
+        "mocked-token"
+      );
+
+      // when
+      const response = await app.inject({
+        method: "POST",
+        url,
+        headers: {
+          Authorization: "Bearer wrong",
+        },
+        body: { data: {}, event },
+      });
+
+      // then
+      expect(response.json()).toStrictEqual(expectedJson);
+      expect(response.statusCode).toStrictEqual(expectedStatusCode);
+    });
+
     it("Should return 400 passed when event is not supported.", async () => {
       // given
       const expectedStatusCode = 400;
@@ -92,9 +122,9 @@ describe("apiRoutes", () => {
       const validateSpy = vi.spyOn(validate, "validateDocumentAgainstData");
       const expectedJson = { status: "ok" };
       const expectedStatusCode = 200;
+      const event = EMAIL_EVENTS[0];
 
       // when
-      const event = EVENT_HANDLERS[0].event.toLowerCase();
       jwtVerifySpy.mockImplementation(async () => undefined);
       validateSpy.mockImplementation(() => ({ isValid: true, error: null }));
 

@@ -30,6 +30,8 @@ export const configSchema = z
     EMAIL_PROVIDER: z.enum(["NODE_MAILER", "AWS_SES"]).default("AWS_SES"),
     BASE_PATH: z.string().default("").optional(),
     WHITELISTED_DOMAINS: z.array(z.string()).optional(),
+    // Used in `send-notification` endpoint for authentication if you do not want to use Saleor JWT verification.
+    AUTHORIZATION_TOKEN: z.string().optional(),
   })
   .and(commonConfigSchema)
   .and(appConfigSchema)

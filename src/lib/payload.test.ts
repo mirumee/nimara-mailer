@@ -2,20 +2,17 @@ import { type SQSRecord } from "aws-lambda";
 import { describe, expect, it } from "vitest";
 import { z } from "zod";
 
+import { EMAIL_EVENTS } from "@/const";
+
 import { ParsePayloadError } from "./errors/serverless";
-import {
-  parsePayload,
-  parseRecord,
-  serializePayload,
-  SUPPORTED_EVENTS,
-} from "./payload";
+import { parsePayload, parseRecord, serializePayload } from "./payload";
 
 describe("payload", () => {
   describe("serializePayload", () => {
     it("should serialize payload correctly when valid data is provided", () => {
       // given
       const mockData = { key: "value" };
-      const mockEvent = SUPPORTED_EVENTS[0];
+      const mockEvent = EMAIL_EVENTS[0];
 
       // when
       const serialized = serializePayload({
@@ -102,7 +99,7 @@ describe("payload", () => {
       // given
       const data = {
         payload: {
-          event: SUPPORTED_EVENTS[0],
+          event: EMAIL_EVENTS[0],
           data: { key: "value" },
         },
         format: "any",
