@@ -12,9 +12,12 @@ import { orderLineToLine } from "@/lib/saleor/utils";
 import { type EventData } from "@/lib/types";
 import { isURL } from "@/lib/utils";
 
+type FulfillmentTrackingNumberUpdatedEmailProps =
+  EventData<FulfillmentTrackingNumberUpdatedSubscription>;
+
 const FulfillmentTrackingNumberUpdatedEmail = ({
   data,
-}: EventData<FulfillmentTrackingNumberUpdatedSubscription>) => {
+}: FulfillmentTrackingNumberUpdatedEmailProps) => {
   const order = data!.order!;
 
   return (
@@ -81,7 +84,7 @@ const FulfillmentTrackingNumberUpdatedEmail = ({
   );
 };
 
-const previewProps: EventData<FulfillmentTrackingNumberUpdatedSubscription> = {
+const previewProps: FulfillmentTrackingNumberUpdatedEmailProps = {
   data: {
     order: {
       number: "941",

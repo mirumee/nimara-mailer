@@ -1,19 +1,20 @@
 import { type ComponentType } from "react";
 
-import AccountChangeEmailRequestedEmail from "@/emails/templates/AccountChangeEmailRequestedEmail";
-import AccountConfirmationRequestedEmail from "@/emails/templates/AccountConfirmationRequestedEmail";
-import AccountConfirmedEmail from "@/emails/templates/AccountConfirmedEmail";
-import AccountDeletedEmail from "@/emails/templates/AccountDeletedEmail";
-import AccountDeleteRequestedEmail from "@/emails/templates/AccountDeleteRequestedEmail";
-import AccountEmailChangedEmail from "@/emails/templates/AccountEmailChangedEmail";
-import AccountSetPasswordRequestedEmail from "@/emails/templates/AccountSetPasswordRequestedEmail";
-import FulfillmentCreatedEmail from "@/emails/templates/FulfillmentCreatedEmail";
-import FulfillmentTrackingNumberUpdatedEmail from "@/emails/templates/FulfillmentTrackingNumberUpdatedEmail";
-import GiftCardSentEmail from "@/emails/templates/GiftCardSentEmail";
-import OrderCancelledEmail from "@/emails/templates/OrderCancelledEmail";
-import OrderCreatedEmail from "@/emails/templates/OrderCreatedEmail";
-import OrderRefundedEmail from "@/emails/templates/OrderRefundedEmail";
-import { type Event } from "@/lib/payload";
+import { type EmailEventType } from "@/const";
+import CustomEventEmail from "@/emails/templates/custom/CustomEventEmail";
+import AccountChangeEmailRequestedEmail from "@/emails/templates/saleor/AccountChangeEmailRequestedEmail";
+import AccountConfirmationRequestedEmail from "@/emails/templates/saleor/AccountConfirmationRequestedEmail";
+import AccountConfirmedEmail from "@/emails/templates/saleor/AccountConfirmedEmail";
+import AccountDeletedEmail from "@/emails/templates/saleor/AccountDeletedEmail";
+import AccountDeleteRequestedEmail from "@/emails/templates/saleor/AccountDeleteRequestedEmail";
+import AccountEmailChangedEmail from "@/emails/templates/saleor/AccountEmailChangedEmail";
+import AccountSetPasswordRequestedEmail from "@/emails/templates/saleor/AccountSetPasswordRequestedEmail";
+import FulfillmentCreatedEmail from "@/emails/templates/saleor/FulfillmentCreatedEmail";
+import FulfillmentTrackingNumberUpdatedEmail from "@/emails/templates/saleor/FulfillmentTrackingNumberUpdatedEmail";
+import GiftCardSentEmail from "@/emails/templates/saleor/GiftCardSentEmail";
+import OrderCancelledEmail from "@/emails/templates/saleor/OrderCancelledEmail";
+import OrderCreatedEmail from "@/emails/templates/saleor/OrderCreatedEmail";
+import OrderRefundedEmail from "@/emails/templates/saleor/OrderRefundedEmail";
 
 const extractEmailFromOrder = (data: { order: { userEmail: string } }) =>
   data.order.userEmail;
@@ -24,8 +25,10 @@ const extractEmailFromGiftCard = (data: { sentToEmail: string }) =>
 const extractEmailFromUser = (data: { user: { email: string } }) =>
   data.user.email;
 
+const extractEmailFromCustomEvent = (data: { email: string }) => data.email;
+
 export const TEMPLATES_MAP: {
-  [key in Event]?: {
+  [key in EmailEventType]?: {
     extractFn: (data: any) => string;
     template: ComponentType<any> & { Subject: string };
   };
@@ -81,5 +84,9 @@ export const TEMPLATES_MAP: {
   account_change_email_requested: {
     template: AccountChangeEmailRequestedEmail,
     extractFn: extractEmailFromUser,
+  },
+  custom_event: {
+    template: CustomEventEmail,
+    extractFn: extractEmailFromCustomEvent,
   },
 };

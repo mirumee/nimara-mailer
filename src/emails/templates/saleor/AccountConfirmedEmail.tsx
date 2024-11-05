@@ -4,9 +4,9 @@ import Text from "@/emails/components/Text";
 import { type AccountConfirmedSubscription } from "@/graphql/operations/subscriptions/generated";
 import { type EventData } from "@/lib/types";
 
-const AccountConfirmedEmail = ({
-  data,
-}: EventData<AccountConfirmedSubscription>) => {
+type AccountConfirmedEmailProps = EventData<AccountConfirmedSubscription>;
+
+const AccountConfirmedEmail = ({ data }: AccountConfirmedEmailProps) => {
   return (
     <Layout channel={data.channel?.slug} previewText="Account confirmed">
       {() => (
@@ -24,7 +24,7 @@ const AccountConfirmedEmail = ({
   );
 };
 
-const previewProps: EventData<AccountConfirmedSubscription> = {
+const previewProps: AccountConfirmedEmailProps = {
   data: {
     user: {
       email: "user@example.com",

@@ -1,14 +1,16 @@
+import Header from "@/emails/components/Header";
 import Layout from "@/emails/components/Layout";
 import Link from "@/emails/components/Link";
 import Text from "@/emails/components/Text";
 import { type AccountSetPasswordRequestedSubscription } from "@/graphql/operations/subscriptions/generated";
 import { type EventData } from "@/lib/types";
 
-import Header from "../components/Header";
+type AccountSetPasswordRequestedEmailProps =
+  EventData<AccountSetPasswordRequestedSubscription>;
 
 const AccountSetPasswordRequestedEmail = ({
   data,
-}: EventData<AccountSetPasswordRequestedSubscription>) => {
+}: AccountSetPasswordRequestedEmailProps) => {
   return (
     <Layout
       channel={data.channel?.slug}
@@ -34,7 +36,7 @@ const AccountSetPasswordRequestedEmail = ({
   );
 };
 
-const previewProps: EventData<AccountSetPasswordRequestedSubscription> = {
+const previewProps: AccountSetPasswordRequestedEmailProps = {
   data: {
     redirectUrl: "https://example.com",
     user: {

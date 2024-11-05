@@ -4,9 +4,9 @@ import Text from "@/emails/components/Text";
 import { type OrderCancelledSubscription } from "@/graphql/operations/subscriptions/generated";
 import { type EventData } from "@/lib/types";
 
-const OrderCancelledEmail = ({
-  data,
-}: EventData<OrderCancelledSubscription>) => {
+type OrderCancelledEmailProps = EventData<OrderCancelledSubscription>;
+
+const OrderCancelledEmail = ({ data }: OrderCancelledEmailProps) => {
   const order = data!.order!;
 
   return (
@@ -28,7 +28,7 @@ const OrderCancelledEmail = ({
   );
 };
 
-const previewProps: EventData<OrderCancelledSubscription> = {
+const previewProps: OrderCancelledEmailProps = {
   data: {
     order: {
       channel: {

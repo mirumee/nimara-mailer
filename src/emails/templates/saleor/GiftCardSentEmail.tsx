@@ -7,7 +7,9 @@ import Text from "@/emails/components/Text";
 import { type GiftCardSentSubscription } from "@/graphql/operations/subscriptions/generated";
 import { type EventData } from "@/lib/types";
 
-const GiftCardSentEmail = ({ data }: EventData<GiftCardSentSubscription>) => {
+type GiftCardSentEmailProps = EventData<GiftCardSentSubscription>;
+
+const GiftCardSentEmail = ({ data }: GiftCardSentEmailProps) => {
   return (
     <Layout channel={data.channel} previewText="Gift card sent">
       {() => (
@@ -28,7 +30,7 @@ const GiftCardSentEmail = ({ data }: EventData<GiftCardSentSubscription>) => {
   );
 };
 
-const previewProps: EventData<GiftCardSentSubscription> = {
+const previewProps: GiftCardSentEmailProps = {
   data: {
     sentToEmail: "user@example.com",
     channel: "channel-us",

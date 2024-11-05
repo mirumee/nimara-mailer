@@ -41,5 +41,6 @@ export const CUSTOM_EVENTS_SCHEMA = {
   custom_event: z.object({
     name: z.string(),
     email: z.string(),
+    channel: z.string(),
   }),
 } satisfies Record<CustomEventType, z.ZodTypeAny>;
