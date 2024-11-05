@@ -5,7 +5,7 @@ import { type WebhookEventTypeAsyncEnum } from "./graphql/schema";
 /**
  * Define your Saleor supported events.
  * Note:
- * Saleor uses only uppercase events names in app manifest. In other places,
+ * Saleor uses uppercase events names only in app manifest. In other places,
  * like headers they are lower case so we are using that convention.
  */
 export const SALEOR_EVENTS = [
