@@ -54,7 +54,7 @@ export const restRoutes: FastifyPluginAsync = async (fastify) => {
       const saleorEvent = SALEOR_EVENTS_MAP.find(
         ({ event }) => event.toLowerCase() === request.body.event
       );
-      let data: any;
+      let data: unknown;
 
       if (saleorEvent) {
         const { isValid, error } = validateDocumentAgainstData({
