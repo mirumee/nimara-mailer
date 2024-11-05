@@ -6,7 +6,7 @@ import { serializePayload } from "@/lib/payload";
 import * as auth from "@/lib/saleor/auth";
 import { createServer } from "@/server";
 
-import { EVENT_HANDLERS } from "./webhooks";
+import { SALEOR_EVENTS_MAP } from "./webhooks";
 
 describe("saleorWebhooksRoutes", () => {
   const sendSpy = vi.fn();
@@ -21,7 +21,7 @@ describe("saleorWebhooksRoutes", () => {
   });
 
   describe("/api/saleor/webhooks/email/*", () => {
-    it.each(EVENT_HANDLERS)(
+    it.each(SALEOR_EVENTS_MAP)(
       "should register route for $event event",
       ({ event }) => {
         // Given

@@ -4,11 +4,11 @@ import Text from "@/emails/components/Text";
 import { type AccountConfirmedSubscription } from "@/graphql/operations/subscriptions/generated";
 import { type EventData } from "@/lib/types";
 
-const AccountConfirmedEmail = ({
-  data,
-}: EventData<AccountConfirmedSubscription>) => {
+type AccountConfirmedEmailProps = EventData<AccountConfirmedSubscription>;
+
+const AccountConfirmedEmail = ({ data }: AccountConfirmedEmailProps) => {
   return (
-    <Layout channel={data.channel?.slug} previewText="Account Confirmed">
+    <Layout channel={data.channel?.slug} previewText="Account confirmed">
       {() => (
         <>
           <Header>Hi {data.user?.firstName}!</Header>
@@ -24,7 +24,7 @@ const AccountConfirmedEmail = ({
   );
 };
 
-const previewProps: EventData<AccountConfirmedSubscription> = {
+const previewProps: AccountConfirmedEmailProps = {
   data: {
     user: {
       email: "user@example.com",
@@ -37,6 +37,6 @@ const previewProps: EventData<AccountConfirmedSubscription> = {
 };
 
 AccountConfirmedEmail.PreviewProps = previewProps;
-AccountConfirmedEmail.Subject = "Account Confirmed";
+AccountConfirmedEmail.Subject = "Account confirmed";
 
 export default AccountConfirmedEmail;

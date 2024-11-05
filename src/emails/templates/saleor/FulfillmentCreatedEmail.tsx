@@ -10,9 +10,9 @@ import { type FulfillmentCreatedSubscription } from "@/graphql/operations/subscr
 import { orderLineToLine } from "@/lib/saleor/utils";
 import { type EventData } from "@/lib/types";
 
-const FulfillmentCreatedEmail = ({
-  data,
-}: EventData<FulfillmentCreatedSubscription>) => {
+type FulfillmentCreatedEmailProps = EventData<FulfillmentCreatedSubscription>;
+
+const FulfillmentCreatedEmail = ({ data }: FulfillmentCreatedEmailProps) => {
   const order = data!.order!;
 
   return (
@@ -67,7 +67,7 @@ const FulfillmentCreatedEmail = ({
   );
 };
 
-const previewProps: EventData<FulfillmentCreatedSubscription> = {
+const previewProps: FulfillmentCreatedEmailProps = {
   data: {
     order: {
       number: "941",

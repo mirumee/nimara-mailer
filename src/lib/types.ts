@@ -12,4 +12,8 @@ export type EventData<T extends { event: unknown }> = {
   data: NonNullable<T["event"]>;
 };
 
+export type CustomEventData<T extends object> = {
+  data: NonNullable<T>;
+};
+
 export type PartialBy<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;

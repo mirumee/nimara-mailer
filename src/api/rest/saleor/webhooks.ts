@@ -4,6 +4,7 @@ import rawBody from "fastify-raw-body";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 
 import { CONFIG } from "@/config";
+import { type SaleorEventType } from "@/const";
 import {
   AccountChangeEmailRequestedSubscriptionDocument,
   AccountConfirmationRequestedSubscriptionDocument,
@@ -19,66 +20,65 @@ import {
   OrderCreatedSubscriptionDocument,
   OrderRefundedSubscriptionDocument,
 } from "@/graphql/operations/subscriptions/generated";
-import { type WebhookEventTypeAsyncEnum } from "@/graphql/schema";
 import { serializePayload } from "@/lib/payload";
 import { verifyWebhookSignature } from "@/lib/saleor/auth";
 import { saleorWebhookHeaders } from "@/lib/saleor/schema";
 import { getJWKSProvider } from "@/providers/jwks";
 
-export const EVENT_HANDLERS: {
-  event: WebhookEventTypeAsyncEnum;
+export const SALEOR_EVENTS_MAP: {
+  event: SaleorEventType;
   query: string;
 }[] = [
   {
-    event: "ACCOUNT_CONFIRMATION_REQUESTED",
+    event: "account_confirmation_requested",
     query: AccountConfirmationRequestedSubscriptionDocument.toString(),
   },
   {
-    event: "ACCOUNT_CONFIRMED",
+    event: "account_confirmed",
     query: AccountConfirmedSubscriptionDocument.toString(),
   },
   {
-    event: "ACCOUNT_SET_PASSWORD_REQUESTED",
+    event: "account_set_password_requested",
     query: AccountSetPasswordRequestedSubscriptionDocument.toString(),
   },
   {
-    event: "ACCOUNT_DELETE_REQUESTED",
+    event: "account_delete_requested",
     query: AccountDeleteRequestedSubscriptionDocument.toString(),
   },
   {
-    event: "ACCOUNT_DELETED",
+    event: "account_deleted",
     query: AccountDeletedSubscriptionDocument.toString(),
   },
   {
-    event: "ACCOUNT_CHANGE_EMAIL_REQUESTED",
+    event: "account_change_email_requested",
     query: AccountChangeEmailRequestedSubscriptionDocument.toString(),
   },
   {
-    event: "ACCOUNT_EMAIL_CHANGED",
+    event: "account_email_changed",
     query: AccountEmailChangedSubscriptionDocument.toString(),
   },
   {
-    event: "ORDER_CREATED",
+    event: "order_created",
     query: OrderCreatedSubscriptionDocument.toString(),
   },
   {
-    event: "ORDER_CANCELLED",
+    event: "order_cancelled",
     query: OrderCancelledSubscriptionDocument.toString(),
   },
   {
-    event: "ORDER_REFUNDED",
+    event: "order_refunded",
     query: OrderRefundedSubscriptionDocument.toString(),
   },
   {
-    event: "FULFILLMENT_TRACKING_NUMBER_UPDATED",
+    event: "fulfillment_tracking_number_updated",
     query: FulfillmentTrackingNumberUpdatedSubscriptionDocument.toString(),
   },
   {
-    event: "FULFILLMENT_CREATED",
+    event: "fulfillment_created",
     query: FulfillmentCreatedSubscriptionDocument.toString(),
   },
   {
-    event: "GIFT_CARD_SENT",
+    event: "gift_card_sent",
     query: GiftCardSentSubscriptionDocument.toString(),
   },
 ];
@@ -86,8 +86,8 @@ export const EVENT_HANDLERS: {
 export const saleorWebhooksRoutes: FastifyPluginAsync = async (fastify) => {
   await fastify.register(rawBody);
 
-  EVENT_HANDLERS.forEach(({ event }) => {
-    const name = event.toLowerCase().replaceAll("_", "-");
+  SALEOR_EVENTS_MAP.forEach(({ event }) => {
+    const name = event.replaceAll("_", "-");
 
     fastify.withTypeProvider<ZodTypeProvider>().post(
       `/email/${name}`,

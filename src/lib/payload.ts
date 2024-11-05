@@ -2,22 +2,15 @@ import { type SQSRecord } from "aws-lambda";
 import { type FastifyRequest } from "fastify";
 import { z } from "zod";
 
-import { EVENT_HANDLERS } from "@/api/rest/saleor/webhooks";
 import { CONFIG } from "@/config";
-import { type WebhookEventTypeAsyncEnum } from "@/graphql/schema";
+import { EMAIL_EVENTS, type EmailEventType } from "@/const";
 import { ParsePayloadError } from "@/lib/errors/serverless";
-
-export const SUPPORTED_EVENTS = EVENT_HANDLERS.map(({ event }) =>
-  event.toLowerCase()
-) as any as z.EnumValues<Lowercase<WebhookEventTypeAsyncEnum>>;
-
-export type Event = (typeof SUPPORTED_EVENTS)[number];
 
 export const payloadSchema = z.object({
   format: z.string(),
   payload: z.object({
     data: z.object({}).passthrough(),
-    event: z.enum(SUPPORTED_EVENTS),
+    event: z.enum(EMAIL_EVENTS),
   }),
 });
 
@@ -26,7 +19,7 @@ export const serializePayload = ({
   event,
 }: {
   data: FastifyRequest["body"];
-  event: Event;
+  event: EmailEventType;
 }) =>
   payloadSchema.parse({
     format: getJSONFormatHeader({ name: CONFIG.NAME }),

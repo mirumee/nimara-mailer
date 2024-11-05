@@ -11,8 +11,7 @@ coverage
 # out files
 .next/
 out/
-build/*
-package*
+build/
 dist/
 vite.config.js.timestamp*
 *.zip

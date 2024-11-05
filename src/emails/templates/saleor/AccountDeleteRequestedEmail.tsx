@@ -5,9 +5,12 @@ import Text from "@/emails/components/Text";
 import { type AccountDeleteRequestedSubscription } from "@/graphql/operations/subscriptions/generated";
 import { type EventData } from "@/lib/types";
 
+type AccountDeleteRequestedEmailProps =
+  EventData<AccountDeleteRequestedSubscription>;
+
 const AccountDeleteRequestedEmail = ({
   data,
-}: EventData<AccountDeleteRequestedSubscription>) => {
+}: AccountDeleteRequestedEmailProps) => {
   return (
     <Layout channel={data.channel?.slug} previewText="Account delete requested">
       {() => (
@@ -29,7 +32,7 @@ const AccountDeleteRequestedEmail = ({
   );
 };
 
-const previewProps: EventData<AccountDeleteRequestedSubscription> = {
+const previewProps: AccountDeleteRequestedEmailProps = {
   data: {
     redirectUrl: "https://example.com",
     user: {

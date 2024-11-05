@@ -5,9 +5,12 @@ import Text from "@/emails/components/Text";
 import { type AccountConfirmationRequestedSubscription } from "@/graphql/operations/subscriptions/generated";
 import { type EventData } from "@/lib/types";
 
+type AccountConfirmationRequestedEmailProps =
+  EventData<AccountConfirmationRequestedSubscription>;
+
 const AccountConfirmationRequestedEmail = ({
   data,
-}: EventData<AccountConfirmationRequestedSubscription>) => {
+}: AccountConfirmationRequestedEmailProps) => {
   return (
     <Layout
       channel={data.channel?.slug}
@@ -33,7 +36,7 @@ const AccountConfirmationRequestedEmail = ({
   );
 };
 
-const previewProps: EventData<AccountConfirmationRequestedSubscription> = {
+const previewProps: AccountConfirmationRequestedEmailProps = {
   data: {
     redirectUrl: "https://example.com",
     user: {
