@@ -10,25 +10,31 @@
 
 <div align="center">
   <h1>Nimara Mailer</h1>
-  <strong>TypeScript serverless app for sending emails from Saleor.</strong>
+  <strong>TypeScript serverless app for sending emails from <a href="https://github.com/saleor/saleor">Saleor</a>. And more!</strong>
 </div>
 <br />
+<br />
+
+App designed to work in AWS cloud using lambda functions, SQS and secret manager.
+It has two main components:
+- [events-receiver](src/events-receiver.ts) - responsible for receiving events from Saleor (or custom ones via http) and pushing them to SQS queue.
+- [email-sender](src/emails-sender.ts) - responsible for receiving events from SQS queue via lambda triggers and sending emails.
+
+Upon build, it outputs two files. Each, for one component. Both share same environment variables. When deployed to lambda, specify the following handlers:
+- `events-receiver.handler`
+- `emails-sender.handler`
+
+When installing the app in Saleor, it will store it's configuration in the secret manager. Therfore, the secret should be created beforehand with empty object (`{}`) and the name should be specified in  `SECRET_MANAGER_APP_CONFIG_PATH` env.
+
+If you want to change supported events, you can do it in the [const](src/const.ts) file editing `SALEOR_EVENTS` or `CUSTOM_EVENTS` constants.
+
+When adding new events, remember to update [TEMPLATES_MAP](src/lib/emails/const.ts) constant with the proper template and extract email function.
+
+---
 
 ## Local development
 
 1. Setup required envs. You can copy `.env.example` to `.env` and adjust it.
-
-   ```
-   SALEOR_URL=<e.g. https://your.eu.saleor.cloud>
-   STATIC_URL=<where from emails static images will be served>
-   SQS_QUEUE_URL=
-
-   AWS_ACCESS_KEY_ID=
-   AWS_REGION=
-   AWS_SECRET_ACCESS_KEY=
-   SECRET_MANAGER_APP_CONFIG_PATH=<secret manager config name>
-   ```
-
 2. [`nvm use`](https://github.com/nvm-sh/nvm) - to set proper node version.
 3. [`pnpm install`](https://pnpm.io/installation) - to install dependencies.
 4. `pnpm dev` - to start the app.
@@ -40,18 +46,6 @@
 Alternatively, you can use docker to run the app.
 
 1. Setup required envs. You can copy `.env.example` to `.env` and adjust it.
-
-   ```
-   SALEOR_URL=<e.g. https://your.eu.saleor.cloud>
-   STATIC_URL=<where from emails static images will be served>
-   SQS_QUEUE_URL=
-
-   AWS_ACCESS_KEY_ID=
-   AWS_REGION=
-   AWS_SECRET_ACCESS_KEY=
-   SECRET_MANAGER_APP_CONFIG_PATH=<secret manager config name>
-   ```
-
 2. `docker compose build` - build the app.
 3. `docker compose run --rm --service-ports app` - run the app.
 
@@ -229,3 +223,10 @@ or
 ```
 $ pnpm test:watch
 ```
+
+<br>
+<div align="center"> <strong>Crafted with ❤️ by Mirumee Software</strong>
+
+[hello@mirumee.com](mailto:hello@mirumee.com)
+
+</div>
