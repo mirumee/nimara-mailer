@@ -50,7 +50,9 @@ const previewProps: AccountConfirmationRequestedEmailProps = {
 };
 
 AccountConfirmationRequestedEmail.PreviewProps = previewProps;
-AccountConfirmationRequestedEmail.Subject =
-  "Account confirmation requested email";
+
+AccountConfirmationRequestedEmail.getSubject = (
+  data: AccountConfirmationRequestedEmailProps
+) => "Account confirmation requested email";
 
 export default AccountConfirmationRequestedEmail;

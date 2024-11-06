@@ -50,6 +50,9 @@ const previewProps: AccountSetPasswordRequestedEmailProps = {
 };
 
 AccountSetPasswordRequestedEmail.PreviewProps = previewProps;
-AccountSetPasswordRequestedEmail.Subject = "Account set password requested";
+
+AccountSetPasswordRequestedEmail.getSubject = (
+  data: AccountSetPasswordRequestedEmailProps
+) => "Account set password requested";
 
 export default AccountSetPasswordRequestedEmail;

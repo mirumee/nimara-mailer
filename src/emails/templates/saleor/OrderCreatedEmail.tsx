@@ -140,6 +140,7 @@ const previewProps: OrderCreatedEmailProps = {
 };
 
 OrderCreatedEmail.PreviewProps = previewProps;
-OrderCreatedEmail.Subject = "Order placed";
+
+OrderCreatedEmail.getSubject = (data: OrderCreatedEmailProps) => "Order placed";
 
 export default OrderCreatedEmail;

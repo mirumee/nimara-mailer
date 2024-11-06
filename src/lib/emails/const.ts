@@ -30,7 +30,7 @@ const extractEmailFromCustomEvent = (data: { email: string }) => data.email;
 export const TEMPLATES_MAP: {
   [key in EmailEventType]?: {
     extractFn: (data: any) => string;
-    template: ComponentType<any> & { Subject: string };
+    template: ComponentType<any> & { getSubject: (data: any) => string };
   };
 } = {
   order_created: {

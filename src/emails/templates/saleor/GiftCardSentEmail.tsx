@@ -46,6 +46,8 @@ const previewProps: GiftCardSentEmailProps = {
 };
 
 GiftCardSentEmail.PreviewProps = previewProps;
-GiftCardSentEmail.Subject = "Gift card sent";
+
+GiftCardSentEmail.getSubject = (data: GiftCardSentEmailProps) =>
+  "Gift card sent";
 
 export default GiftCardSentEmail;

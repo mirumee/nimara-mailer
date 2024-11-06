@@ -1,6 +1,6 @@
 {
   "git": {
-    "commitMessage": "chore(release): v${version}",
+    "commitMessage": "chore(release): Release v${version}",
     "push": true,
     "commit": true,
     "tag": true,
@@ -19,7 +19,30 @@
     "@release-it/conventional-changelog": {
       "preset": "conventionalcommits",
       "infile": "CHANGELOG.md",
-      "header": "# Changelog"
+      "header": "# Changelog",
+      "types": [
+        { "type": "feat", "section": "Feature" },
+        { "type": "fix", "section": "Bug Fixe" },
+        { "type": "chore", "section": "Chore" },
+        { "type": "ci", "section": "CI/CD" },
+        { "type": "docs", "section": "Documentation" },
+        { "type": "style", "section": "Styling" },
+        { "type": "refactor", "section": "Refactoring" },
+        { "type": "perf", "section": "Performance" },
+        { "type": "test", "section": "Testing" }
+      ],
+      "parserOpts": {
+        "headerPattern": "^\\[(\\w+-\\d+)\\] (\\w*)(?:\\((.*)\\))?: (.*)$",
+        "headerCorrespondence": ["ticket", "type", "scope", "subject"],
+        "issuePrefixes": ["MS-"],
+        "referenceActions": []
+      },
+      "writerOpts": {
+        "header": "",
+        "commitPartial": "* [{{ticket}}](https://mirumee.atlassian.net/browse/{{ticket}}) {{type}}: {{subject}}\n",
+        "footerPartial": "",
+        "referenceActions": []
+      }
     }
   }
 }

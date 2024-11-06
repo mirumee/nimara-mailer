@@ -40,6 +40,8 @@ const previewProps: AccountDeletedEmailProps = {
 };
 
 AccountDeletedEmail.PreviewProps = previewProps;
-AccountDeletedEmail.Subject = "Account Deleted";
+
+AccountDeletedEmail.getSubject = (data: AccountDeletedEmailProps) =>
+  "Account Deleted";
 
 export default AccountDeletedEmail;

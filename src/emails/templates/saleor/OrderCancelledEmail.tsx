@@ -43,6 +43,8 @@ const previewProps: OrderCancelledEmailProps = {
 };
 
 OrderCancelledEmail.PreviewProps = previewProps;
-OrderCancelledEmail.Subject = "Order cancelled";
+
+OrderCancelledEmail.getSubject = (data: OrderCancelledEmailProps) =>
+  "Order cancelled";
 
 export default OrderCancelledEmail;
