@@ -5,6 +5,7 @@ subscription AccountChangeEmailRequestedSubscription {
       channel {
         ...ChannelFragment
       }
+      newEmail
       user {
         email
         firstName

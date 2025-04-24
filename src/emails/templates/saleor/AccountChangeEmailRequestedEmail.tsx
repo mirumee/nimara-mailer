@@ -21,7 +21,7 @@ const AccountChangeEmailRequestedEmail = ({
           <Header>Hi {data.user?.firstName}!</Header>
           <Text>
             Your email address change has been requested. If you want to confirm
-            changing the email address to <strong>{data.user?.email}</strong>,
+            changing the email address to <strong>{data.newEmail}</strong>,
             please follow the link:
             <br />
             <Link
@@ -47,6 +47,7 @@ const previewProps: AccountChangeEmailRequestedEmailProps = {
     channel: {
       slug: "channel-us",
     },
+    newEmail: "user_new_email@example.com",
   },
 };
 

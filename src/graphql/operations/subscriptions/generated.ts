@@ -9,7 +9,7 @@ export type AccountChangeEmailRequestedSubscription_event_AccountChangeEmailRequ
 
 export type AccountChangeEmailRequestedSubscription_event_AccountChangeEmailRequested_user_User = { email: string, firstName: string };
 
-export type AccountChangeEmailRequestedSubscription_event_AccountChangeEmailRequested = { redirectUrl: string | null, channel: AccountChangeEmailRequestedSubscription_event_AccountChangeEmailRequested_channel_Channel | null, user: AccountChangeEmailRequestedSubscription_event_AccountChangeEmailRequested_user_User | null };
+export type AccountChangeEmailRequestedSubscription_event_AccountChangeEmailRequested = { redirectUrl: string | null, newEmail: string | null, channel: AccountChangeEmailRequestedSubscription_event_AccountChangeEmailRequested_channel_Channel | null, user: AccountChangeEmailRequestedSubscription_event_AccountChangeEmailRequested_user_User | null };
 
 export type AccountChangeEmailRequestedSubscription_Subscription = { event: AccountChangeEmailRequestedSubscription_event_AccountChangeEmailRequested | null };
 
@@ -264,6 +264,7 @@ export const AccountChangeEmailRequestedSubscriptionDocument = new TypedDocument
       channel {
         ...ChannelFragment
       }
+      newEmail
       user {
         email
         firstName
