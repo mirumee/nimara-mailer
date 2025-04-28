@@ -20,9 +20,18 @@ const AccountChangeEmailRequestedEmail = ({
         <>
           <Header>Hi {data.user?.firstName}!</Header>
           <Text>
-            Your email address change has been requested. If you want to confirm
-            changing the email address to <strong>{data.newEmail}</strong>,
-            please follow the link:
+            {
+              "Your email address change has been requested. If you want to confirm changing the email address"
+            }
+            {data.newEmail ? (
+              <>
+                {" to "}
+                <strong>{data.newEmail}</strong>
+                {", please follow the link:"}
+              </>
+            ) : (
+              ", please follow the link:"
+            )}
             <br />
             <Link
               href={data.redirectUrl ?? "#"}
