@@ -14,12 +14,12 @@ const CostSummary = ({
 
     <Row className="mb-2 mt-4">
       <Column align="left">Subtotal</Column>
-      <Column align="right">{delivery}</Column>
+      <Column align="right">{subtotal}</Column>
     </Row>
 
     <Row className="mb-4">
       <Column align="left">Delivery</Column>
-      <Column align="right">{subtotal}</Column>
+      <Column align="right">{delivery}</Column>
     </Row>
 
     <Hr />
