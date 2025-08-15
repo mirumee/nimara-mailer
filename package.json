@@ -102,7 +102,7 @@
     "@types/nodemailer": "^6.4.16",
     "@types/pg": "^8.11.10",
     "@types/traverse": "^0.6.37",
-    "@typescript-eslint/parser": "^7.18.0",
+    "@typescript-eslint/parser": "^8.15.0",
     "@vitest/coverage-v8": "^2.1.4",
     "commitizen": "^4.3.1",
     "concurrently": "^8.2.2",
